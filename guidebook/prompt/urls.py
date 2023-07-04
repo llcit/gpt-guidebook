@@ -5,5 +5,5 @@ from . import views
 app_name = 'prompt'
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.guidebook, name='guidebook'),
 ]

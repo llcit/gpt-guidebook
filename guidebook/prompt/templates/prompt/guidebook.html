@@ -1,0 +1,30 @@
+{% extends 'prompt/base.html' %}
+
+{%block title%} Guidebook for Prompting {%endblock%}
+{%block content%} Guidebook on Prompting for Language Learning {%endblock%}
+
+{%block sidebar%} 
+    <div class="ml-4 pb-6 grid grid-cols-4 gap-4">
+        <div class="col-span-1">
+            <ul>
+                {% for section in sections %}
+                    <li class="py-2 px-2 rounded-xl">
+                        <a href="#">{{section.section_title}}</a>
+                            <ul>
+                                {% for paragraph in section.paragraph_set.all %}
+                                    <li class="ml-3"><a href="#">{{paragraph.paragraph_title}}</a></li>
+                                {%endfor%}
+                            </ul>
+                    </li>
+                {%endfor%}
+            </ul>
+        </div>
+    </div>
+{%endblock%}
+
+
+
+
+
+
+
