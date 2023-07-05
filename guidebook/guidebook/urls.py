@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.shortcuts import redirect
 from prompt.views import guidebook
 
 urlpatterns = [
     path("", guidebook),
+    path("section/", include(('section.urls', 'section'), namespace='section')),
     path("admin/", admin.site.urls),
     path('', include(('prompt.urls', 'prompt'), namespace='prompt')),
 ]

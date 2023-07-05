@@ -12,10 +12,10 @@
                 <ul>
                     {% for section in sections %}
                         <li class="py-2 px-2 rounded-xl">
-                            <a href="#" class="section-link" data-paragraph-set = "{{section.paragraph_set.all}}"data-section-title="{{section.section_title}}">{{section.section_title}}</a>
+                            <a href="{%url 'section:detail' section.id %}"">{{section.section_title}}</a>
                                 <ul>
                                     {% for paragraph in section.paragraph_set.all %}
-                                        <li class="ml-3"><a href="#">{{paragraph.paragraph_title}}</a></li>
+                                        <li class="ml-3"><a href="{%url 'section:detail' section.id %}">{{paragraph.paragraph_title}}</a></li>
                                     {%endfor%}
                                 </ul>
                         </li>
@@ -25,7 +25,20 @@
         </div>
 
 
+        
         <div class="space-y-10 text-5xl col-span-3" id="section-text-container">
+            {{section.section_title}}
+        <div class="mt-10 text-lg">
+            {{section.section_description}}
+        </div>
+            {%for paragraph in section.paragraph_set.all%}
+                <div id="{{section.section_title}}-paragraph{{forloop.counter}}" class="mt-10 text-2xl">{{paragraph.paragraph_title}}</div>
+                <div class="text-lg">{{paragraph.paragraph_text}}</div>
+            {%endfor%}
+        </div>
+        
+        <!--
+            <div class="space-y-10 text-5xl col-span-3" id="section-text-container">
             Introduction to Prompting 
             <div class="mt-10 text-lg">
                 Welcome to the Guidebook on Prompting for Language Learning. 
@@ -59,6 +72,8 @@
             </div>
             
         </div>
+        -->
+        
     </div>
 {%endblock%}
 

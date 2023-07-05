@@ -1,3 +1,5 @@
+/*
+
 $(document).ready(function() {
   $('.section-link').click(function(event) {
     event.preventDefault();
@@ -15,3 +17,4 @@ $(document).ready(function() {
     
   });
 });
+*/
