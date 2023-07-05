@@ -21,4 +21,5 @@ from prompt.views import guidebook
 urlpatterns = [
     path("", guidebook),
     path("admin/", admin.site.urls),
+    path('', include(('prompt.urls', 'prompt'), namespace='prompt')),
 ]

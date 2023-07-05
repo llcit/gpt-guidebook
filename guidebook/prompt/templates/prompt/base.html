@@ -1,26 +1,46 @@
 <!doctype html>
 <html lang="en">
   <head>
+    {%load static%}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{%block title%} {%endblock%}</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'script.js' %}" type="text/javascript"></script>
   
   </head>
   <body>
     <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
       <a href="/" class="text-xl font-semibold">{%block content%}{%endblock%}</a>
       <div class="space-x-6">
+        <a href="{%url 'prompt:generator'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Generator</a>
+        <a href="{%url 'prompt:browser'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Browser</a>
+        <a href="/" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Guidebook</a>
       </div>
     </nav>
     {%block sidebar%} {%endblock%}
     
     
-    
-
-
-
-
-    
+    <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
+      <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 Footer. All Rights Reserved.
+      </span>
+      <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+          <li>
+              <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+          </li>
+          <li>
+              <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+          </li>
+          <li>
+              <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a>
+          </li>
+          <li>
+              <a href="#" class="hover:underline">Contact</a>
+          </li>
+      </ul>
+      </div>
+    </footer>
   </body>
 </html>
