@@ -8,7 +8,32 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="{% static 'script.js' %}" type="text/javascript"></script>
+    <style>
+      .dropdown-container {
+          position: relative;
+      }
   
+      .dropdown-container .dropdown-button {
+          padding: 10px;
+      }
+  
+      .dropdown-container .dropdown-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 2;
+      }
+  
+      .dropdown-container .dd_parent {
+          z-index: 1;
+      }
+  
+      .dropdown-container .dd_options-container {
+          z-index: 3; /* Increase this value to make the dropdown options cover the buttons below */
+      }
+  </style>
   </head>
   <body>
     <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
@@ -46,7 +71,32 @@
     </footer>
 
     <script>
-      
+      $(document).ready(function() {
+        $(".dropdownLanguageItem").click(function() {
+            var text = $(this).text();
+            $("#dropdownLanguageText").text(text);
+        });
+      });
+      $(document).ready(function() {
+        $(".dropdownCategoryItem").click(function() {
+            var text = $(this).text();
+            $("#dropdownCategoryText").text(text);
+        });
+      });
+      $(document).ready(function() {
+        $(".dropdownLevelItem").click(function() {
+            var text = $(this).text();
+            $("#dropdownLevelText").text(text);
+        });
+      });
+      $(document).ready(function() {
+        $("#resetFiltersButton").click(function() {
+            $("#dropdownLevelText").text("Level");
+            $("#dropdownCategoryText").text("Category");
+            $("#dropdownLanguageText").text("Language");
+        });
+      });
+
     </script>
   </body>
 </html>
