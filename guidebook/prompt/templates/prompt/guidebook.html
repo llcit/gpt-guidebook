@@ -25,20 +25,7 @@
         </div>
 
 
-        
         <div class="space-y-10 text-5xl col-span-3" id="section-text-container">
-            {{section.section_title}}
-        <div class="mt-10 text-lg">
-            {{section.section_description}}
-        </div>
-            {%for paragraph in section.paragraph_set.all%}
-                <div id="{{section.section_title}}-paragraph{{forloop.counter}}" class="mt-10 text-2xl">{{paragraph.paragraph_title}}</div>
-                <div class="text-lg">{{paragraph.paragraph_text}}</div>
-            {%endfor%}
-        </div>
-        
-        <!--
-            <div class="space-y-10 text-5xl col-span-3" id="section-text-container">
             Introduction to Prompting 
             <div class="mt-10 text-lg">
                 Welcome to the Guidebook on Prompting for Language Learning. 
@@ -69,9 +56,24 @@
                 LLM can produce a more desirable response. The same question, when worded differently or 
                 when supplemented with extra information, can produce a drastically different output. 
                 The more details you supply to the chatbot, the better the response will be given your particular question.
+                <br>
+                For example, let's say you want to ask ChatGPT to explain general relativity. 
             </div>
             
         </div>
+        
+        <!--
+            <div class="space-y-10 text-5xl col-span-3" id="section-text-container">
+            {{section.section_title}}
+        <div class="mt-10 text-lg">
+            {{section.section_description}}
+        </div>
+            {%for paragraph in section.paragraph_set.all%}
+                <div id="{{section.section_title}}-paragraph{{forloop.counter}}" class="mt-10 text-2xl">{{paragraph.paragraph_title}}</div>
+                <div class="text-lg">{{paragraph.paragraph_text}}</div>
+            {%endfor%}
+        </div>
+            
         -->
         
     </div>
