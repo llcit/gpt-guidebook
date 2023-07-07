@@ -20,9 +20,10 @@ from django.shortcuts import redirect
 from django.conf.urls.static import static 
 from django.conf import settings
 from prompt.views import guidebook
+from django.views.generic import RedirectView
 
 urlpatterns = [
-    path("", guidebook),
+    path("", RedirectView.as_view(url='/section/1/')),
     path("section/", include(('section.urls', 'section'), namespace='section')),
     path("admin/", admin.site.urls),
     path('', include(('prompt.urls', 'prompt'), namespace='prompt')),
