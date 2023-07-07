@@ -4,7 +4,8 @@ from django.db import models
 
 class Category(models.Model):
     category_name = models.CharField(max_length=255)
-    category_information = models.TextField()
+    category_information = models.TextField(null=True)
+    category_svg = models.TextField(null=True)
  
     class Meta: 
         verbose_name_plural = "Categories"

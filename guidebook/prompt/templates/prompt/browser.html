@@ -4,7 +4,6 @@
 {%block content%} Prompt Browser {%endblock%}
 
 {%block searchcontent %} 
-    <!-- notes for later: create a grid so that the search filters are on the right side of the page -->
 <div class="grid grid-cols-10 grid-rows-2" style="grid-template-rows: auto auto"">
     <div class="col-span-7 place-items-center flex justify-center mt-10" style="max-height:50px">
         <div class="relative">
@@ -23,35 +22,50 @@
     </div>
     <div class="row-start-2 col-span-7 flex justify-center" style="height:1000px">
         <div class="mt-10 w-3/4 grid grid-cols-2 grid-rows-4 gap-y-4 gap-x-10 columns-3">
-            <div class="hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
-                1
+            {%for prompt in page_prompts %}
+            <div class="h-auto grid grid-rows-3 hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
+                <div class="row-span-2">
+                    <div class="grid grid-rows-2 grid-cols-2">
+                        <div class="text-xl m-3 row-span-1 col-span-1">
+                            {{prompt.prompt_language}}
+                        </div>
+                        <div class="text-xl m-3 text-right row-span-1 col-span-1">
+                            {{prompt.prompt_level}}
+                        </div>
+                        <div class="flex justify-center items-center overflow-hidden col-span-2">
+                            {{prompt.category.category_svg | safe}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row-span-1 border-t border-gray-300">
+                    <div class="text-lg flex justify-center items-center place-items-center">
+                        <center>
+                            {{prompt.prompt_title}}
+                        <br>
+                        ({{prompt.category}})
+                        </center>
+                    </div>
+                </div>
             </div>
-            <div class="hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
-                2
+            {%endfor%}
+
+            <div class="flex gap-3 col-span-2 justify-center items-center pagination place-items-center">
+                {% if page_prompts.has_previous %}
+                  <a class="mt-2 py-4 px-8 inline-block bg-sky-400 text-lg rounded-xl text-white" href="?page={{ page_prompts.previous_page_number }}">Previous</a>
+                {% else %}
+                    <a class="mt-2 py-4 px-8 inline-block bg-sky-600 text-lg rounded-xl text-white">Previous</a>
+                {% endif %}
+              
+                <span class="mt-2 py-4 px-8 inline-block bg-sky-400 text-lg rounded-xl text-white current-page">Page {{ page_prompts.number }}</span>
+              
+                {% if page_prompts.has_next %}
+                  <a class="mt-2 py-4 px-8 inline-block bg-sky-400 text-lg rounded-xl text-white" href="?page={{ page_prompts.next_page_number }}">Next</a>
+                  {% else %}
+                  <a class="mt-2 py-4 px-8 inline-block bg-sky-600 text-lg rounded-xl text-white">Next</a>
+                {% endif %}
             </div>
-            <div class="hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
-                3
-            </div>
-            <div class="hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
-                4
-            </div>
-            <div class="hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
-                5
-            </div>
-            <div class="hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
-                6
-            </div>
-            <div class="hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
-                7
-            </div>
-            <div class="hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
-                8
-            </div>
-            
+
         </div>
-
-
-
 
     </div>
     
@@ -133,88 +147,6 @@
                 </li>
             </ul>
         </div>
-        
-
-
-
-        
-        <!-- 
-        <div class="row-span-1 dropdown-container">
-            <div class="relative flex justify-center items-center gap-5 pt-20">
-                <button class="dropdown-button relative flex justify-center items-center bg-white border focus:outline-none 
-                shadow text-gray-600 rounded focus:ring ring-gray-200 group">
-                    <p name="dropdownLanguage" id="dropdownLanguageText" class="px-4">Language</p>
-                    <span class="border-l p-2 hover:bg-gray-100">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xlms="https://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </span>
-                    <div class="dropdownLanguageParent dd_parent absolute hidden group-focus:block top-full min-w-full w-max bg-white shadow-md mt-1 rounded transition dd_options-container">
-                        <ul class="text-left border rounded">
-                            <li class="px-4 py-1 hover:bg-gray-100 border-b dropdownLanguageItem">Chinese</li>
-                            <li class="px-4 py-1 hover:bg-gray-100 border-b dropdownLanguageItem">Russian</li>
-                            <li class="px-4 py-1 hover:bg-gray-100 border-b dropdownLanguageItem">Arabic</li>
-                            <li class="px-4 py-1 hover:bg-gray-100 border-b dropdownLanguageItem">Turkish</li>
-                            <li class="px-4 py-1 hover:bg-gray-100 dropdownLanguageItem">Persian</li>
-                        </ul>
-                    </div>
-                    <div class="dropdown-overlay"></div>
-                </button>
-            </div>
-        </div>
-        <div class="row-span-1 dropdown-container">
-            <div class="relative flex justify-center items-center gap-5 pt-20">
-                <button class="dropdown-button relative flex justify-center items-center bg-white border focus:outline-none 
-                shadow text-gray-600 rounded focus:ring ring-gray-200 group">
-                    <p name="dropdownCategory" id="dropdownCategoryText" class="px-4">Category</p>
-                    <span class="border-l p-2 hover:bg-gray-100">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xlms="https://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </span>
-                    <div class="dropdownCategoryParent dd_parent absolute hidden group-focus:block top-full min-w-full w-max bg-white shadow-md mt-1 rounded transition dd_options-container">
-                        <ul class="text-left border rounded">
-                            {%for category in categories%}
-                                <li class="px-4 py-1 hover:bg-gray-100 border-b dropdownCategoryItem">{{category.category_name}}</li>
-                            {%endfor%}
-                        </ul>
-                    </div>
-                    <div class="dropdown-overlay"></div>
-                </button>
-            </div>
-        </div>
-        <div class="row-span-1 dropdown-container">
-            <div class="relative flex justify-center items-center gap-5 pt-20">
-                <button class="dropdown-button relative flex justify-center items-center bg-white border focus:outline-none 
-                shadow text-gray-600 rounded focus:ring ring-gray-200 group">
-                    <p name="dropdownLevel" id="dropdownLevelText" class="px-4">Level</p>
-                    <span class="border-l p-2 hover:bg-gray-100">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xlms="https://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </span>
-                    <div class="dropdownLevelParent dd_parent absolute hidden group-focus:block top-full min-w-full w-max bg-white shadow-md mt-1 rounded transition dd_options-container">
-                        <ul class="text-left border rounded">
-                            <li class="px-4 py-1 hover:bg-gray-100 border-b dropdownLevelItem">Any</li>
-                            <li class="px-4 py-1 hover:bg-gray-100 border-b dropdownLevelItem">Beginner</li>
-                            <li class="px-4 py-1 hover:bg-gray-100 border-b dropdownLevelItem">Intermediate</li>
-                            <li class="px-4 py-1 hover:bg-gray-100 border-b dropdownLevelItem">Advanced</li>
-                        </ul>
-                    </div>
-                    <div class="dropdown-overlay"></div>
-                </button>
-            </div>
-        </div>
-        <div class="row-span-1 dropdown-container">
-            <div class="relative flex justify-center items-center gap-5 pt-20">
-                <button class="dropdown-button flex justify-center items-center bg-white border focus:outline-none 
-                shadow text-gray-600 rounded focus:ring ring-gray-200 group">
-                    <p id="resetFiltersButton" class="px-4">Reset Filters</p>
-                </button>
-            </div>
-        </div>
-        
-        -->
     </div>
     
         

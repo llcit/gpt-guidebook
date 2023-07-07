@@ -29,7 +29,8 @@ class SectionAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["category_name"]}),
-        (None, {"fields": ["category_information"]})
+        (None, {"fields": ["category_information"]}),
+        (None, {"fields": ["category_svg"]})
     ]
     inlines = [PromptInline]
 
