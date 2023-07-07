@@ -32,4 +32,6 @@ class Paragraph(models.Model):
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     paragraph_title = models.CharField(max_length=255, null=True)
     paragraph_text = models.TextField(null=True)
+
+
     

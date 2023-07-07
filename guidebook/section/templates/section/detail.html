@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class="space-y-10 text-5xl col-span-3" id="section-text-container">
+        <div class="space-y-10 mr-24 text-5xl col-span-3" id="section-text-container">
             {{section.section_title}}
             <div class="mt-10 text-lg">
                 {{section.section_description}}
@@ -32,6 +32,7 @@
             {%for paragraph in section.paragraph_set.all%}
                 <div id="{{section.section_title}}-paragraph{{forloop.counter}}" class="mt-10 text-2xl">{{paragraph.paragraph_title}}</div>
                 <div class="text-lg">{{paragraph.paragraph_text}}</div>
+                
             {%endfor%}
         </div>
     </div>

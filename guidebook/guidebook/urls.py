@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.shortcuts import redirect
+from django.conf.urls.static import static 
+from django.conf import settings
 from prompt.views import guidebook
 
 urlpatterns = [
@@ -24,4 +26,4 @@ urlpatterns = [
     path("section/", include(('section.urls', 'section'), namespace='section')),
     path("admin/", admin.site.urls),
     path('', include(('prompt.urls', 'prompt'), namespace='prompt')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

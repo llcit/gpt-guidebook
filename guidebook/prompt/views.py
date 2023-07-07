@@ -15,6 +15,8 @@ def browser(request):
     return render(request, 'prompt/browser.html', {'prompts':prompts, 'categories':categories})
 
 def generator(request):
+    dropdownLanguage = request.GET.get('dropdownLanguage')
+    print(dropdownLanguage)
     prompts = Prompt.objects.all()
     categories = Category.objects.all()
     return render(request, 'prompt/generator.html', {'prompts':prompts, 'categories':categories})

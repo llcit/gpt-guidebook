@@ -6,4 +6,4 @@ app_name = 'section'
 
 urlpatterns = [
     path('<int:pk>/', views.detail, name='detail'),
-]
+] 

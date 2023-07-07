@@ -31,17 +31,21 @@
 
 
 
-    <div class="grid grid-rows-6 mr-10 col-span-3 row-span-2 flex justify-center" style="height:500px">
-        <div class="row-span-1 dropdown-container">
+    <div class="grid grid-rows-2 mr-10 col-span-3 row-span-2 flex justify-center" style="height:500px">
+        <div class="row-span-1">
             <div class="text-4xl relative flex justify-center items-center gap-5 pt-20">
                 Filter by...
             </div>
         </div>
+        
+        
+        
+      
         <div class="row-span-1 dropdown-container">
             <div class="relative flex justify-center items-center gap-5 pt-20">
                 <button class="dropdown-button relative flex justify-center items-center bg-white border focus:outline-none 
                 shadow text-gray-600 rounded focus:ring ring-gray-200 group">
-                    <p id="dropdownLanguageText" class="px-4">Language</p>
+                    <p name="dropdownLanguage" id="dropdownLanguageText" class="px-4">Language</p>
                     <span class="border-l p-2 hover:bg-gray-100">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xlms="https://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -64,7 +68,7 @@
             <div class="relative flex justify-center items-center gap-5 pt-20">
                 <button class="dropdown-button relative flex justify-center items-center bg-white border focus:outline-none 
                 shadow text-gray-600 rounded focus:ring ring-gray-200 group">
-                    <p id="dropdownCategoryText" class="px-4">Category</p>
+                    <p name="dropdownCategory" id="dropdownCategoryText" class="px-4">Category</p>
                     <span class="border-l p-2 hover:bg-gray-100">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xlms="https://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -85,7 +89,7 @@
             <div class="relative flex justify-center items-center gap-5 pt-20">
                 <button class="dropdown-button relative flex justify-center items-center bg-white border focus:outline-none 
                 shadow text-gray-600 rounded focus:ring ring-gray-200 group">
-                    <p id="dropdownLevelText" class="px-4">Level</p>
+                    <p name="dropdownLevel" id="dropdownLevelText" class="px-4">Level</p>
                     <span class="border-l p-2 hover:bg-gray-100">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xlms="https://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -111,6 +115,7 @@
                 </button>
             </div>
         </div>
+        
         
     </div>
         
