@@ -5,7 +5,7 @@ from django.db import models
 class Category(models.Model):
     category_name = models.CharField(max_length=255)
     category_information = models.TextField()
-
+ 
     class Meta: 
         verbose_name_plural = "Categories"
 
@@ -19,6 +19,7 @@ class Prompt(models.Model):
     prompt_output = models.TextField(null=True)
     prompt_language = models.CharField(max_length=255, null=True)
     prompt_warning = models.BooleanField(default=False)
+    prompt_level = models.CharField(max_length=255, null=True)
 
 class Section(models.Model):
     section_title = models.CharField(max_length=255)
