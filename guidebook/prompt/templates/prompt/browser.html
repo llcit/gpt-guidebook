@@ -23,7 +23,8 @@
     <div class="row-start-2 col-span-7 flex justify-center" style="height:1000px">
         <div class="mt-10 w-3/4 grid grid-cols-2 grid-rows-4 gap-y-4 gap-x-10 columns-3">
             {%for prompt in page_prompts %}
-            <div class="h-auto grid grid-rows-3 hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
+            <div style="position: relative" class="h-auto grid grid-rows-3 hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
+                <a href="#" class="link-overlay"></a>
                 <div class="row-span-2">
                     <div class="grid grid-rows-2 grid-cols-2">
                         <div class="text-xl m-3 row-span-1 col-span-1">
