@@ -7,24 +7,22 @@
 <div class="grid grid-cols-10 grid-rows-2" style="grid-template-rows: auto auto"">
     <div class="col-span-7 place-items-center flex justify-center mt-10" style="max-height:50px">
         <div class="relative">
-            <!-- <form method="get" action=""> -->
             <input name="query" value="{{query}}" type="text" placeholder="Search" style="width:700px" class="py-2 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             <button href="#" class="absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M15 10a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"></path>
                 </svg>
             </button>
-            <!-- </form> -->
         </div>
         <div class="mt-2 ml-3">
             
         </div>
     </div>
     <div class="row-start-2 col-span-7 flex justify-center" style="height:1000px">
-        <div class="mt-10 w-3/4 grid grid-cols-2 grid-rows-4 gap-y-4 gap-x-10 columns-3">
+        <div id="promptsContainer" class="mt-10 w-3/4 grid grid-cols-2 grid-rows-4 gap-y-4 gap-x-10 columns-3">
             {%for prompt in page_prompts %}
             <div style="position: relative" class="h-auto grid grid-rows-3 hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
-                <a href="#" class="link-overlay"></a>
+                <a href="{%url 'prompt:detail' prompt.id %}" class="link-overlay"></a>
                 <div class="row-span-2">
                     <div class="grid grid-rows-2 grid-cols-2">
                         <div class="text-xl m-3 row-span-1 col-span-1">
@@ -83,29 +81,26 @@
         </div>
         <div class="row-span-1 pt-5">
             Category:
-                <form>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                    dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                    dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    id="categories" name="categoriesSelect">
-                        <option value="AnyCategory">Any</option>
-                        {%for category in categories%}
-                        <option value="{{category.category_name}}">{{category.category_name}}</option>
-                        {%endfor%}
-                    </select>
-                </form>
+                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                id="categories" name="categoriesSelect">
+                    <option value="AnyCategory">Any</option>
+                    {%for category in categories%}
+                    <option value="{{category.category_name}}">{{category.category_name}}</option>
+                    {%endfor%}
+                </select>
             
         </div>
         
         <div class="pt-5 row-span-1">
             Language:
-            <form>
                 <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
                 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
                 dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                id="language" name="languageSelect">
+                id="languages" name="languageSelect">
                     <option value="AnyLanguage">Any</option>
                     <option value="Arabic">Arabic</option>
                     <option value="Chinese">Chinese</option>
@@ -114,22 +109,19 @@
                     <option value="Portuguese">Portuguese</option>
                     <option value="Russian">Russian</option>
                 </select>
-            </form>
         </div>
         <div class="pt-5 row-span-1">
             Difficulty:
-            <form>
                 <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
                 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
                 dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                id="difficulty" name="difficultySelect">
+                id="difficulties" name="difficultySelect">
                     <option value="AnyDifficulty">Any</option>
                     <option value="Beginner">Beginner</option>
                     <option value="Intermediate">Intermediate</option>
                     <option value="Advanced">Advanced</option>
                 </select>
-            </form>
         </div>
         <div class="justify-center items-center pt-5 row-span-1">
 
@@ -154,6 +146,36 @@
     
     
 </div>
+{%endblock%}
+
+{%block script%}
+<script>
+    $(document).ready(function() {
+        $('#categories, #lanuguages, #difficulties').change(function() {
+        var option1 = $('#categories').val();
+        var option2 = $('#languages').val();
+        var option3 = $('#difficulties').val();
+    
+        $.ajax({
+            url: '/browser/',  // URL of the Django view for filtering
+            method: 'POST',
+            headers: { 'X-CSRFToken': csrfToken },
+            data: {
+                option1: option1,
+                option2: option2,
+                option3: option3,
+                csrfmiddlewaretoken: csrfToken
+            },
+            success: function(response) {
+                // Handle the filtered results
+                $('#promptsContainer').html(response);
+            }
+        });
+        });
+    });
+</script>
+
+
 {%endblock%}
 
 

@@ -1,0 +1,41 @@
+{%extends 'prompt/base.html'%}
+
+{%block title%} Prompt Browser {%endblock%}
+{%block button%} <button class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600" onclick="history.back()">Back</button>{%endblock%}
+{%block contentnolink%} {{prompt.prompt_title}} ({{prompt.prompt_language}}) {%endblock%}
+
+
+{%block searchcontent%}
+<div class="flex justify-center">
+    <div class="w-3/4 grid grid-cols-2 grid-rows-4 p-4 m-10" style="grid-template-rows: auto auto"">
+        <div class="py-6 px-6 border border-gray-800 col-span-1">
+            <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 25%;"> 
+                Prompt
+            </div>
+            <div class="mt-6 mb-6 row-span-3">
+                {{prompt.prompt_text}}
+            </div>
+            <div class="m-4 flex justify-center items-center row-span-1">
+                <a href="#" class="mt-2 py-4 px-8 bg-orange-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 40%;"> 
+                    {{prompt.prompt_language}}
+                </a>
+                
+                <a href="#" class="mt-2 py-4 px-8 bg-orange-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 70%;">
+                    {{prompt.category}}
+                </a>
+            </div>
+        </div>
+
+        <div class="py-6 px-6 border border-gray-800 col-span-1 row-span-4">
+            <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 40%;"> 
+                ChatGPT Output
+            </div>
+            <div class="mt-4">
+                {{prompt.prompt_output}}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{%endblock%}

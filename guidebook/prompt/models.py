@@ -11,7 +11,7 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
     def __str__(self):
-        return self.category_name
+        return self.category_name 
     
 class Prompt(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

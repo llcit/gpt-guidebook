@@ -8,6 +8,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="{% static 'script.js' %}" type="text/javascript"></script>
+    <script>
+      var csrfToken = '{{ csrf_token }}';
+    </script>
     <style>
       .link-overlay {
         position: absolute;
@@ -22,7 +25,9 @@
   </head>
   <body>
     <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
+      {%block button%}{%endblock%}
       <a href="/" class="text-xl font-semibold">{%block content%}{%endblock%}</a>
+      <h1 class="text-xl font-semibold">{%block contentnolink%} {%endblock%}</h1>
       <div class="space-x-6">
         <a href="{%url 'prompt:generator'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Generator</a>
         <a href="{%url 'prompt:browser'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Browser</a>
@@ -55,33 +60,6 @@
       </div>
     </footer>
  
-    <script>
-      $(document).ready(function() {
-        $(".dropdownLanguageItem").click(function() {
-            var text = $(this).text();
-            $("#dropdownLanguageText").text(text);
-        }); 
-      });
-      $(document).ready(function() {
-        $(".dropdownCategoryItem").click(function() {
-            var text = $(this).text();
-            $("#dropdownCategoryText").text(text);
-        });
-      });
-      $(document).ready(function() {
-        $(".dropdownLevelItem").click(function() {
-            var text = $(this).text();
-            $("#dropdownLevelText").text(text);
-        });
-      });
-      $(document).ready(function() {
-        $("#resetFiltersButton").click(function() {
-            $("#dropdownLevelText").text("Level");
-            $("#dropdownCategoryText").text("Category");
-            $("#dropdownLanguageText").text("Language");
-        });
-      });
-
-    </script>
+    {%block script%} {%endblock%}
   </body>
 </html>
