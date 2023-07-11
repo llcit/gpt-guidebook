@@ -15,6 +15,7 @@ class Category(models.Model):
     
 class Prompt(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    prompt_category = models.CharField(max_length=255, null=True)
     prompt_title = models.CharField(max_length=255, null=True)
     prompt_text = models.TextField(null=True)
     prompt_output = models.TextField(null=True)

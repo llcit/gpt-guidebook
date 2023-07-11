@@ -14,58 +14,9 @@
                 </svg>
             </button>
         </div>
-        <div class="mt-2 ml-3">
-            
-        </div>
     </div>
-    <div class="row-start-2 col-span-7 flex justify-center" style="height:1000px">
-        <div id="promptsContainer" class="mt-10 w-3/4 grid grid-cols-2 grid-rows-4 gap-y-4 gap-x-10 columns-3">
-            {%for prompt in page_prompts %}
-            <div style="position: relative" class="h-auto grid grid-rows-3 hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
-                <a href="{%url 'prompt:detail' prompt.id %}" class="link-overlay"></a>
-                <div class="row-span-2">
-                    <div class="grid grid-rows-2 grid-cols-2">
-                        <div class="text-xl m-3 row-span-1 col-span-1">
-                            {{prompt.prompt_language}}
-                        </div>
-                        <div class="text-xl m-3 text-right row-span-1 col-span-1">
-                            {{prompt.prompt_level}}
-                        </div>
-                        <div class="flex justify-center items-center overflow-hidden col-span-2">
-                            {{prompt.category.category_svg | safe}}
-                        </div>
-                    </div>
-                </div>
-                <div class="row-span-1 border-t border-gray-300">
-                    <div class="text-lg flex justify-center items-center place-items-center">
-                        <center>
-                            {{prompt.prompt_title}}
-                        <br>
-                        ({{prompt.category}})
-                        </center>
-                    </div>
-                </div>
-            </div>
-            {%endfor%}
-
-            <div class="flex gap-3 col-span-2 justify-center items-center pagination place-items-center">
-                {% if page_prompts.has_previous %}
-                  <a class="mt-2 py-4 px-8 inline-block bg-sky-400 text-lg rounded-xl text-white" href="?page={{ page_prompts.previous_page_number }}">Previous</a>
-                {% else %}
-                    <a class="mt-2 py-4 px-8 inline-block bg-sky-600 text-lg rounded-xl text-white">Previous</a>
-                {% endif %}
-              
-                <span class="mt-2 py-4 px-8 inline-block bg-sky-400 text-lg rounded-xl text-white current-page">Page {{ page_prompts.number }}</span>
-              
-                {% if page_prompts.has_next %}
-                  <a class="mt-2 py-4 px-8 inline-block bg-sky-400 text-lg rounded-xl text-white" href="?page={{ page_prompts.next_page_number }}">Next</a>
-                  {% else %}
-                  <a class="mt-2 py-4 px-8 inline-block bg-sky-600 text-lg rounded-xl text-white">Next</a>
-                {% endif %}
-            </div>
-
-        </div>
-
+    <div id="promptsContainer" class="row-start-2 col-span-7 flex justify-center" style="height:1000px">
+        {%include 'prompt/filtered_results.html' %}
     </div>
     
     <div class="grid grid-rows-7 mr-10 col-span-3 row-span-2 flex justify-center" style="height:500px">
@@ -151,6 +102,45 @@
 {%block script%}
 <script>
     $(document).ready(function() {
+        $('#categories, #languages, #difficulties').change(function() {
+            filterPrompts();
+        });
+
+        function filterPrompts() {
+            var selectedCategory = $('#categories').val();
+            var selectedLanguage = $('#languages').val();
+            var selectedDifficulty = $('#difficulties').val();
+
+            console.log("selected category: " + selectedCategory + ", selected language: " 
+            + selectedLanguage + ", selected difficulty: " + selectedDifficulty)
+
+            $.ajax({
+            url: '/filterData/',
+            method: 'POST',
+            headers: { 'X-CSRFToken': csrfToken },
+            data: {
+                category: selectedCategory,
+                language: selectedLanguage,
+                difficulty: selectedDifficulty,
+                csrfmiddlewaretoken: csrfToken
+            },
+            success: function(response) {
+                $('#promptsContainer').html(response.html);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+            });
+        }
+    });
+
+
+
+
+
+    /*
+
+    $(document).ready(function() {
         $('#categories, #lanuguages, #difficulties').change(function() {
         var option1 = $('#categories').val();
         var option2 = $('#languages').val();
@@ -173,6 +163,7 @@
         });
         });
     });
+    */
 </script>
 
 

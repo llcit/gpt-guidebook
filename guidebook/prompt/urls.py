@@ -7,5 +7,6 @@ app_name = 'prompt'
 urlpatterns = [
     path('generator/', views.generator, name='generator'),
     path('browser/', views.browser, name='browser'),
-    path('<int:pk>/', views.detail, name='detail')
+    path('<int:pk>/', views.detail, name='detail'),
+    path('filterData/', views.filterData, name='filterData'),
 ]

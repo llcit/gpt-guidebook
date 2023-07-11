@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Section, Paragraph, Prompt, Category
-from django.core import serializers
+from django.shortcuts import render, get_object_or_404
+from .models import Prompt, Category
 from django.core.paginator import Paginator 
-
+from django.http import JsonResponse
+from django.db.models import Q
+from django.template.loader import render_to_string
 # Create your views here.
 
 def browser(request): 
@@ -61,3 +62,84 @@ def detail(request, pk):
         'prompt': prompt,
         'prompt_id': prompt_id
     })
+
+"""
+    selected_category = request.POST.get('category')
+    selected_language = request.POST.get('language')
+    selected_difficulty = request.POST.get('difficulty')
+    print("Selected category:" + selected_category + ", Selected language: " + 
+          selected_language + ", Selected difficulty: " + selected_difficulty)
+
+    prompts = Prompt.objects.all()
+
+    if selected_category != 'AnyCategory':
+        prompts = prompts.filter(category__category_name=selected_category)
+    else:
+        prompts = Prompt.objects.all()
+
+    if selected_language != 'AnyLanguage':
+        prompts = prompts.filter(prompt_language=selected_language)
+    else:
+        prompts = Prompt.objects.all()
+
+    if selected_difficulty != 'AnyDifficulty':
+        prompts = prompts.filter(prompt_level=selected_difficulty)
+    else:
+        prompts = Prompt.objects.all()
+
+    html = render_to_string('prompt/filtered_results.html', {'prompts': prompts})
+    return JsonResponse({'html': html})
+    """
+
+def filterData(request):
+    if request.method == "POST":
+        selected_category = request.POST.get('category')
+        selected_language = request.POST.get('language')
+        selected_difficulty = request.POST.get('difficulty')
+
+        prompts = Prompt.objects.all()
+
+        filter_conditions = Q()
+
+        if selected_category != 'AnyCategory':
+            filter_conditions &= Q(prompt_category=selected_category)
+        
+        if selected_language != 'AnyLanguage':
+            filter_conditions &= Q(prompt_language=selected_language)
+
+        if selected_difficulty != 'AnyDifficulty':
+            filter_conditions &= Q(prompt_level=selected_difficulty)
+        
+        prompts = prompts.filter(filter_conditions)
+
+        for prompt in prompts:
+            print("Prompt language: " + prompt.prompt_language +
+                  "Prompt category: " + prompt.prompt_category + 
+                  "Prompt difficulty:" + prompt.prompt_difficulty)
+        
+        """
+        if selected_category != 'AnyCategory' or selected_language != 'AnyLanguage' or selected_difficulty != 'AnyDifficulty':
+            prompts = Prompt.objects.filter(prompt_category = selected_category)
+            if selected_language != 'AnyLanguage':
+                prompts = Prompt.objects.filter(prompt_language = selected_language)
+                for prompt in prompts:
+                    print("Prompt language: " + prompt.prompt_language)
+                    if selected_difficulty != 'AnyDifficulty':
+                        prompts = Prompt.objects.filter(prompt_level = selected_difficulty)
+                        for prompt in prompts:
+                            print("Prompt level: " + prompt.prompt_level)
+                    else:
+                        prompts = Prompt.objects.all()
+        
+       
+        return render(request, 'prompt/filtered_results.html', {'prompts': prompts})
+        #html = render_to_string('prompt/filtered_results.html', {'prompts': prompts})
+        #return JsonResponse({'html': html})
+         """
+
+
+        return render(request, 'prompt/filtered_results.html', {'prompts': prompts})
+
+        
+
+    
