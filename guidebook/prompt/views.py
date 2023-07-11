@@ -97,7 +97,42 @@ def filterData(request):
         selected_language = request.POST.get('language')
         selected_difficulty = request.POST.get('difficulty')
 
-        prompts = Prompt.objects.all()
+        allPrompts = Prompt.objects.all()
+
+        filter_conditions = {}
+
+        if selected_category != 'AnyCategory':
+            filter_conditions['prompt_category'] = selected_category
+        
+        if selected_language != 'AnyLanguage':
+            filter_conditions['prompt_language'] = selected_language
+
+        if selected_difficulty != 'AnyDifficulty':
+            filter_conditions['prompt_level'] = selected_difficulty
+        
+        prompts = allPrompts.filter(**filter_conditions) if filter_conditions else allPrompts
+
+        paginator = Paginator(prompts, 6)
+        page_number = request.GET.get('page')
+        page_prompts = paginator.get_page(page_number)
+
+        context = {'page_prompts': page_prompts}
+        html = render_to_string('prompt/filtered_results.html', context)
+
+        return JsonResponse({'html': html})
+
+
+
+
+"""
+
+def filterData(request):
+    if request.method == "POST":
+        selected_category = request.POST.get('category')
+        selected_language = request.POST.get('language')
+        selected_difficulty = request.POST.get('difficulty')
+
+        allPrompts = Prompt.objects.all()
 
         filter_conditions = Q()
 
@@ -110,36 +145,15 @@ def filterData(request):
         if selected_difficulty != 'AnyDifficulty':
             filter_conditions &= Q(prompt_level=selected_difficulty)
         
-        prompts = prompts.filter(filter_conditions)
+        if filter_conditions:
+            prompts = allPrompts.filter(filter_conditions)
+        else:
+            prompts = allPrompts
 
-        for prompt in prompts:
-            print("Prompt language: " + prompt.prompt_language +
-                  "Prompt category: " + prompt.prompt_category + 
-                  "Prompt difficulty:" + prompt.prompt_difficulty)
-        
-        """
-        if selected_category != 'AnyCategory' or selected_language != 'AnyLanguage' or selected_difficulty != 'AnyDifficulty':
-            prompts = Prompt.objects.filter(prompt_category = selected_category)
-            if selected_language != 'AnyLanguage':
-                prompts = Prompt.objects.filter(prompt_language = selected_language)
-                for prompt in prompts:
-                    print("Prompt language: " + prompt.prompt_language)
-                    if selected_difficulty != 'AnyDifficulty':
-                        prompts = Prompt.objects.filter(prompt_level = selected_difficulty)
-                        for prompt in prompts:
-                            print("Prompt level: " + prompt.prompt_level)
-                    else:
-                        prompts = Prompt.objects.all()
-        
-       
-        return render(request, 'prompt/filtered_results.html', {'prompts': prompts})
-        #html = render_to_string('prompt/filtered_results.html', {'prompts': prompts})
-        #return JsonResponse({'html': html})
-         """
+        context = {'prompts': prompts}
+        html = render_to_string('prompt/filtered_results.html', context)
 
-
-        return render(request, 'prompt/filtered_results.html', {'prompts': prompts})
-
-        
+        return JsonResponse({'html':html})
+""" 
 
     

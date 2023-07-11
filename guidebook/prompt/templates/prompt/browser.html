@@ -80,14 +80,7 @@
         <div class="relative flex justify-center items-center pt-5 row-span-1">
             <ul>
                 <li>
-                    <a href="#" class="mt-2 py-4 px-8 inline-block bg-teal-500 text-lg rounded-xl text-white">Apply Filters</a>
-                </li>
-            </ul>
-        </div>
-        <div class="relative flex justify-center items-center pt-5 row-span-1">
-            <ul>
-                <li>
-                    <a href="#" class="mt-2 py-4 px-8 inline-block bg-red-500 text-lg rounded-xl text-white">Clear Filters</a>
+                    <button id="clearFiltersButton" href="#" class="mt-2 py-4 px-8 inline-block bg-red-500 text-lg rounded-xl text-white">Clear Filters</button>
                 </li>
             </ul>
         </div>
@@ -101,8 +94,19 @@
 
 {%block script%}
 <script>
+
+    document.getElementById('clearFiltersButton').addEventListener('click', function() {
+        var languagesDropdown = document.getElementById('languages');
+        var categoriesDropdown = document.getElementById('categories');
+        var difficultiesDropdown = document.getElementById('difficulties');
+        difficultiesDropdown.value = "AnyDifficulty";
+        categoriesDropdown.value = "AnyCategory";
+        languagesDropdown.value = "AnyLanguage"; 
+    });
+
     $(document).ready(function() {
         $('#categories, #languages, #difficulties').change(function() {
+            console.log("change detected");
             filterPrompts();
         });
 
@@ -111,8 +115,8 @@
             var selectedLanguage = $('#languages').val();
             var selectedDifficulty = $('#difficulties').val();
 
-            console.log("selected category: " + selectedCategory + ", selected language: " 
-            + selectedLanguage + ", selected difficulty: " + selectedDifficulty)
+            //console.log("selected category: " + selectedCategory + ", selected language: " 
+            //+ selectedLanguage + ", selected difficulty: " + selectedDifficulty)
 
             $.ajax({
             url: '/filterData/',
@@ -125,6 +129,7 @@
                 csrfmiddlewaretoken: csrfToken
             },
             success: function(response) {
+                console.log("Sucess, data received");
                 $('#promptsContainer').html(response.html);
             },
             error: function(xhr, status, error) {
