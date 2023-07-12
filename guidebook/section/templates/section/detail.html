@@ -30,19 +30,36 @@
                 {{section.section_description}}
             </div>
             {%for paragraph in section.paragraph_set.all%}
-                <div id="paragraph{{forloop.counter}}" class="mt-10 text-2xl">{{paragraph.paragraph_title}}</div>
+                <div id="paragraph{{forloop.counter}}" class="mt-10 text-3xl">{{paragraph.paragraph_title}}</div>
                 <div class="text-lg">{{paragraph.paragraph_text | safe}}</div>
-                    <!-- 
-                    {%for prompt in paragraph.prompts.all %}
-                        
-                    {%endfor%}
-                    -->
+                {%for prompt in paragraph.prompts.all %}
+                    <div class="grid grid-cols-10 space-x-2">
+                        <div class="col-span-5 text-sm border border-gray-700 py-4 px-4">
+                            <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 25%;"> 
+                                Prompt
+                            </div>
+                            <div class="mt-10 text-base">
+                                {{prompt.prompt_text | safe}}
+                            </div>
+                        </div>
+                        <div class="col-span-5 text-base border border-gray-700 py-4 px-4">
+                            <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 45%;"> 
+                                ChatGPT Output
+                            </div>
+                            <div class="mt-10">
+                                {{prompt.prompt_output | safe}}
+                            </div>
+                            
+                        </div>
+                    </div>
+                {%endfor%}
             {%endfor%}
         </div>
     </div>
 {%endblock%}
 
 {%block script%}
+<!-- 
 <script>
     var selectedSectionId = "{{ section_id }}";
     var selectedSection = document.getElementById("section" + selectedSectionId);
@@ -51,7 +68,7 @@
     }
     console.log("selectedSectionID: " + selectedSectionId);
 </script>
-
+-->
 
 {%endblock%}
 

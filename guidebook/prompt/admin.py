@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Prompt, Category, Section, Paragraph
+from .models import Prompt, Category, Section, Paragraph, Subparagraph
 
 # Register your models here.
 
@@ -11,6 +11,9 @@ class PromptInline(admin.TabularInline):
 class ParagraphInline(admin.TabularInline):
     model = Paragraph
     extra = 1
+
+class SubparagraphInline(admin.TabularInline):
+    model = Subparagraph
 
 class SectionAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -39,12 +42,10 @@ class ParagraphPromptInline(admin.TabularInline):
     extra = 1
 
 class ParagraphAdmin(admin.ModelAdmin):
-    pass
+    inlines = [SubparagraphInline]
 
 class PromptAdmin(admin.ModelAdmin):
     inlines = [ParagraphPromptInline]
-
-
 
 admin.site.register(Prompt, PromptAdmin)
 admin.site.register(Paragraph, ParagraphAdmin)

@@ -42,3 +42,12 @@ class Paragraph(models.Model):
 
     def __str__(self):
         return self.paragraph_title
+    
+class Subparagraph(models.Model):
+    paragraph = models.ForeignKey(Paragraph, on_delete=models.CASCADE)
+    subparagraph_title = models.CharField(max_length=255, null=True)
+    subparagraph_text = models.TextField(null=True)
+    prompts = models.ManyToManyField(Prompt, blank=True)
+
+    def __str__(self):
+        return self.subparagraph_title
