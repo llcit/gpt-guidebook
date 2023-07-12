@@ -28,17 +28,17 @@
     {%endfor%}
     <div class="flex gap-3 col-span-2 justify-center items-center pagination place-items-center">
         {% if page_prompts.has_previous %}
-          <a class="mt-2 py-4 px-8 inline-block bg-sky-400 text-lg rounded-xl text-white" href="?page={{ page_prompts.previous_page_number }}">Previous</a>
+          <a class="mt-2 py-4 px-8 inline-block bg-sky-400 text-lg rounded-xl text-white hover:bg-sky-500" href="?page={{ page_prompts.previous_page_number }}">Previous</a>
         {% else %}
-            <a class="mt-2 py-4 px-8 inline-block bg-sky-600 text-lg rounded-xl text-white">Previous</a>
+            <a class="mt-2 py-4 px-8 inline-block bg-sky-700 text-lg rounded-xl text-white">Previous</a>
         {% endif %}
       
         <span class="mt-2 py-4 px-8 inline-block bg-sky-400 text-lg rounded-xl text-white current-page">Page {{ page_prompts.number }}</span>
       
         {% if page_prompts.has_next %}
-          <a class="mt-2 py-4 px-8 inline-block bg-sky-400 text-lg rounded-xl text-white" href="?page={{ page_prompts.next_page_number }}">Next</a>
+          <a class="mt-2 py-4 px-8 inline-block bg-sky-400 text-lg rounded-xl text-white hover:bg-sky-500" href="?page={{ page_prompts.next_page_number }}">Next</a>
           {% else %}
-          <a class="mt-2 py-4 px-8 inline-block bg-sky-600 text-lg rounded-xl text-white">Next</a>
+          <a class="mt-2 py-4 px-8 inline-block bg-sky-700 text-lg rounded-xl text-white">Next</a>
         {% endif %}
     </div>
 </div>

@@ -3,22 +3,95 @@
 {%block title%} Prompt Generator {%endblock%}
 {%block content%} Prompt Generator {%endblock%}
 {%block generator%}
-<center>
-    <div class="mt-4 text-2xl">Generate a prompt below!</div>
-</center>
+<div>
+    <center>
+        <div class="mt-4 text-2xl">Generate a prompt below!</div>
+    </center>
 
-<div class="mt-4 grid grid-cols-10">
-    <div class="col-span-2">
+    <div class="mt-4 grid grid-cols-10 grid-rows-2">
+        <div class="col-span-2">
+            
+        </div>
+        <div class="col-span-4 bg-sky-100 ">
+            <div class="mt-10 row-span-1 flex justify-center items-center">
+                <textarea id="prompt_textarea" style="height:300px; width:500px"> </textarea>
+            </div>
+            <div class="row-span-1 flex justify-center items-center">
+                <button id="copyButton" class="mt-10 row-span-1 px-6 py-3 
+                text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Copy Prompt</button>
+            </div>
+        </div>
         
-    </div>
-    <div class="col-span-4 bg-sky-100" style="height:500px">
-        
-    </div>
-    <div class="col-span-2 bg-yellow-100" style="height:500px">
-        
-    </div>
-    <div class="col-span-2">
-        
+        <div class="grid grid-rows-5 col-span-2 bg-yellow-100" style="height:500px">
+            <div class="row-span-1">
+                Category:
+                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                id="categories" name="categoriesSelect">
+                    <option value="AnyCategory">Any</option>
+                    {%for category in categories%}
+                        <option value="{{category.category_name}}">{{category.category_name}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+            <div class="row-span-1">
+                Language:
+                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                id="languages" name="languageSelect">
+                    <option value="AnyLanguage">Any</option>
+                    <option value="Arabic">Arabic</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="Korean">Korean</option>
+                    <option value="Persian">Persian</option>
+                    <option value="Portuguese">Portuguese</option>
+                    <option value="Russian">Russian</option>
+                </select>
+            </div>
+            <div class="row-span-1">
+                Difficulty:
+                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                id="difficulties" name="difficultySelect">
+                    <option value="AnyDifficulty">Any</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                </select>
+            </div>
+            
+        </div>
+        <div class="col-span-2">
+            
+        </div>
     </div>
 </div>
+{%endblock%}
+
+{%block script %}
+<script>
+    $(document).ready(function() {
+        $('#copyButton').click(function () {
+            var textarea = $('#prompt_textarea');
+            textarea.select();
+            textarea[0].setSelectionRange(0, 99999); //something for mobile devices 
+
+            document.execCommand("copy");
+
+            textarea.blur(); //this deselects the text 
+
+        });
+    });
+
+
+
+</script>
+
+
 {%endblock%}

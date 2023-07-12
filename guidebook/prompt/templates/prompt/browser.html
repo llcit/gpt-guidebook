@@ -7,7 +7,7 @@
 <div class="grid grid-cols-10 grid-rows-2" style="grid-template-rows: auto auto"">
     <div class="col-span-7 place-items-center flex justify-center mt-10" style="max-height:50px">
         <div class="relative">
-            <input name="query" value="{{query}}" type="text" placeholder="Search" style="width:700px" class="py-2 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <input id="query" name="query" type="text" placeholder="Search" style="width:700px" class="py-2 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             <button href="#" class="absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M15 10a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"></path>
@@ -39,7 +39,7 @@
                 id="categories" name="categoriesSelect">
                     <option value="AnyCategory">Any</option>
                     {%for category in categories%}
-                    <option value="{{category.category_name}}">{{category.category_name}}</option>
+                        <option value="{{category.category_name}}">{{category.category_name}}</option>
                     {%endfor%}
                 </select>
             
@@ -77,6 +77,7 @@
         <div class="justify-center items-center pt-5 row-span-1">
 
         </div>
+        <!-- 
         <div class="relative flex justify-center items-center pt-5 row-span-1">
             <ul>
                 <li>
@@ -84,6 +85,7 @@
                 </li>
             </ul>
         </div>
+        -->
     </div>
     
         
@@ -95,17 +97,21 @@
 {%block script%}
 <script>
 
-    document.getElementById('clearFiltersButton').addEventListener('click', function() {
-        var languagesDropdown = document.getElementById('languages');
-        var categoriesDropdown = document.getElementById('categories');
-        var difficultiesDropdown = document.getElementById('difficulties');
-        difficultiesDropdown.value = "AnyDifficulty";
-        categoriesDropdown.value = "AnyCategory";
-        languagesDropdown.value = "AnyLanguage"; 
-    });
+    /*
+
+    function clearFilters() {
+        document.getElementById('clearFiltersButton').addEventListener('click', function() {
+            $('#difficulties').value = "AnyDifficulty";
+            $('#categories').value = "AnyCategory";
+            $('#languages').value = "AnyLanguage"; 
+            
+        });
+    }   
+    */
+    
 
     $(document).ready(function() {
-        $('#categories, #languages, #difficulties').change(function() {
+        $('#categories, #languages, #difficulties, #query').change(function() {
             console.log("change detected");
             filterPrompts();
         });
@@ -114,6 +120,7 @@
             var selectedCategory = $('#categories').val();
             var selectedLanguage = $('#languages').val();
             var selectedDifficulty = $('#difficulties').val();
+            var inputQuery = $('#query').val();
 
             //console.log("selected category: " + selectedCategory + ", selected language: " 
             //+ selectedLanguage + ", selected difficulty: " + selectedDifficulty)
@@ -123,6 +130,7 @@
             method: 'POST',
             headers: { 'X-CSRFToken': csrfToken },
             data: {
+                query: inputQuery,
                 category: selectedCategory,
                 language: selectedLanguage,
                 difficulty: selectedDifficulty,
@@ -138,37 +146,6 @@
             });
         }
     });
-
-
-
-
-
-    /*
-
-    $(document).ready(function() {
-        $('#categories, #lanuguages, #difficulties').change(function() {
-        var option1 = $('#categories').val();
-        var option2 = $('#languages').val();
-        var option3 = $('#difficulties').val();
-    
-        $.ajax({
-            url: '/browser/',  // URL of the Django view for filtering
-            method: 'POST',
-            headers: { 'X-CSRFToken': csrfToken },
-            data: {
-                option1: option1,
-                option2: option2,
-                option3: option3,
-                csrfmiddlewaretoken: csrfToken
-            },
-            success: function(response) {
-                // Handle the filtered results
-                $('#promptsContainer').html(response);
-            }
-        });
-        });
-    });
-    */
 </script>
 
 

@@ -34,7 +34,19 @@ class CategoryAdmin(admin.ModelAdmin):
     ]
     inlines = [PromptInline]
 
+class ParagraphPromptInline(admin.TabularInline):
+    model = Paragraph.prompts.through
+    extra = 1
+
+class ParagraphAdmin(admin.ModelAdmin):
+    pass
+
+class PromptAdmin(admin.ModelAdmin):
+    inlines = [ParagraphPromptInline]
 
 
+
+admin.site.register(Prompt, PromptAdmin)
+admin.site.register(Paragraph, ParagraphAdmin)
 admin.site.register(Section, SectionAdmin)
 admin.site.register(Category, CategoryAdmin)
