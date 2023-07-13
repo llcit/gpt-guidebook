@@ -61,7 +61,7 @@ def filterData(request):
         
         if query:
             allPrompts = allPrompts.filter(Q(prompt_title__icontains=query) | Q(prompt_language__icontains=query) |
-                                           Q(prompt_level__icontains=query))
+                                           Q(prompt_level__icontains=query) | Q(prompt_category__icontains=query))
         
         prompts = allPrompts.filter(**filter_conditions) if filter_conditions else allPrompts
 
