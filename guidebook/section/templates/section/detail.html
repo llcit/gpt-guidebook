@@ -53,6 +53,35 @@
                         </div>
                     </div>
                 {%endfor%}
+                <div class="text-2xl">
+                    {%for subparagraph in paragraph.subparagraph_set.all %}
+                        {{subparagraph.subparagraph_title}}
+                        <div class="text-lg mt-10">
+                            {{subparagraph.subparagraph_text}}
+                            {%for prompt in subparagraph.prompts.all %}
+                                <div class="mt-10 grid grid-cols-10 space-x-2">
+                                    <div class="col-span-5 text-sm border border-gray-700 py-4 px-4">
+                                        <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 25%;"> 
+                                            Prompt
+                                        </div>
+                                        <div class="mt-10 text-base">
+                                            {{prompt.prompt_text | safe}}
+                                        </div>
+                                    </div>
+                                    <div class="col-span-5 text-base border border-gray-700 py-4 px-4">
+                                        <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 45%;"> 
+                                            ChatGPT Output
+                                        </div>
+                                        <div class="mt-10">
+                                            {{prompt.prompt_output | safe}}
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            {%endfor%}
+                        </div>
+                    {%endfor%}
+                </div>
             {%endfor%}
         </div>
     </div>

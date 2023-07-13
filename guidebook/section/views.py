@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect 
 
-from prompt.models import Section, Paragraph
+from prompt.models import Section, Paragraph, Subparagraph
 
 # Create your views here.
 
@@ -9,6 +9,7 @@ def detail(request, pk):
     section = get_object_or_404(Section, pk=pk)
     sections = Section.objects.all()
     paragraphs = Paragraph.objects.all()
+    subparagraphs = Subparagraph.objects.all()
     section_id = request.GET.get('section', 0)
 
     if section_id:
@@ -18,6 +19,7 @@ def detail(request, pk):
         'section': section, 
         'sections': sections, 
         'paragraphs': paragraphs,
+        'subparagraphs': subparagraphs,
         'section_id': section_id
     })
 
