@@ -36,13 +36,12 @@
                 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
                 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
                 dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                id="categories" name="categoriesSelect">
+                id="categories" name="categoriesSelect" autocomplete="off">
                     <option value="AnyCategory">Any</option>
                     {%for category in categories%}
                         <option value="{{category.category_name}}">{{category.category_name}}</option>
                     {%endfor%}
                 </select>
-            
         </div>
         
         <div class="pt-5 row-span-1">
@@ -51,7 +50,7 @@
                 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
                 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
                 dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                id="languages" name="languageSelect">
+                id="languages" name="languageSelect" autocomplete="off">
                     <option value="AnyLanguage">Any</option>
                     <option value="Arabic">Arabic</option>
                     <option value="Chinese">Chinese</option>
@@ -61,14 +60,14 @@
                     <option value="Russian">Russian</option>
                     <option value="English">English</option>
                 </select>
-        </div>
+        </div> 
         <div class="pt-5 row-span-1">
             Difficulty:
                 <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
                 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
                 dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                id="difficulties" name="difficultySelect">
+                id="difficulties" name="difficultySelect" autocomplete="off">
                     <option value="AnyDifficulty">Any</option>
                     <option value="Beginner">Beginner</option>
                     <option value="Intermediate">Intermediate</option>

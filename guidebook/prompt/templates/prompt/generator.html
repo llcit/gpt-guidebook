@@ -8,13 +8,13 @@
         <div class="mt-4 text-2xl">Generate a prompt below!</div>
     </center>
 
-    <div class="mt-4 grid grid-cols-10 grid-rows-2">
+    <div class="mt-4 grid grid-cols-12 grid-rows-2" style="height:700px;">
         <div class="col-span-2">
             
         </div>
-        <div class="col-span-4 bg-sky-100 ">
+        <div class="col-span-5 bg-sky-100" style="height:650px">
             <div class="mt-10 row-span-1 flex justify-center items-center">
-                <textarea id="prompt_textarea" style="height:300px; width:500px"> </textarea>
+                <textarea id="prompt_textarea" class="px-2 py-2" style="height:400px; width:600px"> </textarea>
             </div>
             <div class="row-span-1 flex justify-center items-center">
                 <button id="copyButton" class="mt-10 row-span-1 px-6 py-3 
@@ -22,28 +22,29 @@
             </div>
         </div>
         
-        <div class="grid grid-rows-5 col-span-2 bg-yellow-100" style="height:500px">
-            <div class="row-span-1">
+        <div class="flex justify-center place-items-center grid grid-rows-7 col-span-3 bg-yellow-100" style="height:650px">
+            <div class="row-span-1 ml-2 mt-2">
                 Category:
                 <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
                 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                id="categories" name="categoriesSelect">
-                    <option value="AnyCategory">Any</option>
-                    {%for category in categories%}
-                        <option value="{{category.category_name}}">{{category.category_name}}</option>
-                    {%endfor%}
+                dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height:45px; width:225px"
+                id="categories" name="categoriesSelect" autocomplete="off">
+                    <option value="select" selected>Select a Category</option>
+                    <option value="interaction">Interaction/Role-Play</option>
+                    <option value="adventure">Choose Your Own Adventure</option>
+                    <option value="interest">Content of Personal Interest</option>
+                    <option value="generation">Content Generation</option>
                 </select>
             </div>
-            <div class="row-span-1">
+            <div class="row-span-1 ml-2">
                 Language:
-                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                <select style="text-align-last: center; height:45px; width:225px" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
                 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                id="languages" name="languageSelect">
-                    <option value="AnyLanguage">Any</option>
+                dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                id="languages" name="languageSelect" autocomplete="off">
+                    <option value="select">Select a Language</option>
                     <option value="Arabic">Arabic</option>
                     <option value="Chinese">Chinese</option>
                     <option value="Korean">Korean</option>
@@ -52,19 +53,68 @@
                     <option value="Russian">Russian</option>
                 </select>
             </div>
-            <div class="row-span-1">
-                Difficulty:
-                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                id="difficulties" name="difficultySelect">
-                    <option value="AnyDifficulty">Any</option>
-                    <option value="Beginner">Beginner</option>
-                    <option value="Intermediate">Intermediate</option>
-                    <option value="Advanced">Advanced</option>
-                </select>
-            </div>
+                <div id="interactionLocationDiv" class="hidden interaction row-span-1 ml-2">
+                    Location:
+                    <br>
+                    <input style="width:225px" id="interactionLocation" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div id="adventureActivityDiv" class="adventure hidden row-span-1 ml-2 -mt-2">
+                    Activity:
+                    <br>
+                    <input style="width:225px" id="adventureActivity" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div id="classTopicDiv" class="interest hidden row-span-1 ml-2 -mt-2">
+                    Class topic:
+                    <br>
+                    <input style="width:225px" id="classTopic" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div id="yourInterestDiv" class="hidden interest row-span-1 ml-2 mt-4">
+                    Your interest:
+                    <br>
+                    <input style="width:225px" id="personalInterest" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div id="adventureCityDiv" class="adventure hidden row-span-1 ml-2 -mt-2">
+                    City:
+                    <br>
+                    <input style="width:225px" id="adventureCity" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div id="interactionYourRoleDiv" class="hidden interaction row-span-1 ml-2 mt-4">
+                    Your role:
+                    <br>
+                    <input style="width:225px" id="interactionYourRole" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div id="interactionGPTRoleDiv" class="hidden interaction row-span-1 ml-2 mt-4">
+                    ChatGPT role:
+                    <br>
+                    <input style="width:225px" id="interactionGPTRole" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div id="interactionTurnDiv" class="hidden interaction row-span-1 ml-2 mt-4">
+                    Turn order:
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                    dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                    dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height:45px; width:225px"
+                    id="interactionTurnDropdown" name="languageSelect">
+                        <option value="you">I go first</option>
+                        <option value="gpt">ChatGPT goes first</option>
+                    </select>
+                </div>
+                <div id="levelDiv" class="hidden generation interest adventure hidden row-span-1 ml-2 mt-2">
+                    Level:
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                    dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                    dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; width:225px"
+                    id="levelSelect" name="languageSelect">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                <center>
+                    <button id="generateButton" class="mt-4 ml-2 row-span-1 px-6 py-3 
+                text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Generate!</button>
+                </center>
             
         </div>
         <div class="col-span-2">
@@ -76,6 +126,16 @@
 
 {%block script %}
 <script>
+    $(document).ready(function() {
+        $(window).on('load', function() {
+            $('#categories').val('select');
+            $('#languages').val('select');
+        });
+    });
+
+
+
+
     $(document).ready(function() {
         $('#copyButton').click(function () {
             var textarea = $('#prompt_textarea');
@@ -89,6 +149,124 @@
         });
     });
 
+    $(document).ready(function() {
+        $('#categories').change(function() {
+            console.log("change detected");
+            var selectedCategory = $('#categories').val();
+            console.log(selectedCategory);
+            if (selectedCategory == 'select') {
+                $('.adventure').addClass('hidden');
+                $('.interaction').addClass('hidden');
+                $('.interest').addClass('hidden');
+                $('.generation').addClass('hidden');
+            }
+            else if (selectedCategory == 'adventure') {
+                $('.interaction').addClass('hidden');
+                $('.interest').addClass('hidden');
+                $('.generation').addClass('hidden');
+                $('.adventure').removeClass('hidden');
+            }
+            else if (selectedCategory == 'interaction') {
+                $('.adventure').addClass('hidden');
+                $('.interest').addClass('hidden');
+                $('.generation').addClass('hidden');
+                $('.interaction').removeClass('hidden');
+            }
+            else if (selectedCategory == 'interest') {
+                $('.adventure').addClass('hidden');
+                $('.interaction').addClass('hidden');
+                $('.generation').addClass('hidden');
+                $('.interest').removeClass('hidden');
+            }
+            else if (selectedCategory == 'generation') {
+                $('.adventure').addClass('hidden');
+                $('.interaction').addClass('hidden');
+                $('.interest').addClass('hidden');
+                $('.generation').removeClass('hidden');
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('#generateButton').click(function() {
+            console.log("button clicked");
+            var selectedCategory = $('#categories').val();
+            var language = $('#languages').val();
+            if (selectedCategory == 'interaction') {
+                var location = $('#interactionLocation').val();
+                var yourRole = $('#interactionYourRole').val();
+                var gptRole = $('#interactionGPTRole').val();
+                var turnOrder = $('#interactionTurnDropdown').val();
+                var turnOrderString = '';
+                if (turnOrder == 'gpt') {
+                    turnOrderString = 'You will go first';
+                } else {
+                    turnOrderString = 'I will go first';
+                }
+                var promptString = "You are a robot that performs role-playing actions. " +
+                "As a role-playing robot, you have the ability to take on any role and engage with a person " +
+                "or user who is imitating another role. Your purpose is to pretend to mimic real conversation with " +
+                "the user and take turns playing your role with the user. Your inputs include the role you will play, " +
+                "the role the user will be playing, the language being spoken during the role-playing, and who will go " +
+                "first in the role-play. Similar to a real conversation, you will limit your output to about 50 words when it " +
+                "is your turn to speak. \n\nAs a role-playing robot, you also have the responsibility of keeping track of " +
+                "everything that was said in the conversation. When the user says \"STOP CONVERSATION\", you will stop " +
+                "role-playing and print out a record of exactly what was said during the role-play. When you generate the record, " +
+                "make sure that the record is in the language I specify, not English." + 
+                "\n\nI will now assign you a role. You are a " + gptRole + " in " + location + " and I am a " + yourRole + ". " +
+                turnOrderString + ", and we will speak " + language + ".";
+
+                $('#prompt_textarea').val(promptString);
+            } else if (selectedCategory == 'adventure') {
+                var activity = $('#adventureActivity').val();
+                var city = $('#adventureCity').val();
+                var level = $('#levelSelect').val();
+                var levelString = '';
+                if (level == 'beginner') {
+                    levelString = "means that the language used has short sentences, simple grammar patterns, and uses vocabulary words of high frequency.";
+                } else if (level == 'intermediate') {
+                    levelString = "means that the language used has somewhat complex grammar, more infrequent vocabulary, " + 
+                    "and longer sentences, but does not contain extremely complex grammar, jargon, or complex sentences.";
+                } else {
+                    levelString = "means that the language used has complex grammar, contains infrequent vocabulary words and jargon, and has lengthy sentences.";
+                }
+                var promptString = "Create a \"choose your own adventure\" in " + 
+                language + " about " + activity + " in " + city + ". Please clearly state the options " +
+                "for the player to choose at the end of each page. Each option should correspond with another page, " +
+                "and you should explicitly state the page that the option corresponds with so that the reader can choose their " +
+                "next path. Use a \"pages\" format where the \"player\" can switch to a different \"page\" when they make a certain " + 
+                "decision in the story. Do not create any duplicate pages in your story where things happen that are very similar " +
+                "to another page. Create a new scenario for one of the pages if the same thing happens on two different pages. " +
+                "Limit each \"page\" to be under 100 words each. Bold each page title for reading clarity, and also label the " +
+                "page based on what happens on the page. Also, please use " + level + " level " + language + " when writing the adventure. " +
+                level.charAt(0).toUpperCase() + level.slice(1) + " level " + language + " " + levelString +
+                " Please also make sure the story abides by cultural principles pertaining to the location of the adventure, and that there " +
+                "are no logical mistakes or paradoxes in the story. Do not use any English in your story.";
+
+                $('#prompt_textarea').val(promptString);
+            } else if (selectedCategory == 'interest') {
+                var classTopic = $('#classTopic').val();
+                var personalTopic = $('#personalInterest').val();
+                var level = $('#levelSelect').val();
+                var levelString = '';
+                if (level == 'beginner') {
+                    levelString = "means that the language used has short sentences, simple grammar patterns, and uses vocabulary words of high frequency.";
+                } else if (level == 'intermediate') {
+                    levelString = "means that the language used has somewhat complex grammar, more infrequent vocabulary, " + 
+                    "and longer sentences, but does not contain extremely complex grammar, jargon, or complex sentences.";
+                } else {
+                    levelString = "means that the language used has complex grammar, contains infrequent vocabulary words and jargon, and has lengthy sentences.";
+                }
+                var promptString = "In " + language + " class we are learning about " + classTopic + 
+                ", but my personal interest lies in " + personalTopic + ". Could you please write me an article about " + 
+                personalTopic + " in " + language + ", but with an emphasis on how " + personalTopic + " relates to " + classTopic + 
+                "? Please do so at an " + level + " level. " + level.charAt(0).toUpperCase() + level.slice(1) + " level " + language 
+                + " " + levelString + " Do not exceed 200 words in your response; it is very important that this response is under 200 words.";
+
+                $('#prompt_textarea').val(promptString);
+            }
+        });
+    });
 
 
 </script>
