@@ -12,7 +12,7 @@
         <div class="col-span-2">
             
         </div>
-        <div class="col-span-5 bg-sky-100" style="height:650px">
+        <div class="col-span-5 bg-sky-100" style="height:700px">
             <div class="mt-10 row-span-1 flex justify-center items-center">
                 <textarea id="prompt_textarea" class="px-2 py-2" style="height:400px; width:600px"> </textarea>
             </div>
@@ -22,7 +22,7 @@
             </div>
         </div>
         
-        <div class="flex justify-center place-items-center grid grid-rows-7 col-span-3 bg-yellow-100" style="height:650px">
+        <div class="flex justify-center place-items-center grid grid-rows-7 col-span-3 bg-sky-100" style="height:700px">
             <div class="row-span-1 ml-2 mt-2">
                 Category:
                 <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
@@ -95,17 +95,30 @@
                     dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
                     dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height:45px; width:225px"
                     id="interactionTurnDropdown" name="languageSelect">
+                        <option value="select">Select who goes first</option>
                         <option value="you">I go first</option>
                         <option value="gpt">ChatGPT goes first</option>
                     </select>
+                </div>
+                <div id="textareaGeneration" class="hidden generation row-span-1 ml-2 mt-4">
+                    <center>
+                        <div class="mb-2">Enter your vocab words separated by commas:</div>
+                    <textarea id="vocabWordsTextarea" style="height:200px; width:300px; padding:5px"></textarea>
+                    </center>
+                </div>
+                <div id="topicGenerationDiv" class="hidden generation row-span-1 ml-2 mt-4">
+                    Topic:
+                    <br>
+                    <input style="width:225px" id="topicGeneration" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
                 <div id="levelDiv" class="hidden generation interest adventure hidden row-span-1 ml-2 mt-2">
                     Level:
                     <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                     focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
                     dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                    dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; width:225px"
-                    id="levelSelect" name="languageSelect">
+                    dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height: 45px; width:225px"
+                    id="levelSelect" name="languageSelect" autocomplete="off">
+                        <option value="select">Select a Level</option>
                         <option value="beginner">Beginner</option>
                         <option value="intermediate">Intermediate</option>
                         <option value="advanced">Advanced</option>
@@ -262,6 +275,27 @@
                 personalTopic + " in " + language + ", but with an emphasis on how " + personalTopic + " relates to " + classTopic + 
                 "? Please do so at an " + level + " level. " + level.charAt(0).toUpperCase() + level.slice(1) + " level " + language 
                 + " " + levelString + " Do not exceed 200 words in your response; it is very important that this response is under 200 words.";
+
+                $('#prompt_textarea').val(promptString);
+            } else if (selectedCategory == 'generation') {
+                var vocabWordsWithLines = $('#vocabWordsTextarea').val();
+                var vocabWords = vocabWordsWithLines.replace(/\r?\n|\r/g, "");
+                var levelString = '';
+                if (level == 'beginner') {
+                    levelString = "means that the language used has short sentences, simple grammar patterns, and uses vocabulary words of high frequency.";
+                } else if (level == 'intermediate') {
+                    levelString = "means that the language used has somewhat complex grammar, more infrequent vocabulary, " + 
+                    "and longer sentences, but does not contain extremely complex grammar, jargon, or complex sentences.";
+                } else {
+                    levelString = "means that the language used has complex grammar, contains infrequent vocabulary words and jargon, and has lengthy sentences.";
+                }
+
+                var promptString = "My " + language + " class is learning about " + ". Our vocabulary words are as follows: " + vocabWords 
+                + ". Please write me a short story using all of these vocabulary words at a " + level + " level in " + language + 
+                ". Do not use any English in your story. " + levelString + " Limit your response to 100 words. Do not create any inaccuracies in your story. " + 
+                "Your sentences must have a logical flow to them and should not produce any contradictions or paradoxes. " + 
+                "Please bold the vocabulary words in your story. Please be sure to use all the vocabulary words I gave you in the story." + 
+                " Make sure you bold all the vocabulary words in your story."
 
                 $('#prompt_textarea').val(promptString);
             }
