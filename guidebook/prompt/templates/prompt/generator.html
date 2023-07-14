@@ -35,6 +35,7 @@
                     <option value="adventure">Choose Your Own Adventure</option>
                     <option value="interest">Content of Personal Interest</option>
                     <option value="generation">Content Generation</option>
+                    <option value="summarization">Article Summarization</option>
                 </select>
             </div>
             <div class="row-span-1 ml-2">
@@ -106,6 +107,12 @@
                     <textarea id="vocabWordsTextarea" style="height:200px; width:300px; padding:5px"></textarea>
                     </center>
                 </div>
+                <div id="articleTextDiv" class="hidden summarization ml-2 mt-4">
+                    <center>
+                        <div class="mb-2">Enter your article below:</div>
+                    <textarea id="articleText" style="height:200px; width:300px; padding:5px"></textarea>
+                    </center>
+                </div>
                 <div id="topicGenerationDiv" class="hidden generation row-span-1 ml-2 mt-4">
                     Topic:
                     <br>
@@ -125,7 +132,7 @@
                     </select>
                 </div>
                 <center>
-                    <button id="generateButton" class="mt-4 ml-2 row-span-1 px-6 py-3 
+                    <button id="generateButton" class="hidden adventure summarization interaction interest generation mt-4 ml-2 row-span-1 px-6 py-3 
                 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Generate!</button>
                 </center>
             
@@ -171,31 +178,43 @@
                 $('.adventure').addClass('hidden');
                 $('.interaction').addClass('hidden');
                 $('.interest').addClass('hidden');
+                $('.summarization').addClass('hidden');
                 $('.generation').addClass('hidden');
             }
             else if (selectedCategory == 'adventure') {
                 $('.interaction').addClass('hidden');
                 $('.interest').addClass('hidden');
                 $('.generation').addClass('hidden');
+                $('.summarization').addClass('hidden');
                 $('.adventure').removeClass('hidden');
             }
             else if (selectedCategory == 'interaction') {
                 $('.adventure').addClass('hidden');
                 $('.interest').addClass('hidden');
                 $('.generation').addClass('hidden');
+                $('.summarization').addClass('hidden');
                 $('.interaction').removeClass('hidden');
             }
             else if (selectedCategory == 'interest') {
                 $('.adventure').addClass('hidden');
                 $('.interaction').addClass('hidden');
                 $('.generation').addClass('hidden');
+                $('.summarization').addClass('hidden');
                 $('.interest').removeClass('hidden');
             }
             else if (selectedCategory == 'generation') {
                 $('.adventure').addClass('hidden');
                 $('.interaction').addClass('hidden');
                 $('.interest').addClass('hidden');
+                $('.summarization').addClass('hidden');
                 $('.generation').removeClass('hidden');
+            } 
+            else if (selectedCategory == 'summarization') {
+                $('.adventure').addClass('hidden');
+                $('.interaction').addClass('hidden');
+                $('.interest').addClass('hidden');
+                $('.generation').addClass('hidden');
+                $('.summarization').removeClass('hidden');
             }
         });
     });
@@ -297,6 +316,19 @@
                 "Please bold the vocabulary words in your story. Please be sure to use all the vocabulary words I gave you in the story." + 
                 " Make sure you bold all the vocabulary words in your story."
 
+                $('#prompt_textarea').val(promptString);
+            } else if (selectedCategory == 'summarization') {
+                var articleText = $('#articleText').val();
+                var promptString = "I am learning " + language + " and I would like to understand what the following text says " + 
+                "in a shorter format. Please summarize the following text at a beginner level in " + language + " so that I can understand " +
+                "the text and read it faster. A \"beginner level\" in " + language + " is defined as the language having short sentences, " + 
+                "simple grammar patterns, and using vocabulary words of high frequency. It is beneficial if you omit some details of the " + 
+                "text for the sake of reducing the complexity of the summary. Do not use any highly specific words; " + 
+                "I want a beginner level paragraph in " + language +", therefore I need the paragraph to contain only simple words. " + 
+                "Here is the text I would like you to summarize at a beginner level: \n" + articleText + "\nPlease limit your summary " + 
+                "to 200 words or less. Do not exceed this word limit of 200 words. Remember, your summary should be simple enough " + 
+                " for me to understand; I am requesting a beginner level summary, meaning it should contain short sentences, simple grammar," +
+                " and words of high frequency.";
                 $('#prompt_textarea').val(promptString);
             }
         });
