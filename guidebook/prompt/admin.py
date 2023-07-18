@@ -46,6 +46,7 @@ class ParagraphAdmin(admin.ModelAdmin):
 
 class PromptAdmin(admin.ModelAdmin):
     inlines = [ParagraphPromptInline]
+    list_filter = ["category__category_name", "prompt_language"]
 
 admin.site.register(Prompt, PromptAdmin)
 admin.site.register(Paragraph, ParagraphAdmin)

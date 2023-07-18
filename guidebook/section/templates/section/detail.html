@@ -3,8 +3,6 @@
 {%block title%} Guidebook for Prompting {%endblock%}
 {%block content%} Guidebook on Prompting for Language Learning {%endblock%}
 
-<!-- <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200"> --> 
-
 {%block sidebar%} 
     <div class="ml-3 mb-16 grid grid-cols-4 gap-4">
         <div class="pb-6"> 
@@ -15,22 +13,27 @@
                             <a href="{%url 'section:detail' section.id %}" class="section-link">{{section.section_title}}</a>
                                 <ul>
                                     {% for paragraph in section.paragraph_set.all %}
-                                        <li id="paragraph{{paragraph.id}}" class="ml-3"><a href="{%url 'section:detail' section.id %}#paragraph{{forloop.counter}}">{{paragraph.paragraph_title}}</a></li>
+                                    <!-- here is the section where the links are-->
+                                        <li class="ml-3">
+                                            <!-- this anchor tag -->
+                                            <a class="paragraph-link" href="{%url 'section:detail' section.id %}#paragraph{{paragraph.id}}">{{paragraph.paragraph_title}}</a>
+                                        </li>
                                     {%endfor%}
                                 </ul>
                         </li>
-                    {%endfor%} 
+                    {%endfor%}  
                 </ul>
             </div>
         </div>
-
+ 
         <div class="space-y-10 mr-24 text-5xl col-span-3" id="section-text-container">
             {{section.section_title}}
             <div class="mt-10 text-lg">
                 {{section.section_description}}
             </div>
             {%for paragraph in section.paragraph_set.all%}
-                <div id="paragraph{{forloop.counter}}" class="mt-10 text-3xl">{{paragraph.paragraph_title}}</div>
+                <!-- jump here -->
+                <div id="paragraph{{paragraph.id}}" class="mt-10 text-3xl">{{paragraph.paragraph_title}}</div>
                 <div class="text-lg">{{paragraph.paragraph_text | safe}}</div>
                 {%for prompt in paragraph.prompts.all %}
                     <div class="grid grid-cols-10 space-x-2">
@@ -41,6 +44,11 @@
                             <div class="mt-10 text-base">
                                 {{prompt.prompt_text | safe}}
                             </div>
+                            <!-- 
+                            <a href="{%url 'prompt:detail' prompt.id %}" class="flex justify-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 40%;"> 
+                                View in Prompt Browser 
+                            </a>
+                            -->
                         </div>
                         <div class="col-span-5 text-base border border-gray-700 py-4 px-4">
                             <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 45%;"> 
@@ -88,22 +96,15 @@
         </div>
     </div>
 {%endblock%}
-
 {%block script%}
-<!-- 
 <script>
-    var selectedSectionId = "{{ section_id }}";
-    var selectedSection = document.getElementById("section" + selectedSectionId);
-    if (selectedSection) {
-        selectedSection.classList.add("bg-gray-200");
-    }
-    console.log("selectedSectionID: " + selectedSectionId);
+
+
+
+
 </script>
--->
 
 {%endblock%}
-
-
 
 
 

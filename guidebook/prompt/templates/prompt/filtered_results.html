@@ -2,7 +2,7 @@
     {%for prompt in page_prompts %}
     <div style="position: relative" class="h-auto grid grid-rows-3 hover:scale-105 col-span-1 row-span-1 rounded-xl shadow-md bg-gray-100">
         <a href="{%url 'prompt:detail' prompt.id %}" class="link-overlay"></a>
-        <div class="row-span-2">
+        <div class="row-span-2"> 
             <div class="grid grid-rows-2 grid-cols-2">
                 <div class="text-xl m-3 row-span-1 col-span-1">
                     <span class="language">{{prompt.prompt_language}}</span>

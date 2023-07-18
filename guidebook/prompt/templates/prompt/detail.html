@@ -12,18 +12,21 @@
             <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 25%;"> 
                 Prompt
             </div>
-            <div class="mt-6 mb-6 row-span-3">
+            <div class="mt-6 mb-6 row-span-3"> 
                 {{prompt.prompt_text | safe}}
             </div>
+            <!-- 
             <div class="m-4 flex justify-center items-center row-span-1">
-                <a href="#" class="mt-2 py-4 px-8 bg-orange-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 40%;"> 
+                <button id="languageButton" class="mt-2 py-4 px-8 bg-orange-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 40%;"> 
+                    language Button 
                     {{prompt.prompt_language}}
-                </a>
+                </button>
                 
                 <a href="#" class="mt-2 py-4 px-8 bg-orange-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 70%;">
                     {{prompt.category}}
                 </a>
             </div>
+            -->
         </div>
 
         <div class="py-6 px-6 col-span-1 row-span-4">
@@ -36,6 +39,10 @@
         </div>
     </div>
 </div>
+{%endblock%}
 
-
+{%block script%}
+<script>
+    
+</script>
 {%endblock%}

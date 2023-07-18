@@ -8,7 +8,7 @@
         <div class="mt-4 text-2xl">Generate a prompt below!</div>
     </center>
 
-    <div class="mt-4 grid grid-cols-12 grid-rows-2" style="height:700px;">
+    <div class="mt-4 grid grid-cols-12 grid-rows-3" style="height:700px;">
         <div class="col-span-2">
             
         </div>
@@ -20,6 +20,10 @@
                 <button id="copyButton" class="mt-10 row-span-1 px-6 py-3 
                 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Copy Prompt</button>
             </div>
+            <div class="mt-2 floating flex justify-center row-span-1 hidden" id="copied">
+                Copied!
+            </div>
+            
         </div>
         
         <div class="flex justify-center place-items-center grid grid-rows-7 col-span-3 bg-sky-100" style="height:700px">
@@ -161,11 +165,12 @@
             var textarea = $('#prompt_textarea');
             textarea.select();
             textarea[0].setSelectionRange(0, 99999); //something for mobile devices 
-
             document.execCommand("copy");
-
             textarea.blur(); //this deselects the text 
-
+            $('#copied').removeClass('hidden');
+            setTimeout(function () {
+                $('#copied').addClass('hidden');
+            }, 1000);
         });
     });
 
@@ -247,8 +252,28 @@
                 "make sure that the record is in the language I specify, not English." + 
                 "\n\nI will now assign you a role. You are a " + gptRole + " in " + location + " and I am a " + yourRole + ". " +
                 turnOrderString + ", and we will speak " + language + ".";
-
-                $('#prompt_textarea').val(promptString);
+                var errorString = '';
+                if (location == '') {
+                    errorString = "ERROR: Please input a location.";
+                }
+                if (yourRole == '') {
+                    errorString = "ERROR: Please input your role.";
+                }
+                if (gptRole == '') {
+                    errorString = "ERROR: Please input a role for ChatGPT.";
+                }
+                if (turnOrder == 'select') {
+                    errorString = "ERROR: Please determine the turn order.";
+                }
+                if (language == 'select') {
+                    errorString = "ERROR: Please select a language.";
+                }
+                if (errorString != '') {
+                    $('#prompt_textarea').val(errorString);
+                } else {
+                    $('#prompt_textarea').val(promptString);
+                }
+              
             } else if (selectedCategory == 'adventure') {
                 var activity = $('#adventureActivity').val();
                 var city = $('#adventureCity').val();
@@ -261,7 +286,7 @@
                     "and longer sentences, but does not contain extremely complex grammar, jargon, or complex sentences.";
                 } else {
                     levelString = "means that the language used has complex grammar, contains infrequent vocabulary words and jargon, and has lengthy sentences.";
-                }
+                } 
                 var promptString = "Create a \"choose your own adventure\" in " + 
                 language + " about " + activity + " in " + city + ". Please clearly state the options " +
                 "for the player to choose at the end of each page. Each option should correspond with another page, " +
@@ -274,13 +299,28 @@
                 level.charAt(0).toUpperCase() + level.slice(1) + " level " + language + " " + levelString +
                 " Please also make sure the story abides by cultural principles pertaining to the location of the adventure, and that there " +
                 "are no logical mistakes or paradoxes in the story. Do not use any English in your story.";
-
-                $('#prompt_textarea').val(promptString);
+                var errorString = '';
+                if (city == '') {
+                    errorString = "ERROR: Please input a city.";
+                }
+                if (activity == '') {
+                    errorString = "ERROR: Please input an activity.";
+                }
+                if (language == 'select') {
+                    errorString = 'ERROR: Please select a language.';
+                }
+                if (errorString != '') {
+                    $('#prompt_textarea').val(errorString);
+                } else {
+                    $('#prompt_textarea').val(promptString);
+                }
+                
             } else if (selectedCategory == 'interest') {
                 var classTopic = $('#classTopic').val();
                 var personalTopic = $('#personalInterest').val();
                 var level = $('#levelSelect').val();
                 var levelString = '';
+                var errorString = '';
                 if (level == 'beginner') {
                     levelString = "means that the language used has short sentences, simple grammar patterns, and uses vocabulary words of high frequency.";
                 } else if (level == 'intermediate') {
@@ -294,12 +334,31 @@
                 personalTopic + " in " + language + ", but with an emphasis on how " + personalTopic + " relates to " + classTopic + 
                 "? Please do so at an " + level + " level. " + level.charAt(0).toUpperCase() + level.slice(1) + " level " + language 
                 + " " + levelString + " Do not exceed 200 words in your response; it is very important that this response is under 200 words.";
+                
+                if (level == 'select') {
+                    errorString = "ERROR: Please select a level.";
+                }
+                if (classTopic == '') {
+                    errorString = "ERROR: Please input a class topic.";
+                }
+                if (personalTopic == '') {
+                    errorString = "ERROR: Please input your interest.";
+                }
+                if (language == 'select') {
+                    errorString = "ERROR: Please input a language.";
+                }
+                if (errorString != '') {
+                    $('#prompt_textarea').val(errorString);
+                } else {
+                    $('#prompt_textarea').val(promptString);
+                }
 
-                $('#prompt_textarea').val(promptString);
             } else if (selectedCategory == 'generation') {
                 var vocabWordsWithLines = $('#vocabWordsTextarea').val();
                 var vocabWords = vocabWordsWithLines.replace(/\r?\n|\r/g, "");
+                var level = $('#levelSelect').val();
                 var levelString = '';
+                var topic = $('#topicGeneration').val();
                 if (level == 'beginner') {
                     levelString = "means that the language used has short sentences, simple grammar patterns, and uses vocabulary words of high frequency.";
                 } else if (level == 'intermediate') {
@@ -309,14 +368,31 @@
                     levelString = "means that the language used has complex grammar, contains infrequent vocabulary words and jargon, and has lengthy sentences.";
                 }
 
-                var promptString = "My " + language + " class is learning about " + ". Our vocabulary words are as follows: " + vocabWords 
+                var promptString = "My " + language + " class is learning about " + topic + ". Our vocabulary words are as follows: " + vocabWords 
                 + ". Please write me a short story using all of these vocabulary words at a " + level + " level in " + language + 
-                ". Do not use any English in your story. " + levelString + " Limit your response to 100 words. Do not create any inaccuracies in your story. " + 
+                ". Do not use any English in your story. " + level.charAt(0).toUpperCase() + level.slice(1) + " level " + levelString + " Limit your response to 100 words. Do not create any inaccuracies in your story. " + 
                 "Your sentences must have a logical flow to them and should not produce any contradictions or paradoxes. " + 
                 "Please bold the vocabulary words in your story. Please be sure to use all the vocabulary words I gave you in the story." + 
                 " Make sure you bold all the vocabulary words in your story."
-
-                $('#prompt_textarea').val(promptString);
+                var errorString = '';
+                if (vocabWords == '') {
+                    errorString = "ERROR: Please input at least one vocabulary word.";
+                }
+                if (language == 'select') {
+                    errorString = "ERROR: Please select a language.";
+                }
+                if (level == 'select') {
+                    errorString = "ERROR: Please select a level.";
+                }
+                if (topic == '') {
+                    errorString = "ERROR: Please input a topic.";
+                }
+                if (errorString != '') {
+                    $('#prompt_textarea').val(errorString);
+                } else {
+                    $('#prompt_textarea').val(promptString);
+                }
+                
             } else if (selectedCategory == 'summarization') {
                 var articleText = $('#articleText').val();
                 var promptString = "I am learning " + language + " and I would like to understand what the following text says " + 
@@ -325,11 +401,23 @@
                 "simple grammar patterns, and using vocabulary words of high frequency. It is beneficial if you omit some details of the " + 
                 "text for the sake of reducing the complexity of the summary. Do not use any highly specific words; " + 
                 "I want a beginner level paragraph in " + language +", therefore I need the paragraph to contain only simple words. " + 
-                "Here is the text I would like you to summarize at a beginner level: \n" + articleText + "\nPlease limit your summary " + 
+                "Here is the text I would like you to summarize at a beginner level: \n\n" + articleText + "\n\nPlease limit your summary " + 
                 "to 200 words or less. Do not exceed this word limit of 200 words. Remember, your summary should be simple enough " + 
                 " for me to understand; I am requesting a beginner level summary, meaning it should contain short sentences, simple grammar," +
                 " and words of high frequency.";
-                $('#prompt_textarea').val(promptString);
+                var errorString = '';
+                if (language == 'select') {
+                    errorString = "ERROR: Please select a language.";
+                }
+                if (articleText == '') {
+                    errorString = "ERROR: Please input an article.";
+                }
+                if (errorString != '') {
+                    $('#prompt_textarea').val(errorString);
+                } else {
+                    $('#prompt_textarea').val(promptString);
+                }
+                
             }
         });
     });
