@@ -3,7 +3,7 @@
 {%block title%} Prompt Generator {%endblock%}
 {%block content%} Prompt Generator {%endblock%}
 {%block generator%}
-<div>
+<div class="hidden lg:block">
     <center>
         <div class="mt-4 text-2xl">Generate a prompt below!</div>
     </center>
@@ -146,6 +146,51 @@
         </div>
     </div>
 </div>
+<div class="block lg:hidden">
+    <center>
+        <div class="mt-4 text-2xl">Generate a prompt below!</div>
+    </center>
+    <div class="grid grid-rows-10">
+        <div class="mt-4 row-span-1">
+            <center>
+                Category:
+                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height:45px; width:225px"
+                id="categories" name="categoriesSelect" autocomplete="off">
+                    <option value="select" selected>Select a Category</option>
+                    <option value="interaction">Interaction/Role-Play</option>
+                    <option value="adventure">Choose Your Own Adventure</option>
+                    <option value="interest">Content of Personal Interest</option>
+                    <option value="generation">Content Generation</option>
+                    <option value="summarization">Article Summarization</option>
+                </select>
+            </center>
+        </div>
+        <div class="mt-4 row-span-1">
+            <center>
+                Language:
+                <select style="text-align-last: center; height:45px; width:225px" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                id="languages" name="languageSelect" autocomplete="off">
+                    <option value="select">Select a Language</option>
+                    <option value="Arabic">Arabic</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="Korean">Korean</option>
+                    <option value="Persian">Persian</option>
+                    <option value="Portuguese">Portuguese</option>
+                    <option value="Russian">Russian</option>
+                </select>
+            </center>
+        </div>
+    </div>
+</div>
+
+
+
 {%endblock%}
 
 {%block script %}
@@ -157,7 +202,80 @@
         });
     });
 
+    function generateLevelString(level) {
+        if (level == 'beginner') {
+            return "Beginner means that the language used has short sentences, simple grammar patterns, and uses vocabulary words of high frequency.";
+        }
+        else if (level == 'intermediate') {
+            return "Intermediate means that the language used has somewhat complex grammar, more infrequent vocabulary, " + 
+                    "and longer sentences, but does not contain extremely complex grammar, jargon, or complex sentences.";
+        }
+        else if (level == 'advanced') {
+            return "Advanced means that the language used has complex grammar, contains infrequent vocabulary words and jargon, and has lengthy sentences.";
+        }
+    }
 
+    function generateAdventurePrompt(language, activity, city, level) {
+        levelString = generateLevelString(level);
+        return "Create a \"choose your own adventure\" in " + 
+                language + " about " + activity + " in " + city + ". Please clearly state the options " +
+                "for the player to choose at the end of each page. Each option should correspond with another page, " +
+                "and you should explicitly state the page that the option corresponds with so that the reader can choose their " +
+                "next path. Use a \"pages\" format where the \"player\" can switch to a different \"page\" when they make a certain " + 
+                "decision in the story. Do not create any duplicate pages in your story where things happen that are very similar " +
+                "to another page. Create a new scenario for one of the pages if the same thing happens on two different pages. " +
+                "Limit each \"page\" to be under 100 words each. Bold each page title for reading clarity, and also label the " +
+                "page based on what happens on the page. Also, please use " + level + " level " + language + " when writing the adventure. " +
+                levelString +
+                ". Please also make sure the story abides by cultural principles pertaining to the location of the adventure, and that there " +
+                "are no logical mistakes or paradoxes in the story. Do not use any English in your story.";
+    }
+
+    function generateInteractionPrompt(language, location, yourRole, gptRole, turnOrderString) {
+        return "You are a robot that performs role-playing actions. " +
+                "As a role-playing robot, you have the ability to take on any role and engage with a person " +
+                "or user who is imitating another role. Your purpose is to pretend to mimic real conversation with " +
+                "the user and take turns playing your role with the user. Your inputs include the role you will play, " +
+                "the role the user will be playing, the language being spoken during the role-playing, and who will go " +
+                "first in the role-play. Similar to a real conversation, you will limit your output to about 50 words when it " +
+                "is your turn to speak. \n\nAs a role-playing robot, you also have the responsibility of keeping track of " +
+                "everything that was said in the conversation. When the user says \"STOP CONVERSATION\", you will stop " +
+                "role-playing and print out a record of exactly what was said during the role-play. When you generate the record, " +
+                "make sure that the record is in the language I specify, not English." + 
+                "\n\nI will now assign you a role. You are a " + gptRole + " in " + location + " and I am a " + yourRole + ". " +
+                turnOrderString + ", and we will speak " + language + ".";
+    }
+
+    function generateInterestPrompt(language, classTopic, personalTopic, level) {
+        levelString = generateLevelString(level);
+        return "In " + language + " class we are learning about " + classTopic + 
+                ", but my personal interest lies in " + personalTopic + ". Could you please write me an article about " + 
+                personalTopic + " in " + language + ", but with an emphasis on how " + personalTopic + " relates to " + classTopic + 
+                "? Please do so at an " + level + " level. " + levelString + ". Do not exceed 200 words in your response; it is very important that this response is under 200 words.";
+    }
+
+    function generateGenerationPrompt(language, vocabWords, level, topic) {
+        levelString = generateLevelString(level);
+        return "My " + language + " class is learning about " + topic + ". Our vocabulary words are as follows: " + vocabWords 
+                + ". Please write me a short story using all of these vocabulary words at a " + level + " level in " + language + 
+                ". Do not use any English in your story. " + levelString + ". Limit your response to 100 words. Do not create any inaccuracies in your story. " + 
+                "Your sentences must have a logical flow to them and should not produce any contradictions or paradoxes. " + 
+                "Please bold the vocabulary words in your story. Please be sure to use all the vocabulary words I gave you in the story." + 
+                " Make sure you bold all the vocabulary words in your story."
+    }
+
+    function generateSummaryPrompt(language, articleText) {
+        return "I am learning " + language + " and I would like to understand what the following text says " + 
+                "in a shorter format. Please summarize the following text at a beginner level in " + language + " so that I can understand " +
+                "the text and read it faster. A \"beginner level\" in " + language + " is defined as the language having short sentences, " + 
+                "simple grammar patterns, and using vocabulary words of high frequency. It is beneficial if you omit some details of the " + 
+                "text for the sake of reducing the complexity of the summary. Do not use any highly specific words; " + 
+                "I want a beginner level paragraph in " + language +", therefore I need the paragraph to contain only simple words. " + 
+                "Here is the text I would like you to summarize at a beginner level: \n\n" + articleText + "\n\nPlease limit your summary " + 
+                "to 200 words or less. Do not exceed this word limit of 200 words. Remember, your summary should be simple enough " + 
+                " for me to understand; I am requesting a beginner level summary, meaning it should contain short sentences, simple grammar," +
+                " and words of high frequency.";
+    }
 
 
     $(document).ready(function() {
@@ -240,18 +358,7 @@
                 } else {
                     turnOrderString = 'I will go first';
                 }
-                var promptString = "You are a robot that performs role-playing actions. " +
-                "As a role-playing robot, you have the ability to take on any role and engage with a person " +
-                "or user who is imitating another role. Your purpose is to pretend to mimic real conversation with " +
-                "the user and take turns playing your role with the user. Your inputs include the role you will play, " +
-                "the role the user will be playing, the language being spoken during the role-playing, and who will go " +
-                "first in the role-play. Similar to a real conversation, you will limit your output to about 50 words when it " +
-                "is your turn to speak. \n\nAs a role-playing robot, you also have the responsibility of keeping track of " +
-                "everything that was said in the conversation. When the user says \"STOP CONVERSATION\", you will stop " +
-                "role-playing and print out a record of exactly what was said during the role-play. When you generate the record, " +
-                "make sure that the record is in the language I specify, not English." + 
-                "\n\nI will now assign you a role. You are a " + gptRole + " in " + location + " and I am a " + yourRole + ". " +
-                turnOrderString + ", and we will speak " + language + ".";
+                var promptString = generateInteractionPrompt(language, location, yourRole, gptRole, turnOrderString);
                 var errorString = '';
                 if (location == '') {
                     errorString = "ERROR: Please input a location.";
@@ -278,27 +385,8 @@
                 var activity = $('#adventureActivity').val();
                 var city = $('#adventureCity').val();
                 var level = $('#levelSelect').val();
-                var levelString = '';
-                if (level == 'beginner') {
-                    levelString = "means that the language used has short sentences, simple grammar patterns, and uses vocabulary words of high frequency.";
-                } else if (level == 'intermediate') {
-                    levelString = "means that the language used has somewhat complex grammar, more infrequent vocabulary, " + 
-                    "and longer sentences, but does not contain extremely complex grammar, jargon, or complex sentences.";
-                } else {
-                    levelString = "means that the language used has complex grammar, contains infrequent vocabulary words and jargon, and has lengthy sentences.";
-                } 
-                var promptString = "Create a \"choose your own adventure\" in " + 
-                language + " about " + activity + " in " + city + ". Please clearly state the options " +
-                "for the player to choose at the end of each page. Each option should correspond with another page, " +
-                "and you should explicitly state the page that the option corresponds with so that the reader can choose their " +
-                "next path. Use a \"pages\" format where the \"player\" can switch to a different \"page\" when they make a certain " + 
-                "decision in the story. Do not create any duplicate pages in your story where things happen that are very similar " +
-                "to another page. Create a new scenario for one of the pages if the same thing happens on two different pages. " +
-                "Limit each \"page\" to be under 100 words each. Bold each page title for reading clarity, and also label the " +
-                "page based on what happens on the page. Also, please use " + level + " level " + language + " when writing the adventure. " +
-                level.charAt(0).toUpperCase() + level.slice(1) + " level " + language + " " + levelString +
-                " Please also make sure the story abides by cultural principles pertaining to the location of the adventure, and that there " +
-                "are no logical mistakes or paradoxes in the story. Do not use any English in your story.";
+                var promptString = generateAdventurePrompt(language, activity, city, level);
+                console.log(promptString);
                 var errorString = '';
                 if (city == '') {
                     errorString = "ERROR: Please input a city.";
@@ -321,19 +409,8 @@
                 var level = $('#levelSelect').val();
                 var levelString = '';
                 var errorString = '';
-                if (level == 'beginner') {
-                    levelString = "means that the language used has short sentences, simple grammar patterns, and uses vocabulary words of high frequency.";
-                } else if (level == 'intermediate') {
-                    levelString = "means that the language used has somewhat complex grammar, more infrequent vocabulary, " + 
-                    "and longer sentences, but does not contain extremely complex grammar, jargon, or complex sentences.";
-                } else {
-                    levelString = "means that the language used has complex grammar, contains infrequent vocabulary words and jargon, and has lengthy sentences.";
-                }
-                var promptString = "In " + language + " class we are learning about " + classTopic + 
-                ", but my personal interest lies in " + personalTopic + ". Could you please write me an article about " + 
-                personalTopic + " in " + language + ", but with an emphasis on how " + personalTopic + " relates to " + classTopic + 
-                "? Please do so at an " + level + " level. " + level.charAt(0).toUpperCase() + level.slice(1) + " level " + language 
-                + " " + levelString + " Do not exceed 200 words in your response; it is very important that this response is under 200 words.";
+                
+                var promptString = generateInterestPrompt(language, classTopic, personalTopic, level);
                 
                 if (level == 'select') {
                     errorString = "ERROR: Please select a level.";
@@ -368,12 +445,7 @@
                     levelString = "means that the language used has complex grammar, contains infrequent vocabulary words and jargon, and has lengthy sentences.";
                 }
 
-                var promptString = "My " + language + " class is learning about " + topic + ". Our vocabulary words are as follows: " + vocabWords 
-                + ". Please write me a short story using all of these vocabulary words at a " + level + " level in " + language + 
-                ". Do not use any English in your story. " + level.charAt(0).toUpperCase() + level.slice(1) + " level " + levelString + " Limit your response to 100 words. Do not create any inaccuracies in your story. " + 
-                "Your sentences must have a logical flow to them and should not produce any contradictions or paradoxes. " + 
-                "Please bold the vocabulary words in your story. Please be sure to use all the vocabulary words I gave you in the story." + 
-                " Make sure you bold all the vocabulary words in your story."
+                var promptString = generateGenerationPrompt(language, vocabWords, level, topic);
                 var errorString = '';
                 if (vocabWords == '') {
                     errorString = "ERROR: Please input at least one vocabulary word.";
@@ -395,16 +467,7 @@
                 
             } else if (selectedCategory == 'summarization') {
                 var articleText = $('#articleText').val();
-                var promptString = "I am learning " + language + " and I would like to understand what the following text says " + 
-                "in a shorter format. Please summarize the following text at a beginner level in " + language + " so that I can understand " +
-                "the text and read it faster. A \"beginner level\" in " + language + " is defined as the language having short sentences, " + 
-                "simple grammar patterns, and using vocabulary words of high frequency. It is beneficial if you omit some details of the " + 
-                "text for the sake of reducing the complexity of the summary. Do not use any highly specific words; " + 
-                "I want a beginner level paragraph in " + language +", therefore I need the paragraph to contain only simple words. " + 
-                "Here is the text I would like you to summarize at a beginner level: \n\n" + articleText + "\n\nPlease limit your summary " + 
-                "to 200 words or less. Do not exceed this word limit of 200 words. Remember, your summary should be simple enough " + 
-                " for me to understand; I am requesting a beginner level summary, meaning it should contain short sentences, simple grammar," +
-                " and words of high frequency.";
+                var promptString = generateSummaryPrompt(language, articleText);
                 var errorString = '';
                 if (language == 'select') {
                     errorString = "ERROR: Please select a language.";
