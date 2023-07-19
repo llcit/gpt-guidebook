@@ -47,27 +47,41 @@
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
           </svg>
         </button>
-        <div id="nav-menu" class="hidden absolute top-12 left-0 flex flex-col space-y-4 bg-white shadow-md p-4 rounded-lg">
+        <!-- small screen menu -->
+        <div id="nav-menu" style="width:400px;" class="hidden absolute top-12 left-0 flex flex-col space-y-4 bg-white shadow-md p-4 rounded-lg">
+          <div class="flex flex-row flex-row-reverse">
+            <button id="menu-toggle2">
+              <svg class="h-6 w-6 fill-current" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="11" x2="11" y2="1" stroke="black" stroke-width="2"/>
+                <line x1="1" y1="1" x2="11" y2="11" stroke="black" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
           <a href="{%url 'prompt:generator'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Generator</a>
           <a href="{%url 'prompt:browser'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Browser</a>
           <a href="/" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Guidebook</a>
+          {%block smallSidebar%}
+          {%endblock%}
         </div>
       </div>
-      <a href="/" class="text-xl font-semibold hidden lg:block">{%block content%}{%endblock%}</a>
+      <h1 class="text-xl font-semibold hidden lg:block">{%block content%}{%endblock%}</h1>
       <h1 class="text-xl font-semibold hidden lg:block">{%block contentnolink%} {%endblock%}</h1>
 
-      <!-- small screen menu -->
+      <!-- normal screen menu -->
       <div class="hidden lg:flex space-x-6">
         <a href="{%url 'prompt:generator'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Generator</a>
         <a href="{%url 'prompt:browser'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Browser</a>
         <a href="/" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Guidebook</a>
+        
       </div>
     </nav>
     
 
     {%block sidebar%} {%endblock%}
+    {%block smallContent%} {%endblock%}
     {%block searchcontent %} {%endblock%}
     {%block generator %} {%endblock%}
+    {%block about%} {%endblock%}
     
     
     <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
@@ -76,16 +90,7 @@
       </span>
       <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
           <li>
-              <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
-          </li>
-          <li>
-              <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
-          </li>
-          <li>
-              <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a>
-          </li>
-          <li>
-              <a href="#" class="hover:underline">Contact</a>
+              <a href="{%url 'prompt:about'%}" class="mr-4 hover:underline md:mr-6 ">About</a>
           </li>
       </ul>
       </div>
@@ -98,6 +103,10 @@
           var navMenu = document.getElementById('nav-menu');
           navMenu.classList.toggle('hidden');
         });
+        document.getElementById('menu-toggle2').addEventListener('click', function () {
+          var navMenu = document.getElementById('nav-menu');
+          navMenu.classList.toggle('hidden');
+        })
 
       });
     </script>

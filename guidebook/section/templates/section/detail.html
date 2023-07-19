@@ -4,6 +4,7 @@
 {%block content%} Guidebook on Prompting for Language Learning {%endblock%}
 
 {%block sidebar%} 
+<div class="hidden lg:block">
     <div class="ml-3 mb-16 grid grid-cols-4 gap-4">
         <div class="pb-6"> 
             <div class="col-span-1">
@@ -27,13 +28,13 @@
         </div>
  
         <div class="space-y-10 mr-24 text-5xl col-span-3" id="section-text-container">
-            {{section.section_title}}
+            <b>{{section.section_title}}</b>
             <div class="mt-10 text-lg">
                 {{section.section_description}}
             </div>
             {%for paragraph in section.paragraph_set.all%}
                 <!-- jump here -->
-                <div id="paragraph{{paragraph.id}}" class="mt-10 text-3xl">{{paragraph.paragraph_title}}</div>
+                <div id="paragraph{{paragraph.id}}" class="mt-10 text-3xl"><b>{{paragraph.paragraph_title}}</b></div>
                 <div class="text-lg">{{paragraph.paragraph_text | safe}}</div>
                 {%for prompt in paragraph.prompts.all %}
                     <div class="grid grid-cols-10 space-x-2">
@@ -64,7 +65,7 @@
                 <div class="text-2xl mt-10">
                     {%for subparagraph in paragraph.subparagraph_set.all %}
                         <div class="mt-10">
-                            {{subparagraph.subparagraph_title}}
+                            <b>{{subparagraph.subparagraph_title}}</b>
                         </div>
                         <div class="text-lg mt-10">
                             {{subparagraph.subparagraph_text}}
@@ -95,16 +96,115 @@
             {%endfor%}
         </div>
     </div>
+</div>
 {%endblock%}
-{%block script%}
-<script>
 
-
-
-
-</script>
+{%block smallSidebar%}
+    <ul>
+        {% for section in sections %}
+            <li id="section{{section.id}}" class="py-2 px-2 rounded-xl">
+                <a class="section-link text-lg font-semibold pr-20" href="{%url 'section:detail' section.id %}">{{section.section_title}}</a>
+                    <!-- 
+                    <ul>
+                        {% for paragraph in section.paragraph_set.all %}
+                        
+                            <li class="ml-3 mt-4">
+                                
+                                <a class="paragraph-link text-lg pr-20" href="{%url 'section:detail' section.id %}#paragraph{{paragraph.id}}">{{paragraph.paragraph_title}}</a>
+                            </li>
+                        {%endfor%}
+                    </ul>
+                    -->
+            </li>
+        {%endfor%}  
+    </ul>
 
 {%endblock%}
+
+{%block smallContent%}
+<div class="block lg:hidden">
+    <div class="ml-4 space-y-10 mr-4 text-5xl col-span-3" id="section-text-container">
+        <b>{{section.section_title}}</b>
+        <div class="mt-10 text-lg">
+            {{section.section_description}}
+        </div>
+        {%for paragraph in section.paragraph_set.all%}
+            <!-- jump here -->
+            <div id="paragraph{{paragraph.id}}" class="mt-10 text-3xl"><b>{{paragraph.paragraph_title}}</b></div>
+            <div class="text-lg">{{paragraph.paragraph_text | safe}}</div>
+            {%for prompt in paragraph.prompts.all %}
+                <div class="grid grid-rows-10 space-x-2">
+                    <div class="border border-gray-700 px-2 py-2">
+                        <div class="px-2 py-2 row-span-5 text-sm">
+                            <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 25%;"> 
+                                Prompt
+                            </div>
+                            <div class="mt-4 text-base">
+                                {{prompt.prompt_text | safe}}
+                            </div>
+                            <!-- 
+                            <a href="{%url 'prompt:detail' prompt.id %}" class="flex justify-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 40%;"> 
+                                View in Prompt Browser 
+                            </a>
+                            -->
+                        </div>
+                        <div class="mt-4 row-span-5 text-base">
+                            <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 55%;"> 
+                                ChatGPT Output
+                            </div>
+                            <div class="mt-4">
+                                {{prompt.prompt_output | safe}}
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            {%endfor%}
+            <div class="text-2xl mt-10">
+                {%for subparagraph in paragraph.subparagraph_set.all %}
+                    <div class="mt-10">
+                        <b>{{subparagraph.subparagraph_title}}</b>
+                    </div>
+
+                    <div class="text-lg mt-10">
+                        {{subparagraph.subparagraph_text}}
+                        {%for prompt in subparagraph.prompts.all %}
+                            <div class="mt-4 border border-gray-700 px-2 py-2">
+                                <div class="grid grid-rows-10 space-x-2">
+                                    <div class="row-span-5 text-sm">
+                                        <div class="flex justify-center items-center mt-4 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 25%;"> 
+                                            Prompt
+                                        </div>
+                                        <div class="mt-4 text-base">
+                                            {{prompt.prompt_text | safe}}
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 row-span-5 text-base">
+                                        <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 55%;"> 
+                                            ChatGPT Output
+                                        </div>
+                                        <div class="mt-4">
+                                            {{prompt.prompt_output | safe}}
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        {%endfor%}
+                    </div>
+                {%endfor%}
+            </div>
+        {%endfor%}
+    </div>
+</div>
+
+
+{%endblock%}
+
+
+
+
 
 
 

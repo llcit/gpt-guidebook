@@ -6,6 +6,9 @@ from django.db.models import Q
 from django.template.loader import render_to_string
 # Create your views here.
 
+def about(request):
+    return render(request, 'prompt/about.html')
+
 def browser(request): 
     prompts = Prompt.objects.all()
     categories = Category.objects.all()

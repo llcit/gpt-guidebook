@@ -93,7 +93,78 @@
 </div>
 
 <div class="block lg:hidden">
-    
+    <div class="grid-rows-10">
+        <div class="row-span-1 flex justify-center">
+            <div class="relative">
+                <input id="query" name="query" type="text" placeholder="Search" style="width:300px" class="py-2 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <button href="#" class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M15 10a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="row-span-1 flex justify-center">
+            <b>Filter by...</b>
+        </div>
+        <div class="row-span-1 flex justify-center" style="height:25px">
+
+        </div>
+        <div class="row-span-1 flex justify-center">
+            <b>Category:</b>
+        </div>
+        <div class="row-span-1 flex justify-center">
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                id="categories" name="categoriesSelect" autocomplete="off">
+                    <option value="AnyCategory">Any</option>
+                    {%for category in categories%}
+                        <option value="{{category.category_name}}">{{category.category_name}}</option>
+                    {%endfor%}
+                </select>
+        </div>
+        <div class="row-span-1 flex justify-center">
+            <b>Language:</b>
+        </div>
+        <div class="row-span-1 flex justify-center">
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+            dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+            dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+            id="languages" name="languageSelect" autocomplete="off">
+                <option value="AnyLanguage">Any</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Korean">Korean</option>
+                <option value="Persian">Persian</option>
+                <option value="Portuguese">Portuguese</option>
+                <option value="Russian">Russian</option>
+                <option value="English">English</option>
+            </select>
+        </div>
+        <div class="row-span-1 flex justify-center">
+            <b>Difficulty:</b>
+        </div>
+        <div class="row-span-1 flex justify-center">
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+            dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+            dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+            id="difficulties" name="difficultySelect" autocomplete="off">
+                <option value="AnyDifficulty">Any</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+            </select>
+        </div>
+        <div class="row-span-1 flex justify-center">
+            <div id="promptsContainerSmall" class="row-span-1 flex justify-center">
+                {%include 'prompt/filtered_results.html' %}
+            </div>
+        </div>
+    </div>
 </div>
 
 
