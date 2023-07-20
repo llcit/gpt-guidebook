@@ -3,192 +3,149 @@
 {%block title%} Prompt Generator {%endblock%}
 {%block content%} Prompt Generator {%endblock%}
 {%block generator%}
-<div class="hidden lg:block">
+
     <center>
         <div class="mt-4 text-2xl">Generate a prompt below!</div>
     </center>
-
-    <div class="mt-4 grid grid-cols-12 grid-rows-3" style="height:700px;">
-        <div class="col-span-2">
+    <div class="generator">
+        <div class="mt-4 grid-cols-12 grid-rows-3 grid">
+            <div class="col-span-2 emptySpace">
+                
+            </div>
+            <div class="col-span-5 bg-sky-100 border-b border-l border-t border-gray-800 promptCopyArea">
+                <div class="mt-10 row-span-1 flex justify-center items-center">
+                    <textarea id="prompt_textarea" class="px-2 py-2 promptTextArea"> </textarea>
+                </div>
+                <div class="row-span-1 flex justify-center items-center">
+                    <button id="copyButton" class="mt-10 row-span-1 px-6 py-3 
+                    text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600 copyButton">Copy Prompt</button>
+                </div>
+                <div class="mt-2 floating flex justify-center row-span-1 hidden" id="copied">
+                    Copied!
+                </div>
+                
+            </div>
             
-        </div>
-        <div class="col-span-5 bg-sky-100 border-b border-l border-t border-gray-800" style="height:700px">
-            <div class="mt-10 row-span-1 flex justify-center items-center">
-                <textarea id="prompt_textarea" class="px-2 py-2" style="height:400px; width:600px"> </textarea>
-            </div>
-            <div class="row-span-1 flex justify-center items-center">
-                <button id="copyButton" class="mt-10 row-span-1 px-6 py-3 
-                text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Copy Prompt</button>
-            </div>
-            <div class="mt-2 floating flex justify-center row-span-1 hidden" id="copied">
-                Copied!
-            </div>
-            
-        </div>
-        
-        <div class="border-b border-r border-t border-gray-800 flex justify-center place-items-center grid grid-rows-7 col-span-3 bg-sky-100" style="height:700px">
-            <div class="row-span-1 ml-2 mt-2">
-                Category:
-                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height:45px; width:225px"
-                id="categories" name="categoriesSelect" autocomplete="off">
-                    <option value="select" selected>Select a Category</option>
-                    <option value="interaction">Interaction/Role-Play</option>
-                    <option value="adventure">Choose Your Own Adventure</option>
-                    <option value="interest">Content of Personal Interest</option>
-                    <option value="generation">Content Generation</option>
-                    <option value="summarization">Article Summarization</option>
-                </select>
-            </div>
-            <div class="row-span-1 ml-2">
-                Language:
-                <select style="text-align-last: center; height:45px; width:225px" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                id="languages" name="languageSelect" autocomplete="off">
-                    <option value="select">Select a Language</option>
-                    <option value="Arabic">Arabic</option>
-                    <option value="Chinese">Chinese</option>
-                    <option value="Korean">Korean</option>
-                    <option value="Persian">Persian</option>
-                    <option value="Portuguese">Portuguese</option>
-                    <option value="Russian">Russian</option>
-                </select>
-            </div>
-                <div id="interactionLocationDiv" class="hidden interaction row-span-1 ml-2">
-                    Location:
-                    <br>
-                    <input style="width:225px" id="interactionLocation" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-                <div id="adventureActivityDiv" class="adventure hidden row-span-1 ml-2 -mt-2">
-                    Activity:
-                    <br>
-                    <input style="width:225px" id="adventureActivity" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-                <div id="classTopicDiv" class="interest hidden row-span-1 ml-2 -mt-2">
-                    Class topic:
-                    <br>
-                    <input style="width:225px" id="classTopic" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-                <div id="yourInterestDiv" class="hidden interest row-span-1 ml-2 mt-4">
-                    Your interest:
-                    <br>
-                    <input style="width:225px" id="personalInterest" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-                <div id="adventureCityDiv" class="adventure hidden row-span-1 ml-2 -mt-2">
-                    City:
-                    <br>
-                    <input style="width:225px" id="adventureCity" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-                <div id="interactionYourRoleDiv" class="hidden interaction row-span-1 ml-2 mt-4">
-                    Your role:
-                    <br>
-                    <input style="width:225px" id="interactionYourRole" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-                <div id="interactionGPTRoleDiv" class="hidden interaction row-span-1 ml-2 mt-4">
-                    ChatGPT role:
-                    <br>
-                    <input style="width:225px" id="interactionGPTRole" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-                <div id="interactionTurnDiv" class="hidden interaction row-span-1 ml-2 mt-4">
-                    Turn order:
+            <div class="border-b border-r border-t border-gray-800 flex justify-center place-items-center grid grid-rows-7 col-span-3 bg-sky-100 optionsDiv">
+                <div class="row-span-1 ml-2 mt-2">
+                    Category:
                     <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                     focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
                     dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
                     dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height:45px; width:225px"
-                    id="interactionTurnDropdown" name="languageSelect">
-                        <option value="select">Select who goes first</option>
-                        <option value="you">I go first</option>
-                        <option value="gpt">ChatGPT goes first</option>
+                    id="categories" name="categoriesSelect" autocomplete="off">
+                        <option value="select" selected>Select a Category</option>
+                        <option value="interaction">Interaction/Role-Play</option>
+                        <option value="adventure">Choose Your Own Adventure</option>
+                        <option value="interest">Content of Personal Interest</option>
+                        <option value="generation">Content Generation</option>
+                        <option value="summarization">Article Summarization</option>
                     </select>
                 </div>
-                <div id="textareaGeneration" class="hidden generation row-span-1 ml-2 mt-4">
-                    <center>
-                        <div class="mb-2">Enter your vocab words separated by commas:</div>
-                    <textarea id="vocabWordsTextarea" style="height:200px; width:300px; padding:5px"></textarea>
-                    </center>
-                </div>
-                <div id="articleTextDiv" class="hidden summarization ml-2 mt-4">
-                    <center>
-                        <div class="mb-2">Enter your article below:</div>
-                    <textarea id="articleText" style="height:200px; width:300px; padding:5px"></textarea>
-                    </center>
-                </div>
-                <div id="topicGenerationDiv" class="hidden generation row-span-1 ml-2 mt-4">
-                    Topic:
-                    <br>
-                    <input style="width:225px" id="topicGeneration" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-                <div id="levelDiv" class="hidden generation interest adventure hidden row-span-1 ml-2 mt-2">
-                    Level:
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                <div class="row-span-1 ml-2">
+                    Language:
+                    <select style="text-align-last: center; height:45px; width:225px" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                     focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
                     dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                    dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height: 45px; width:225px"
-                    id="levelSelect" name="languageSelect" autocomplete="off">
-                        <option value="select">Select a Level</option>
-                        <option value="beginner">Beginner</option>
-                        <option value="intermediate">Intermediate</option>
-                        <option value="advanced">Advanced</option>
+                    dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    id="languages" name="languageSelect" autocomplete="off">
+                        <option value="select">Select a Language</option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Korean">Korean</option>
+                        <option value="Persian">Persian</option>
+                        <option value="Portuguese">Portuguese</option>
+                        <option value="Russian">Russian</option>
                     </select>
                 </div>
-                <center>
-                    <button id="generateButton" class="hidden adventure summarization interaction interest generation mt-4 ml-2 row-span-1 px-6 py-3 
-                text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Generate!</button>
-                </center>
-            
-        </div>
-        <div class="col-span-2">
-            
+                    <div id="interactionLocationDiv" class="hidden interaction row-span-1 ml-2">
+                        Location:
+                        <br>
+                        <input style="width:225px" id="interactionLocation" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div id="adventureActivityDiv" class="adventure hidden row-span-1 ml-2 -mt-2">
+                        Activity:
+                        <br>
+                        <input style="width:225px" id="adventureActivity" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div id="classTopicDiv" class="interest hidden row-span-1 ml-2 -mt-2">
+                        Class topic:
+                        <br>
+                        <input style="width:225px" id="classTopic" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div id="yourInterestDiv" class="hidden interest row-span-1 ml-2 mt-4">
+                        Your interest:
+                        <br>
+                        <input style="width:225px" id="personalInterest" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div id="adventureCityDiv" class="adventure hidden row-span-1 ml-2 -mt-2">
+                        City:
+                        <br>
+                        <input style="width:225px" id="adventureCity" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div id="interactionYourRoleDiv" class="hidden interaction row-span-1 ml-2 mt-4">
+                        Your role:
+                        <br>
+                        <input style="width:225px" id="interactionYourRole" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div id="interactionGPTRoleDiv" class="hidden interaction row-span-1 ml-2 mt-4">
+                        ChatGPT role:
+                        <br>
+                        <input style="width:225px" id="interactionGPTRole" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div id="interactionTurnDiv" class="hidden interaction row-span-1 ml-2 mt-4">
+                        Turn order:
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                        dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                        dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height:45px; width:225px"
+                        id="interactionTurnDropdown" name="languageSelect">
+                            <option value="select">Select who goes first</option>
+                            <option value="you">I go first</option>
+                            <option value="gpt">ChatGPT goes first</option>
+                        </select>
+                    </div>
+                    <div id="textareaGeneration" class="hidden generation row-span-1 ml-2 mt-4">
+                        <center>
+                            <div class="mb-2">Enter your vocab words separated by commas:</div>
+                        <textarea id="vocabWordsTextarea" style="height:200px; width:300px; padding:5px"></textarea>
+                        </center>
+                    </div>
+                    <div id="articleTextDiv" class="hidden summarization ml-2 mt-4">
+                        <center>
+                            <div class="mb-2">Enter your article below:</div>
+                        <textarea id="articleText" style="height:200px; width:300px; padding:5px"></textarea>
+                        </center>
+                    </div>
+                    <div id="topicGenerationDiv" class="hidden generation row-span-1 ml-2 mt-4">
+                        Topic:
+                        <br>
+                        <input style="width:225px" id="topicGeneration" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div id="levelDiv" class="hidden generation interest adventure hidden row-span-1 ml-2 mt-2">
+                        Level:
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                        dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                        dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height: 45px; width:225px"
+                        id="levelSelect" name="languageSelect" autocomplete="off">
+                            <option value="select">Select a Level</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <center>
+                        <button id="generateButton" class="hidden adventure summarization interaction interest generation mt-4 ml-2 row-span-1 px-6 py-3 
+                    text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600 generateButton">Generate!</button>
+                    </center>
+                
+            </div>
+            <div class="col-span-2 spaceDivider">
+                
+            </div>
         </div>
     </div>
-</div>
-<div class="block lg:hidden">
-    <center>
-        <div class="mt-4 text-2xl">Generate a prompt below!</div>
-    </center>
-    <div class="grid grid-rows-10">
-        <div class="mt-4 row-span-1">
-            <center>
-                Category:
-                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height:45px; width:225px"
-                id="categories" name="categoriesSelect" autocomplete="off">
-                    <option value="select" selected>Select a Category</option>
-                    <option value="interaction">Interaction/Role-Play</option>
-                    <option value="adventure">Choose Your Own Adventure</option>
-                    <option value="interest">Content of Personal Interest</option>
-                    <option value="generation">Content Generation</option>
-                    <option value="summarization">Article Summarization</option>
-                </select>
-            </center>
-        </div>
-        <div class="mt-4 row-span-1">
-            <center>
-                Language:
-                <select style="text-align-last: center; height:45px; width:225px" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                id="languages" name="languageSelect" autocomplete="off">
-                    <option value="select">Select a Language</option>
-                    <option value="Arabic">Arabic</option>
-                    <option value="Chinese">Chinese</option>
-                    <option value="Korean">Korean</option>
-                    <option value="Persian">Persian</option>
-                    <option value="Portuguese">Portuguese</option>
-                    <option value="Russian">Russian</option>
-                </select>
-            </center>
-        </div>
-    </div>
-</div>
-
 
 
 {%endblock%}
@@ -276,6 +233,8 @@
                 " for me to understand; I am requesting a beginner level summary, meaning it should contain short sentences, simple grammar," +
                 " and words of high frequency.";
     }
+
+
 
 
     $(document).ready(function() {

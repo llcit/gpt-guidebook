@@ -13,6 +13,78 @@
     </script>
     <style>
 
+      @media (max-width:768px) {
+        .generator .grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr; 
+            gap: 10px; 
+            width:100%;
+            display:flex;
+            align-items:center;
+            flex-direction:column;
+            flex-grow:1;
+        }
+        .emptySpace {
+          display:hidden;
+        }
+        .promptCopyArea {
+          border:none;
+          width: 100%;
+          padding: 10px; 
+          display: flex;
+          flex-direction: column; 
+          align-items: center; 
+        }
+        .spaceDivider {
+          min-height: calc(100vh - 145px); 
+          display: flex;
+          flex-direction: column;
+        }
+        .optionsDiv {
+          border:none;
+          width:100%;
+          display:flex;
+          flex-direction:column;
+          align-items:center;
+        }
+
+        .copyButton {
+          margin-top:0px;
+        }
+
+        .promptTextArea {
+          width: 125%; 
+          max-width: 100%; 
+        }
+
+        .generateButton {
+          margin-bottom:30px;
+        }
+
+      }
+
+      .generator .grid {
+        height:700px;
+      }
+
+      .optionsDiv {
+        height:700px;
+      }
+
+      footer {
+        display:flex;
+        flex-direction: column;
+      }
+
+      .promptCopyArea {
+        height:700px;
+      }
+      .promptTextArea {
+        margin-left:10px;
+        height:400px;
+        width:120%;
+      }
+
       #menu-toggle {
         z-index: 3;
       }
@@ -34,8 +106,9 @@
         width: 100%;
         height: 100%;
         z-index: 1;
-        opacity: 0; /* Optional: Set the opacity to 0 if you don't want the link to be visible */
+        opacity: 0; 
       }
+
   </style>
   </head>
   <body>
@@ -83,18 +156,8 @@
     {%block generator %} {%endblock%}
     {%block about%} {%endblock%}
     
-    
-    <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
-      <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 Footer. All Rights Reserved.
-      </span>
-      <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-          <li>
-              <a href="{%url 'prompt:about'%}" class="mr-4 hover:underline md:mr-6 ">About</a>
-          </li>
-      </ul>
-      </div>
-    </footer>
+    {%block footer%}
+    {%endblock%}
  
     {%block script%} {%endblock%}
     <script>
