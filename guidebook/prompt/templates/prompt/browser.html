@@ -4,11 +4,10 @@
 {%block content%} Prompt Browser {%endblock%}
 
 {%block searchcontent %} 
-<div class="hidden lg:block">
-    <div class="grid grid-cols-10 grid-rows-2" style="grid-template-rows: auto auto"">
-        <div class="col-span-7 place-items-center flex justify-center mt-10" style="max-height:50px">
+    <div class="overarchingGrid">
+        <div class="searchBar">
             <div class="relative">
-                <input id="query" name="query" type="text" placeholder="Search" style="width:700px" class="py-2 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <input id="query" name="query" type="text" placeholder="Search" class="actualBar py-2 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 <button href="#" class="absolute inset-y-0 left-0 flex items-center pl-3">
                     <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M15 10a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"></path>
@@ -16,11 +15,11 @@
                 </button>
             </div>
         </div>
-        <div id="promptsContainer" class="row-start-2 col-span-7 flex justify-center" style="height:1000px">
+        <div id="promptsContainer" class="promptsDiv">
             {%include 'prompt/filtered_results.html' %}
         </div>
          
-        <div class="grid grid-rows-7 mr-10 col-span-3 row-span-2 flex justify-center" style="height:500px">
+        <div class="grid grid-rows-7 mr-10 col-span-3 row-span-2 flex justify-center browserFilterDiv">
             <div class="pt-5 row-span-1">
                 <div class="text-4xl relative flex justify-center items-center gap-5 pt-20">
                     Filter by...
@@ -90,83 +89,6 @@
         </div>
         
     </div>
-</div>
-
-<div class="block lg:hidden">
-    <div class="grid-rows-10">
-        <div class="row-span-1 flex justify-center">
-            <div class="relative">
-                <input id="query" name="query" type="text" placeholder="Search" style="width:300px" class="py-2 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <button href="#" class="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M15 10a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="row-span-1 flex justify-center">
-            <b>Filter by...</b>
-        </div>
-        <div class="row-span-1 flex justify-center" style="height:25px">
-
-        </div>
-        <div class="row-span-1 flex justify-center">
-            <b>Category:</b>
-        </div>
-        <div class="row-span-1 flex justify-center">
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                id="categories" name="categoriesSelect" autocomplete="off">
-                    <option value="AnyCategory">Any</option>
-                    {%for category in categories%}
-                        <option value="{{category.category_name}}">{{category.category_name}}</option>
-                    {%endfor%}
-                </select>
-        </div>
-        <div class="row-span-1 flex justify-center">
-            <b>Language:</b>
-        </div>
-        <div class="row-span-1 flex justify-center">
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-            dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-            dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            id="languages" name="languageSelect" autocomplete="off">
-                <option value="AnyLanguage">Any</option>
-                <option value="Arabic">Arabic</option>
-                <option value="Chinese">Chinese</option>
-                <option value="Korean">Korean</option>
-                <option value="Persian">Persian</option>
-                <option value="Portuguese">Portuguese</option>
-                <option value="Russian">Russian</option>
-                <option value="English">English</option>
-            </select>
-        </div>
-        <div class="row-span-1 flex justify-center">
-            <b>Difficulty:</b>
-        </div>
-        <div class="row-span-1 flex justify-center">
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-            dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-            dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            id="difficulties" name="difficultySelect" autocomplete="off">
-                <option value="AnyDifficulty">Any</option>
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
-            </select>
-        </div>
-        <div class="row-span-1 flex justify-center">
-            <div id="promptsContainerSmall" class="row-span-1 flex justify-center">
-                {%include 'prompt/filtered_results.html' %}
-            </div>
-        </div>
-    </div>
-</div>
-
 
 {%endblock%}
 
@@ -192,6 +114,12 @@
             filterPrompts();
         });
 
+        window.onpopstate = function(event) {
+            console.log("Popstate event detected");
+            // Call the filterPrompts function to apply the filters from the URL parameters
+            filterPrompts();
+        };
+
         function filterPrompts() {
             var selectedCategory = $('#categories').val();
             var selectedLanguage = $('#languages').val();
@@ -215,13 +143,56 @@
             success: function(response) {
                 console.log("Sucess, data received");
                 $('#promptsContainer').html(response.html);
+                updateLevelCardColor();
+
+                var urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('category', selectedCategory);
+                urlParams.set('language', selectedLanguage);
+                urlParams.set('difficulty', selectedDifficulty);
+                urlParams.set('query', inputQuery);
+                var newUrl = window.location.pathname + "?" + urlParams.toString();
+                window.history.pushState({ path: newUrl }, '', newUrl);
             },
             error: function(xhr, status, error) {
                 console.error(error);
             }
             });
         }
+
+        function updateLevelCardColor() {
+            $(".levelCard").each(function() {
+                var levelText = $(this).find(".levelSpanInsideCard").text().trim();
+                switch (levelText) {
+                case "Beginner":
+                    //$(this).css("background-color", "rgb(224 242 254)");
+                    $(this).addClass("bg-sky-100");
+                    break;
+                case "Intermediate":
+                    //$(this).css("background-color", "rgb(254 243 199)");
+                    $(this).addClass("bg-amber-100");
+                    break;
+                case "Advanced":
+                    //$(this).css("background-color", "rgb(254 226 226)");
+                    $(this).addClass("bg-red-100");
+                    break;
+                default:
+                    // Change to default color if the level text doesn't match any of the cases
+                    //$(this).css("background-color", "rgb(243 244 246)");
+                    $(this).addClass("bg-gray-100");
+                    break;
+                }
+            });
+        }
+
+        updateLevelCardColor();
+
+
     });
+
+        
+
+    
+    
 </script>
 
 

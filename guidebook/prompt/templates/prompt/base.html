@@ -13,7 +13,121 @@
     </script>
     <style>
 
+        @media (max-width:2000px) and (min-width:769px) {
+          .filteredResultsLargeDiv {
+            display:grid; 
+            grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); 
+            grid-template-rows:repeat(auto-fit, minmax(200px, 1fr));
+          }
+
+          .levelCard {
+            position: relative; 
+            height:225px;
+          }
+
+          .actualBar {
+            width:700px;
+          }
+
+          .overarchingGrid { 
+            display: grid; 
+            grid-template-columns: repeat(10, minmax(0, 1fr));
+            grid-template-rows: auto auto;
+          }
+
+          .searchBar {
+            max-height:50px; 
+            display:flex; 
+            margin-top:10px; 
+            justify-content:center; 
+            grid-column: span 7 / span 7; 
+            align-items:center; 
+            justify-items:center
+          }
+
+          .promptsDiv {
+            display:flex;
+            justify-content:center;
+            grid-column: span 7 / span 7;
+            grid-row-start:2;
+          }
+
+          .browserFilterDiv {
+            /* Grid styles */
+            height:500px; 
+            display: grid;
+            grid-template-rows: repeat(7, minmax(0, 1fr));
+
+            /* Margin styles */
+            margin-right: 10px;
+
+            /* Column and Row span styles */
+            grid-column: span 3 / span 3;
+            grid-row: span 2 / span 2;
+
+            /* Flexbox styles */
+            display: flex;
+            justify-content: center;
+          }
+
+          .levelCard {
+            max-height:225px;
+          }
+
+          .levelCard:hover {
+            transform: scale(1.05);
+          }
+
+          .pagination-container {
+            margin-top:-175px; 
+            position:relative;
+          }
+        }
+
+
+      /*===============START MEDIA QUERY===============*/
       @media (max-width:768px) {
+        .filteredResultsLargeDiv {
+          display:flex;
+          flex-direction: column;
+
+        }
+
+        .promptsDiv {
+          display: flex;
+          justify-content: center;
+          
+        }
+        
+        .searchBar {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .actualBar {
+          width:300px;
+        }
+
+        .overarchingGrid {
+          display: flex;
+          flex-direction: column;
+          align-items: center; /* Center horizontally */
+          justify-content: center; /* Center vertically */
+        }
+
+        .browserFilterDiv {
+          display: flex;
+          flex-direction: column;
+          align-items: center; /* Center horizontally */
+          justify-content: center; /* Center vertically */
+          margin-top: -200px;
+        }
+
+        .filtersDiv {
+          height: auto; 
+        }
+
         .generator .grid {
             grid-template-columns: 1fr;
             grid-template-rows: auto 1fr; 
@@ -34,11 +148,6 @@
           display: flex;
           flex-direction: column; 
           align-items: center; 
-        }
-        .spaceDivider {
-          min-height: calc(100vh - 145px); 
-          display: flex;
-          flex-direction: column;
         }
         .optionsDiv {
           border:none;
@@ -61,6 +170,15 @@
           margin-bottom:30px;
         }
 
+        .spaceDivider {
+          height:550px;
+        }
+
+      }
+      /*======================END MEDIA QUERY====================*/
+
+      .promptsDiv {
+        height:1000px;
       }
 
       .generator .grid {
