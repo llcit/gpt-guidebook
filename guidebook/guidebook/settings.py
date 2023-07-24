@@ -28,6 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["168.105.86.91", "127.0.0.1"]
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 # Application definition
 
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
     "prompt",
     "section",
     "django_user_agents",
+    "tailwind",
 ]
 
 MIDDLEWARE = [

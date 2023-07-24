@@ -10,13 +10,13 @@
     <div class="flex justify-center">
         <div class="w-3/4 grid grid-cols-2 grid-rows-5 p-4 m-10" style="grid-template-rows: auto auto">
             <div class="py-6 px-6 col-span-1">
-                <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 25%;"> 
-                    Prompt
+                <div class="flex flex-row justify-center items-center"> 
+                    <div class="mt-2 py-4 px-6 bg-sky-500 text-lg rounded-xl text-white mr-2" style="width:150px;"><center>Prompt</center></div>
+                    <div class="mt-2 py-4 px-6 bg-orange-500 text-lg rounded-xl text-white hover:bg-orange-600" style="width:155px;">
+                        <center><button id="copyButton">Copy Prompt</button></center>
+                    </div>
                 </div>
                 <center>
-                    <div class="flex justify-center items-center mt-4 row-span-1 py-4 px-8 bg-orange-500 text-lg rounded-xl text-white" style="width:125px;">
-                        <button id="copyButton">Copy Prompt</button>
-                    </div>
                     <div id="copied" class="hidden">Copied!</div>
                 </center>
                 
@@ -74,7 +74,7 @@
 {%block footer%}
     <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
       <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 Footer. All Rights Reserved.
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 The Language Flagship. All Rights Reserved.
       </span>
       <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
           <li>

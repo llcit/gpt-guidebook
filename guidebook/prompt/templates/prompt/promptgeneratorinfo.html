@@ -1,0 +1,26 @@
+{%extends 'prompt/base.html'%}
+
+{%block promptbrowserinfo%}
+<div class="mt-4 ml-6 mr-6">
+    <a href="{%url 'prompt:generator' %}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Back</a>
+</div>
+
+<div class="mt-4 ml-6 text-5xl mr-6">
+    How to Use the Prompt Generator:
+    <div class="mt-10 text-2xl">
+        The prompt generator is a way for language learners to make their own prompts to copy and paste into ChatGPT.
+        <br>
+        <br>
+        <b>Steps for using the generator:</b>
+        <br>
+        <br>
+        <b>1.</b> Select your target language<br>
+        <b>2.</b> Select a prompt category<br>
+        <b>3.</b> Input your specific parameters for the prompt<br>
+        <b>4.</b> Generate the prompt<br>
+        <b>5.</b> Copy and paste the prompt into ChatGPT<br>
+        <br>
+        Congratulations, you've just generated your own prompt!
+    </div>
+</div>
+{%endblock%}

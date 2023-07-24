@@ -6,6 +6,9 @@ from django.db.models import Q
 from django.template.loader import render_to_string
 # Create your views here.
 
+def promptgeneratorinfo(request):
+    return render(request, 'prompt/promptgeneratorinfo.html')
+
 def promptbrowserinfo(request):
     return render(request, 'prompt/promptbrowserinfo.html')
 
