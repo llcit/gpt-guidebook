@@ -139,6 +139,9 @@
                         <button id="generateButton" class="hidden adventure summarization interaction interest generation mt-4 ml-2 row-span-1 px-6 py-3 
                     text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600 generateButton">Generate!</button>
                     </center>
+                    <center class="hidden" id="generated">
+                        Generated!
+                    </center>
                 
             </div>
             
@@ -353,6 +356,10 @@
                     $('#prompt_textarea').val(errorString);
                 } else {
                     $('#prompt_textarea').val(promptString);
+                    $('#generated').removeClass('hidden');
+                    setTimeout(function () {
+                        $('#generated').addClass('hidden');
+                    }, 1000);
                 }
               
             } else if (selectedCategory == 'adventure') {
@@ -375,6 +382,10 @@
                     $('#prompt_textarea').val(errorString);
                 } else {
                     $('#prompt_textarea').val(promptString);
+                    $('#generated').removeClass('hidden');
+                    setTimeout(function () {
+                        $('#generated').addClass('hidden');
+                    }, 1000);
                 }
                 
             } else if (selectedCategory == 'interest') {
@@ -402,6 +413,10 @@
                     $('#prompt_textarea').val(errorString);
                 } else {
                     $('#prompt_textarea').val(promptString);
+                    $('#generated').removeClass('hidden');
+                    setTimeout(function () {
+                        $('#generated').addClass('hidden');
+                    }, 1000);
                 }
 
             } else if (selectedCategory == 'generation') {
@@ -437,6 +452,10 @@
                     $('#prompt_textarea').val(errorString);
                 } else {
                     $('#prompt_textarea').val(promptString);
+                    $('#generated').removeClass('hidden');
+                    setTimeout(function () {
+                        $('#generated').addClass('hidden');
+                    }, 1000);
                 }
                 
             } else if (selectedCategory == 'summarization') {
@@ -453,6 +472,10 @@
                     $('#prompt_textarea').val(errorString);
                 } else {
                     $('#prompt_textarea').val(promptString);
+                    $('#generated').removeClass('hidden');
+                    setTimeout(function () {
+                        $('#generated').addClass('hidden');
+                    }, 1000);
                 }
                 
             }

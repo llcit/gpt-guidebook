@@ -7,22 +7,26 @@
     <title>{%block title%} {%endblock%}</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="{% static 'script.js' %}" type="text/javascript"></script>
     <script>
       var csrfToken = '{{ csrf_token }}';
     </script>
     <style>
 
-        @media (max-width:2000px) and (min-width:769px) {
+        @media (max-width:4000px) and (min-width:769px) {
+
           .filteredResultsLargeDiv {
             display:grid; 
             grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); 
-            grid-template-rows:repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-rows:repeat(auto-fit, minmax(225px, 1fr));
           }
 
           .levelCard {
-            position: relative; 
-            height:225px;
+            /*position: relative; */
+            max-height:225px;
+          }
+
+          .levelCard:hover {
+            transform: scale(1.05);
           }
 
           .actualBar {
@@ -31,8 +35,8 @@
 
           .overarchingGrid { 
             display: grid; 
-            grid-template-columns: repeat(10, minmax(0, 1fr));
-            grid-template-rows: auto auto;
+            grid-template-columns: auto;
+            grid-template-rows: 3;
           }
 
           .searchBar {
@@ -70,13 +74,7 @@
             justify-content: center;
           }
 
-          .levelCard {
-            max-height:225px;
-          }
-
-          .levelCard:hover {
-            transform: scale(1.05);
-          }
+          
 
           .pagination-container {
             margin-top:-175px; 
@@ -85,18 +83,33 @@
         }
 
 
-      /*===============START MEDIA QUERY===============*/
+      /*===============START PHONE MEDIA QUERY===============*/
       @media (max-width:768px) {
+        .promptLevelSection {
+          margin-top:10px;
+        }
+
         .filteredResultsLargeDiv {
           display:flex;
           flex-direction: column;
-
+          position:relative;
+        }
+        .link-overlay {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          opacity: 0;
         }
 
         .promptsDiv {
           display: flex;
           justify-content: center;
           
+        }
+
+        .levelCard {
+          max-height: 250px;
         }
         
         .searchBar {
@@ -239,7 +252,7 @@
           </svg>
         </button>
         <!-- small screen menu -->
-        <div id="nav-menu" style="width:400px;" class="hidden absolute top-12 left-0 flex flex-col space-y-4 bg-white shadow-md p-4 rounded-lg">
+        <div id="nav-menu" style="width:300px;" class="hidden absolute top-12 left-0 flex flex-col space-y-4 bg-white shadow-md p-4 rounded-lg">
           <div class="flex flex-row flex-row-reverse">
             <button id="menu-toggle2">
               <svg class="h-6 w-6 fill-current" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -273,6 +286,7 @@
     {%block searchcontent %} {%endblock%}
     {%block generator %} {%endblock%}
     {%block about%} {%endblock%}
+    {%block promptbrowserinfo%} {%endblock%}
     
     {%block footer%}
     {%endblock%}

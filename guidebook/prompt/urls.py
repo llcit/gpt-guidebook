@@ -8,6 +8,7 @@ urlpatterns = [
     path('generator/', views.generator, name='generator'),
     path('browser/', views.browser, name='browser'),
     path('about/', views.about, name='about'),
+    path('promptbrowserinfo/', views.promptbrowserinfo, name='promptbrowserinfo'),
     path('<int:pk>/', views.detail, name='detail'),
     path('filterData/', views.filterData, name='filterData'),
 ]

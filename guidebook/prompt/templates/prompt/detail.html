@@ -8,19 +8,26 @@
 {%block searchcontent%}
 <div class="hidden lg:block">
     <div class="flex justify-center">
-        <div class="w-3/4 grid grid-cols-2 grid-rows-4 p-4 m-10" style="grid-template-rows: auto auto"">
+        <div class="w-3/4 grid grid-cols-2 grid-rows-5 p-4 m-10" style="grid-template-rows: auto auto">
             <div class="py-6 px-6 col-span-1">
                 <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 25%;"> 
                     Prompt
                 </div>
+                <center>
+                    <div class="flex justify-center items-center mt-4 row-span-1 py-4 px-8 bg-orange-500 text-lg rounded-xl text-white" style="width:125px;">
+                        <button id="copyButton">Copy Prompt</button>
+                    </div>
+                    <div id="copied" class="hidden">Copied!</div>
+                </center>
+                
                 <div class="mt-6 mb-6 row-span-3"> 
-                    {{prompt.prompt_text | safe}}
+                    <span id="promptTextArea">{{prompt.prompt_text | safe}}</span>
                 </div>
             </div>
     
             <div class="py-6 px-6 col-span-1 row-span-4">
                 <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 40%;"> 
-                    ChatGPT Output
+                    <center>ChatGPT Example Output</center>
                 </div>
                 <div class="mt-4">
                     {{prompt.prompt_output | safe}}
@@ -37,14 +44,20 @@
             <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white"> 
                 Prompt
             </div>
+            <center>
+                <div class="flex justify-center items-center mt-4 row-span-1 py-4 px-8 bg-orange-500 text-lg rounded-xl text-white" style="width:125px;">
+                    <button id="copyButtonMobile">Copy Prompt</button>
+                </div>
+                <div id="copiedMobile" class="hidden">Copied!</div>
+            </center>
             <div class="mt-6 mb-6"> 
-                {{prompt.prompt_text | safe}}
+                <span id="promptTextAreaMobile">{{prompt.prompt_text | safe}}</span>
             </div>
         </div>
 
         <div class="py-6 px-6">
             <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white"> 
-                ChatGPT Output
+                <center>ChatGPT Example Output</center>
             </div>
             <div class="mt-4">
                 {{prompt.prompt_output | safe}}
@@ -74,6 +87,59 @@
 
 {%block script%}
 <script>
-    
+
+    const copyButton = document.getElementById('copyButton');
+    const textToCopy = document.getElementById('promptTextArea');
+
+    copyButton.addEventListener('click', () => {
+        
+
+        const range = document.createRange();
+        range.selectNode(textToCopy);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+
+        try {
+            const successful = document.execCommand('copy');
+            const msg = successful ? 'Text copied to clipboard!' : 'Unable to copy text!';
+            console.log(msg);
+            $('#copied').removeClass('hidden');
+            setTimeout(function () {
+                $('#copied').addClass('hidden');
+            }, 1000);
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+        }
+
+        window.getSelection().removeAllRanges();
+    });
+
+
+    //=========MOBILE:============
+    const copyButtonMobile = document.getElementById('copyButtonMobile');
+    const textToCopyMobile = document.getElementById('promptTextAreaMobile');
+
+    copyButtonMobile.addEventListener('click', () => {
+        
+        const range = document.createRange();
+        range.selectNode(textToCopyMobile);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+
+        try {
+            const successful = document.execCommand('copy');
+            const msg = successful ? 'Text copied to clipboard!' : 'Unable to copy text!';
+            console.log(msg);
+            $('#copiedMobile').removeClass('hidden');
+            setTimeout(function () {
+                $('#copiedMobile').addClass('hidden');
+            }, 1000);
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+        }
+
+        window.getSelection().removeAllRanges();
+    });
+
 </script>
 {%endblock%}

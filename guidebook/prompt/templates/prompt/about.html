@@ -2,10 +2,29 @@
 {%block about%}
 <div class="mt-4 ml-10 text-5xl">
     About
-    <div class="text-xl">
+    <div class="text-lg">
       <br>
       The purpose of this website is to help language learners harness the power of ChatGPT to aid in their language learning.
-      
+      It contains 3 sections: the Guidebook, the Prompt Browser, and the Prompt Generator.
+      <br>
+      <br>
+      In the <a href="/" class="text-sky-400 underline">guidebook</a>, 
+      students can review the various sections of information about how to use ChatGPT for language-learning purposes. 
+      Some sections include the "Accuracy Disclaimer" section, which goes over some of the issues encountered through experimentation with ChatGPT's 
+      language capabilities, the "Prompt Types" section, which describes the a few types of prompts that students can use, and 
+      the "Indicating Level in a Prompt" section, which shows examples of prompts at different language levels.
+      <br>
+      <br>
+      In the <a href="{%url 'prompt:browser'%}" class="text-sky-400 underline">prompt browser</a>, 
+      students can browse various existing prompts and a sample ChatGPT output.
+      <br>
+      <br>
+      In the <a href="{%url 'prompt:generator'%}" class="text-sky-400 underline">prompt generator</a>,
+      students can input their own parameters and generate their own prompts to copy and paste into ChatGPT.
+      <div class="flex flex-row">
+        <img style="margin-top:20px; height:25%; width:25%;" src="/static/tech-center_logo_web.png">
+      </div>
+     
     </div>
 </div>
 

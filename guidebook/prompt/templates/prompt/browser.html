@@ -4,111 +4,89 @@
 {%block content%} Prompt Browser {%endblock%}
 
 {%block searchcontent %} 
-    <div class="overarchingGrid">
-        <div class="searchBar">
-            <div class="relative">
-                <input id="query" name="query" type="text" placeholder="Search" class="actualBar py-2 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <button href="#" class="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M15 10a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div id="promptsContainer" class="promptsDiv">
-            {%include 'prompt/filtered_results.html' %}
-        </div>
-         
-        <div class="grid grid-rows-7 mr-10 col-span-3 row-span-2 flex justify-center browserFilterDiv">
-            <div class="pt-5 row-span-1">
-                <div class="text-4xl relative flex justify-center items-center gap-5 pt-20">
-                    Filter by...
-                </div>
-            </div>
-            <div class="row-span-1 pt-5">
-                <div class="text-4xl relative flex justify-center items-center">
-                    
-                </div>
-            </div>
-            <div class="row-span-1 pt-5">
-                Category:
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                    dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                    dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    id="categories" name="categoriesSelect" autocomplete="off">
-                        <option value="AnyCategory">Any</option>
-                        {%for category in categories%}
-                            <option value="{{category.category_name}}">{{category.category_name}}</option>
-                        {%endfor%}
-                    </select>
-            </div>
-            
-            <div class="pt-5 row-span-1">
-                Language:
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                    dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                    dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    id="languages" name="languageSelect" autocomplete="off">
-                        <option value="AnyLanguage">Any</option>
-                        <option value="Arabic">Arabic</option>
-                        <option value="Chinese">Chinese</option>
-                        <option value="Korean">Korean</option>
-                        <option value="Persian">Persian</option>
-                        <option value="Portuguese">Portuguese</option>
-                        <option value="Russian">Russian</option>
-                        <option value="English">English</option>
-                    </select>
-            </div> 
-            <div class="pt-5 row-span-1">
-                Difficulty:
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                    dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                    dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    id="difficulties" name="difficultySelect" autocomplete="off">
-                        <option value="AnyDifficulty">Any</option>
-                        <option value="Beginner">Beginner</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advanced">Advanced</option>
-                    </select>
-            </div>
-            <div class="justify-center items-center pt-5 row-span-1">
-    
-            </div>
-            <!-- 
-            <div class="relative flex justify-center items-center pt-5 row-span-1">
-                <ul>
-                    <li>
-                        <button id="clearFiltersButton" href="#" class="mt-2 py-4 px-8 inline-block bg-red-500 text-lg rounded-xl text-white">Clear Filters</button>
-                    </li>
-                </ul>
-            </div>
-            -->
-        </div>
-        
+    <div class="mb-10 mt-10">
+        <center>
+            <a href="{%url 'prompt:promptbrowserinfo' %}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">What is the Prompt Browser?</a>
+        </center>
     </div>
 
-{%endblock%}
+    <div class="searchBar">
+        <div class="relative">
+            <input id="query" name="query" type="text" placeholder="Search" class="actualBar py-2 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <button href="#" class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M15 10a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+    
+    <div class="text-4xl flex justify-center mt-4">Filter by...</div>
+    <center class="mt-4">
+        <b>Category:</b>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+            dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+            dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+            id="categories" name="categoriesSelect" autocomplete="off" style="width:25%">
+                <option value="AnyCategory">Any</option>
+                {%for category in categories%}
+                    <option value="{{category.category_name}}">{{category.category_name}}</option>
+                {%endfor%}
+            </select>
+    </center>
+    <center class="mt-4">
+        <b>Language:</b>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+            dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+            dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+            id="languages" name="languageSelect" autocomplete="off" style="width:25%">
+                <option value="AnyLanguage">Any</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Korean">Korean</option>
+                <option value="Persian">Persian</option>
+                <option value="Portuguese">Portuguese</option>
+                <option value="Russian">Russian</option>
+                <option value="English">English</option>
+            </select>
+    </center> 
+    <center class="mt-4">
+        <b>Difficulty:</b>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+            dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+            dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+            id="difficulties" name="difficultySelect" autocomplete="off" style="width:25%">
+                <option value="AnyDifficulty">Any</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+            </select>
+    </center>
 
-{%block footer%}
-    <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
-      <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 Footer. All Rights Reserved.
-      </span>
-      <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-          <li>
-              <a href="{%url 'prompt:about'%}" class="mr-4 hover:underline md:mr-6 ">About</a>
-          </li>
-      </ul>
-      </div>
-    </footer>
+    
+    <div id="promptsContainer" class="promptsDiv">
+        {%include 'prompt/filtered_results.html' %}
+    </div>
+
 {%endblock%}
 
 {%block script%}
 <script> 
     $(document).ready(function() {
+        $('.promptCardLink').on('click', function (e) {
+            // Prevent the default link behavior
+            e.preventDefault();
+
+            // Get the URL from the href attribute of the clicked promptCardLink
+            var url = $(this).attr('href');
+
+            // Navigate to the URL
+            window.location.href = url;
+        });
+
         $('#categories, #languages, #difficulties, #query').change(function() {
             console.log("change detected");
             filterPrompts();
@@ -144,14 +122,6 @@
                 console.log("Sucess, data received");
                 $('#promptsContainer').html(response.html);
                 updateLevelCardColor();
-
-                var urlParams = new URLSearchParams(window.location.search);
-                urlParams.set('category', selectedCategory);
-                urlParams.set('language', selectedLanguage);
-                urlParams.set('difficulty', selectedDifficulty);
-                urlParams.set('query', inputQuery);
-                var newUrl = window.location.pathname + "?" + urlParams.toString();
-                window.history.pushState({ path: newUrl }, '', newUrl);
             },
             error: function(xhr, status, error) {
                 console.error(error);
@@ -178,7 +148,7 @@
                 default:
                     // Change to default color if the level text doesn't match any of the cases
                     //$(this).css("background-color", "rgb(243 244 246)");
-                    $(this).addClass("bg-gray-100");
+                    $(this).addClass("bg-lime-100");
                     break;
                 }
             });

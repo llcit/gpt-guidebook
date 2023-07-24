@@ -4,8 +4,10 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.db.models import Q
 from django.template.loader import render_to_string
-from django_user_agents.utils import get_user_agent
 # Create your views here.
+
+def promptbrowserinfo(request):
+    return render(request, 'prompt/promptbrowserinfo.html')
 
 def about(request):
     return render(request, 'prompt/about.html')
@@ -14,23 +16,9 @@ def browser(request):
     prompts = Prompt.objects.all()
     categories = Category.objects.all()
 
-    prompts_per_page = 3
-
-    user_agent = get_user_agent(request)
-    if user_agent.is_pc:
-        prompts_per_page = 6
-    
-    if user_agent.is_mobile:
-        prompts_per_page = 3
-
-    paginator = Paginator(prompts, prompts_per_page)
-    page_number = request.GET.get('page')
-    page_prompts = paginator.get_page(page_number)
-
     return render(request, 'prompt/browser.html', {
         'prompts': prompts,
         'categories': categories,
-        'page_prompts': page_prompts
     })
 
 def generator(request):
@@ -78,11 +66,7 @@ def filterData(request):
         
         prompts = allPrompts.filter(**filter_conditions) if filter_conditions else allPrompts
 
-        paginator = Paginator(prompts, 6)
-        page_number = request.GET.get('page')
-        page_prompts = paginator.get_page(page_number)
-
-        context = {'page_prompts': page_prompts}
+        context = {'prompts': prompts}
         html = render_to_string('prompt/filtered_results.html', context)
         
         return JsonResponse({'html': html})

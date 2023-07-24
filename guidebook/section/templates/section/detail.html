@@ -17,7 +17,7 @@
                                     <!-- here is the section where the links are-->
                                         <li class="ml-3">
                                             <!-- this anchor tag -->
-                                            <a class="paragraph-link" href="{%url 'section:detail' section.id %}#paragraph{{paragraph.id}}">{{paragraph.paragraph_title}}</a>
+                                            <a class="paragraph-link" href="{%url 'section:detail' section.id %}#paragraph{{paragraph.id}}">{{paragraph.paragraph_title | safe}}</a>
                                         </li>
                                     {%endfor%}
                                 </ul>
@@ -28,9 +28,9 @@
         </div>
  
         <div class="space-y-10 mr-24 text-5xl col-span-3" id="section-text-container">
-            <b>{{section.section_title}}</b>
+            <b>{{section.section_title | safe}}</b>
             <div class="mt-10 text-lg">
-                {{section.section_description}}
+                {{section.section_description | safe}}
             </div>
             {%for paragraph in section.paragraph_set.all%}
                 <!-- jump here -->
@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-span-5 text-base border border-gray-700 py-4 px-4">
                             <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 45%;"> 
-                                ChatGPT Output
+                                <center>ChatGPT Example Output</center>
                             </div>
                             <div class="mt-10">
                                 {{prompt.prompt_output | safe}}
@@ -65,10 +65,10 @@
                 <div class="text-2xl mt-10">
                     {%for subparagraph in paragraph.subparagraph_set.all %}
                         <div class="mt-10">
-                            <b>{{subparagraph.subparagraph_title}}</b>
+                            <b>{{subparagraph.subparagraph_title | safe}}</b>
                         </div>
                         <div class="text-lg mt-10">
-                            {{subparagraph.subparagraph_text}}
+                            {{subparagraph.subparagraph_text | safe}}
                             {%for prompt in subparagraph.prompts.all %}
                                 <div class="mt-10 grid grid-cols-10 space-x-2">
                                     <div class="col-span-5 text-sm border border-gray-700 py-4 px-4">
@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="col-span-5 text-base border border-gray-700 py-4 px-4">
                                         <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 45%;"> 
-                                            ChatGPT Output
+                                            <center>ChatGPT Example Output</center>
                                         </div>
                                         <div class="mt-10">
                                             {{prompt.prompt_output | safe}}
@@ -99,6 +99,9 @@
 </div>
 {%endblock%}
 
+
+
+<!-- ================================MOBILE CONTENT===================================-->
 {%block smallSidebar%}
     <ul>
         {% for section in sections %}
@@ -124,9 +127,9 @@
 {%block smallContent%}
 <div class="block lg:hidden">
     <div class="ml-4 space-y-10 mr-4 text-5xl col-span-3" id="section-text-container">
-        <b>{{section.section_title}}</b>
+        <b>{{section.section_title | safe}}</b>
         <div class="mt-10 text-lg">
-            {{section.section_description}}
+            {{section.section_description | safe}}
         </div>
         {%for paragraph in section.paragraph_set.all%}
             <!-- jump here -->
@@ -149,8 +152,8 @@
                             -->
                         </div>
                         <div class="mt-4 row-span-5 text-base">
-                            <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 55%;"> 
-                                ChatGPT Output
+                            <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 60%;"> 
+                                <center>ChatGPT Example Output</center>
                             </div>
                             <div class="mt-4">
                                 {{prompt.prompt_output | safe}}
@@ -163,11 +166,11 @@
             <div class="text-2xl mt-10">
                 {%for subparagraph in paragraph.subparagraph_set.all %}
                     <div class="mt-10">
-                        <b>{{subparagraph.subparagraph_title}}</b>
+                        <b>{{subparagraph.subparagraph_title | safe}}</b>
                     </div>
 
                     <div class="text-lg mt-10">
-                        {{subparagraph.subparagraph_text}}
+                        {{subparagraph.subparagraph_text | safe}}
                         {%for prompt in subparagraph.prompts.all %}
                             <div class="mt-4 border border-gray-700 px-2 py-2">
                                 <div class="grid grid-rows-10 space-x-2">
@@ -180,8 +183,8 @@
                                         </div>
                                     </div>
                                     <div class="mt-4 row-span-5 text-base">
-                                        <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 55%;"> 
-                                            ChatGPT Output
+                                        <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 60%;"> 
+                                            <center>ChatGPT Example Output</center>
                                         </div>
                                         <div class="mt-4">
                                             {{prompt.prompt_output | safe}}
