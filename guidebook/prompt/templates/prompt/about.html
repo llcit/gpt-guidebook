@@ -11,9 +11,13 @@
 {%block footer%}
     <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
       <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">This project was fully or partially funded under a grant from the Institute of International Education (IIE), acting as the administrative agent of the Defense Language and National Security Education Office (DLNSEO) for The Language Flagship. One should not assume endorsement by the Federal Government. Project P.I.: Dr. Julio C. Rodriguez (juliocr@hawaii.edu) Project Lead: Dr. Richard Medina.
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 The Language Flagship Technology Innovation Center. All Rights Reserved.
       </span>
-      
+      <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+          <li>
+              <a href="{%url 'prompt:about'%}" class="mr-4 hover:underline md:mr-6 ">About</a>
+          </li>
+      </ul>
       </div>
     </footer>
 {%endblock%}

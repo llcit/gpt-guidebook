@@ -65,7 +65,11 @@ wheels/
 .installed.cfg 
 *.egg 
 *.manifest 
-*.spec 
+*.spec
+
+node_modules/
+package-lock.json
+package.json
 
 # Installer logs 
 pip-log.txt 
