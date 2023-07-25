@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Prompt, Category, Section, Paragraph, Subparagraph
+from .models import Prompt, Category, Section, Paragraph, Subparagraph, SimplePage
 
 # Register your models here.
 
@@ -48,7 +48,11 @@ class PromptAdmin(admin.ModelAdmin):
     inlines = [ParagraphPromptInline]
     list_filter = ["category__category_name", "prompt_language"]
 
+class SimplePageAdmin(admin.ModelAdmin):
+    model = SimplePage
+
 admin.site.register(Prompt, PromptAdmin)
 admin.site.register(Paragraph, ParagraphAdmin)
 admin.site.register(Section, SectionAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(SimplePage, SimplePageAdmin)

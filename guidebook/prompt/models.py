@@ -51,3 +51,11 @@ class Subparagraph(models.Model):
 
     def __str__(self):
         return self.subparagraph_title or "Untitled"
+
+class SimplePage(models.Model):
+    title = models.CharField(max_length=255, blank=False)
+    text = models.TextField(blank=False)
+    slug = models.SlugField(max_length=255, blank=False, unique=True)
+
+    def __str__(self):
+        return self.title

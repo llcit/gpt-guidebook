@@ -1,46 +1,21 @@
 {%extends 'prompt/base.html'%}
 {%block about%}
 <div class="mt-4 ml-10 text-5xl">
-    About
+    {{title}}
     <div class="text-lg">
-      <br>
-      The purpose of this website is to help language learners harness the power of ChatGPT to aid in their language learning.
-      It contains three sections: the Guidebook, the Prompt Browser, and the Prompt Generator.
-      <br>
-      <br>
-      In the <a href="/" class="text-sky-400 underline">guidebook</a>, 
-      students can review the various sections of information about how to use ChatGPT for language-learning purposes. 
-      Some sections include the "Accuracy Disclaimer" section, which goes over some of the issues encountered through experimentation with ChatGPT's 
-      language capabilities, the "Prompt Types" section, which describes the a few types of prompts that students can use, and 
-      the "Indicating Level in a Prompt" section, which shows examples of prompts at different language levels.
-      <br>
-      <br>
-      In the <a href="{%url 'prompt:browser'%}" class="text-sky-400 underline">prompt browser</a>, 
-      students can browse various existing prompts and a sample ChatGPT output.
-      <br>
-      <br>
-      In the <a href="{%url 'prompt:generator'%}" class="text-sky-400 underline">prompt generator</a>,
-      students can input their own parameters and generate their own prompts to copy and paste into ChatGPT.
-      <div class="flex flex-row">
-        <img style="margin-top:20px; height:25%; width:25%;" src="/static/tech-center_logo_web.png">
-      </div>
-     
+      {{content|safe}}
     </div>
 </div>
-
-
 {%endblock%}
 
 {%block footer%}
     <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
       <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 The Language Flagship. All Rights Reserved.
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">This project was fully or partially funded under a grant from the Institute of International Education (IIE), acting as the administrative agent of the Defense Language and National Security Education Office (DLNSEO) for The Language Flagship. One should not assume endorsement by the Federal Government. Project P.I.: Dr. Julio C. Rodriguez (juliocr@hawaii.edu) Project Lead: Dr. Richard Medina.
       </span>
-      <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-          <li>
-              <a href="{%url 'prompt:about'%}" class="mr-4 hover:underline md:mr-6 ">About</a>
-          </li>
-      </ul>
+      
       </div>
     </footer>
 {%endblock%}
+
+

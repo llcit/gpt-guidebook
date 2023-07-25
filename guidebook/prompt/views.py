@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Prompt, Category
+from .models import Prompt, Category, SimplePage
 from django.core.paginator import Paginator 
 from django.http import JsonResponse
 from django.db.models import Q
@@ -13,9 +13,10 @@ def promptbrowserinfo(request):
     return render(request, 'prompt/promptbrowserinfo.html')
 
 def about(request):
-    return render(request, 'prompt/about.html')
+    about_page = get_object_or_404(SimplePage, slug='about')
+    return render(request, 'prompt/about.html', {'title': about_page.title, 'content': about_page.text})
 
-def browser(request): 
+def browser(request):
     prompts = Prompt.objects.all()
     categories = Category.objects.all()
 
