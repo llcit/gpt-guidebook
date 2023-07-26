@@ -4,6 +4,7 @@
     {%load static%}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" >
     <link href="{% static 'output.css' %}" rel="stylesheet">
     <title>{%block title%} {%endblock%}</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -245,6 +246,7 @@
   </head>
   <body>
     <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
+      <img src="{% static 'logo.png' %}" width="100px">
       <div class="lg:hidden relative">
         <button id="menu-toggle" class="flex items-center px-3 py-2 border rounded text-sky-500 border-sky-500 hover:text-sky-700 hover:border-sky-700">
           <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -252,6 +254,7 @@
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
           </svg>
         </button>
+        
         <!-- small screen menu -->
         <div id="nav-menu" style="width:300px;" class="hidden absolute top-12 left-0 flex flex-col space-y-4 bg-white shadow-md p-4 rounded-lg">
           <div class="flex flex-row flex-row-reverse">
@@ -269,6 +272,7 @@
           {%endblock%}
         </div>
       </div>
+      
       <h1 class="text-xl font-semibold hidden lg:block">{%block content%}{%endblock%}</h1>
       <h1 class="text-xl font-semibold hidden lg:block">{%block contentnolink%} {%endblock%}</h1>
 
