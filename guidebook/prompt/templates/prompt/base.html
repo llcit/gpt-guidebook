@@ -256,8 +256,9 @@
         </button>
         
         <!-- small screen menu -->
-        <div id="nav-menu" style="width:300px;" class="hidden absolute top-12 left-0 flex flex-col space-y-4 bg-white shadow-md p-4 rounded-lg">
-          <div class="flex flex-row flex-row-reverse">
+        
+        <div id="nav-menu" style="right: 0; left: auto; width:300px;" class="hidden absolute top-12 flex flex-col space-y-4 bg-white shadow-md p-4 rounded-lg">
+          <div class="flex flex-row justify-end">
             <button id="menu-toggle2">
               <svg class="h-6 w-6 fill-current" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <line x1="1" y1="11" x2="11" y2="1" stroke="black" stroke-width="2"/>
@@ -270,6 +271,7 @@
           <a href="/" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Guidebook</a>
           {%block smallSidebar%}
           {%endblock%}
+          
         </div>
       </div>
       
@@ -277,11 +279,11 @@
       <h1 class="text-xl font-semibold hidden lg:block">{%block contentnolink%} {%endblock%}</h1>
 
       <!-- normal screen menu -->
-      <div class="hidden lg:flex space-x-6">
+      <div class="hidden lg:flex flex-row space-x-6">
+        
         <a href="{%url 'prompt:generator'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Generator</a>
         <a href="{%url 'prompt:browser'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Browser</a>
         <a href="/" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Guidebook</a>
-        
       </div>
     </nav>
     
