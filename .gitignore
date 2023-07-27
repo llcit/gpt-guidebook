@@ -142,3 +142,4 @@ GitHub.sublime-settings
 .DS_Store
 
 prod_settings.py
+db.sqlite3
