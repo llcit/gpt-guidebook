@@ -4,18 +4,23 @@
 {%block content%} Guidebook on Prompting for Language Learning {%endblock%}
 
 {%block sidebar%} 
-<div class="hidden lg:block">
+<!--
+<button style="position:fixed; bottom:10px; left:100px" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600" id="toggleDarkButton">
+    Toggle 🔆/🌙</button>
+-->
+
+<div class="hidden lg:block" id="largeScreenDiv">
     <div class="ml-3 mb-16 grid grid-cols-4 gap-4">
-        <div class="pb-6"> 
+        <div class="pb-6" style="border-right-width: 1px;"> 
             <div class="col-span-1">
                 <ul>
                     {% for section in sections %}
-                        <li id="section{{section.id}}" class="py-2 px-2 rounded-xl">
-                            <a href="{%url 'section:detail' section.id %}" class="section-link">{{section.section_title}}</a>
+                        <li id="section{{section.id}}" class="py-2 px-2 rounded-xl text-xl">
+                            <b><a href="{%url 'section:detail' section.id %}" class="section-link">{{section.section_title}}</a></b>
                                 <ul>
                                     {% for paragraph in section.paragraph_set.all %}
                                     <!-- here is the section where the links are-->
-                                        <li class="ml-3">
+                                        <li class="text-base" style="margin-left:40px">
                                             <!-- this anchor tag -->
                                             <a class="paragraph-link" href="{%url 'section:detail' section.id %}#paragraph{{paragraph.id}}">{{paragraph.paragraph_title | safe}}</a>
                                         </li>
@@ -208,7 +213,7 @@
 {%block footer%}
     <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
       <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 The Language Flagship. All Rights Reserved.
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400" style="margin-left:300px">© 2023 The Language Flagship. All Rights Reserved.
       </span>
       <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
           <li>
@@ -217,6 +222,22 @@
       </ul>
       </div>
     </footer>
+{%endblock%}
+
+{%block script%}
+<script>
+    $(document).ready(function () {
+        $('#toggleDarkButton').click(function () {
+            if ($('#largeScreenDiv').hasClass('darkMode')) {
+                $('#largeScreenDiv').removeClass('darkMode');
+            } else {
+                $('#largeScreenDiv').addClass('darkMode');
+            }
+            
+        });
+    });
+</script>
+
 {%endblock%}
 
 
