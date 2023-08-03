@@ -1,10 +1,29 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Prompt, Category, SimplePage
+from .models import Prompt, Category, SimplePage, Section, Paragraph, Subparagraph
 from django.core.paginator import Paginator 
 from django.http import JsonResponse
 from django.db.models import Q
 from django.template.loader import render_to_string
 # Create your views here.
+
+def index(request, pk):
+    section = get_object_or_404(Section, pk=pk)
+    sections = Section.objects.all()
+    paragraphs = Paragraph.objects.all()
+    subparagraphs = Subparagraph.objects.all()
+    section_id = request.GET.get('section', 0)
+
+    if section_id:
+        paragraphs = paragraphs.filter(section_id=section_id)
+
+    return render(request,'prompt/index.html', {
+        'section': section, 
+        'sections': sections, 
+        'paragraphs': paragraphs,
+        'subparagraphs': subparagraphs,
+        'section_id': section_id
+    })
+    
 
 def promptgeneratorinfo(request):
     return render(request, 'prompt/promptgeneratorinfo.html')
@@ -46,23 +65,24 @@ def detail(request, pk):
 
 def filterData(request):
     if request.method == "POST":
-        selected_category = request.POST.get('category')
-        selected_language = request.POST.get('language')
-        selected_difficulty = request.POST.get('difficulty')
+        #selected_category = request.POST.get('category')
+        #selected_language = request.POST.get('language')
+        #selected_difficulty = request.POST.get('difficulty')
         query = request.POST.get('query')
 
         allPrompts = Prompt.objects.all()
+        categories = Category.objects.all()
 
         filter_conditions = {}
 
-        if selected_category != 'AnyCategory':
-            filter_conditions['prompt_category'] = selected_category
+        #if selected_category != 'AnyCategory':
+        #    filter_conditions['prompt_category'] = selected_category
         
-        if selected_language != 'AnyLanguage':
-            filter_conditions['prompt_language'] = selected_language
+        #if selected_language != 'AnyLanguage':
+        #    filter_conditions['prompt_language'] = selected_language
 
-        if selected_difficulty != 'AnyDifficulty':
-            filter_conditions['prompt_level'] = selected_difficulty
+        #if selected_difficulty != 'AnyDifficulty':
+        #    filter_conditions['prompt_level'] = selected_difficulty
         
         if query:
             allPrompts = allPrompts.filter(Q(prompt_title__icontains=query) | Q(prompt_language__icontains=query) |
@@ -70,8 +90,7 @@ def filterData(request):
         
         prompts = allPrompts.filter(**filter_conditions) if filter_conditions else allPrompts
 
-        context = {'prompts': prompts}
+        context = {'prompts': prompts, 'categories': categories}
         html = render_to_string('prompt/filtered_results.html', context)
         
         return JsonResponse({'html': html})
-    

@@ -1,35 +1,41 @@
-<div class="filteredResultsLargeDiv mt-6 w-3/4 gap-y-3 gap-x-5">
-    {%for prompt in prompts %}
-    <a href="{%url 'prompt:detail' prompt.id %}">
-        <div class="mb-2">
-            <div class="levelCard grid grid-rows-3 rounded-xl shadow-md">
-                <div class="mt-1 row-span-1 border-b border-gray-300">
-                    <div class="text-lg flex justify-center items-center place-items-center">
-                        <center>
-                            <b>{{prompt.prompt_title}}</b>
-                        ({{prompt.category}})
-                        </center>
-                    </div>
-                </div>
-                <div class="row-span-2"> 
-                    <div class="grid grid-rows-2 grid-cols-2">
-                        <div class="flex justify-center items-center overflow-hidden col-span-2">
-                            <span class="category">{{prompt.category.category_svg | safe}}</span>
+<div class="text-white">
+    {% for category in categories %}
+        <h1 class="text-4xl font-semibold ml-10 mt-6">{{ category.category_name }}</h1>
+        <div class="promptCardsDiv ml-10" style="height:325px">
+            <div class="flex flex-row" style="height:50px; margin-top:10px; margin-left:5px">
+                {% for prompt in category.prompt_set.all %}
+                    <a href="{%url 'prompt:detail' prompt.id %}">
+                        <div class="mb-2">
+                            <div class="card grid grid-rows-3 rounded-xl shadow-md">
+                                <div class="m-3 row-span-1 border-b border-gray-300">
+                                    <div class="text-lg font-semibold flex justify-center items-center place-items-center">
+                                        <center>
+                                            {{prompt.prompt_title}}
+                                        </center>
+                                    </div>
+                                </div>
+                                <div class="row-span-2"> 
+                                    <div class="grid grid-rows-2 grid-cols-2">
+                                        <div class="flex justify-center items-center overflow-hidden col-span-2">
+                                            {%if prompt.prompt_emoji%}
+                                                <span class="category">{{prompt.prompt_emoji | safe}}</span>
+                                            {%else%}
+                                                <span class="category">{{prompt.category.category_svg | safe}}</span>
+                                            {%endif%}
+                                        </div>
+                                        <div class="flex flex-col-reverse text-xl m-3 row-span-1 col-span-1">
+                                            <span class="language">{{prompt.prompt_language}}</span>
+                                        </div>
+                                        <div class="mt-9 flex flex-col-reverse text-xl m-3 text-right row-span-1 col-span-1">
+                                            <span class="level levelSpanInsideCard">{{prompt.prompt_level}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex flex-col-reverse text-xl m-3 row-span-1 col-span-1">
-                            <span class="language">{{prompt.prompt_language}}</span>
-                        </div>
-                        <div class="mt-9 flex flex-col-reverse text-xl m-3 text-right row-span-1 col-span-1">
-                            <span class="level levelSpanInsideCard">{{prompt.prompt_level}}</span>
-                        </div>
-                        
-                    </div>
-                </div>
+                    </a>
+                {% endfor %}
             </div>
         </div>
-    </a>
-    {%endfor%}
+    {% endfor %}
 </div>
-
-<br>
-<br>

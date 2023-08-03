@@ -4,13 +4,7 @@
 {%block content%} Prompt Browser {%endblock%}
 
 {%block searchcontent %} 
-    <div class="mb-10 mt-10">
-        <center>
-            <a href="{%url 'prompt:promptbrowserinfo' %}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">How to Use the Prompt Browser</a>
-        </center>
-    </div>
-
-    <div class="searchBar">
+    <div class="searchBar" style="color:black;">
         <div class="relative">
             <input id="query" name="query" type="text" placeholder="Search" class="actualBar py-2 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             <button href="#" class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -20,7 +14,8 @@
             </button>
         </div>
     </div>
-    
+
+    <!--
     <div class="text-4xl flex justify-center mt-4">Filter by...</div>
     <center class="mt-4">
         <b>Category:</b>
@@ -65,17 +60,25 @@
                 <option value="Advanced">Advanced</option>
             </select>
     </center>
+    -->
 
-    
-    <div id="promptsContainer" class="promptsDiv">
-        {%include 'prompt/filtered_results.html' %}
+    <div id="promptsContainer">
+        {%include 'prompt/filtered_results.html'%}
     </div>
 
+
+
+
 {%endblock%}
+
 
 {%block script%}
 <script> 
     $(document).ready(function() {
+        $('#bigBody').addClass('promptBrowser');
+        $('#navLine').removeClass('border-b');
+        
+        /*
         $('.promptCardLink').on('click', function (e) {
             // Prevent the default link behavior
             e.preventDefault();
@@ -87,10 +90,13 @@
             window.location.href = url;
         });
 
-        $('#categories, #languages, #difficulties, #query').change(function() {
+         $('#categories, #languages, #difficulties, #query').change(function() {
             console.log("change detected");
             filterPrompts();
         });
+        */
+
+       
 
         window.onpopstate = function(event) {
             console.log("Popstate event detected");
@@ -98,10 +104,19 @@
             filterPrompts();
         };
 
+        $('#query').change(function() {
+            console.log("change detected");
+            filterPrompts();
+        })
+
+
+
+
+
         function filterPrompts() {
-            var selectedCategory = $('#categories').val();
-            var selectedLanguage = $('#languages').val();
-            var selectedDifficulty = $('#difficulties').val();
+           // var selectedCategory = $('#categories').val();
+            //var selectedLanguage = $('#languages').val();
+            //var selectedDifficulty = $('#difficulties').val();
             var inputQuery = $('#query').val();
 
             //console.log("selected category: " + selectedCategory + ", selected language: " 
@@ -113,9 +128,11 @@
             headers: { 'X-CSRFToken': csrfToken },
             data: {
                 query: inputQuery,
+                /*
                 category: selectedCategory,
                 language: selectedLanguage,
                 difficulty: selectedDifficulty,
+                */
                 csrfmiddlewaretoken: csrfToken
             },
             success: function(response) {
@@ -129,38 +146,36 @@
             });
         }
 
+        
+
         function updateLevelCardColor() {
-            $(".levelCard").each(function() {
+            $(".card").each(function() {
                 var levelText = $(this).find(".levelSpanInsideCard").text().trim();
                 switch (levelText) {
                 case "Beginner":
-                    //$(this).css("background-color", "rgb(224 242 254)");
-                    $(this).addClass("bg-sky-100");
+                    $(this).css("background-color", "rgb(59, 130, 246)");
+                    $(this).css("color", "rgb(245, 245, 245)");
                     break;
                 case "Intermediate":
-                    //$(this).css("background-color", "rgb(254 243 199)");
-                    $(this).addClass("bg-amber-100");
+                    $(this).css("background-color", "rgb(251, 191, 36)");
+                    /*$(this).css("color", "rgb(245, 245, 245)");*/
                     break;
                 case "Advanced":
-                    //$(this).css("background-color", "rgb(254 226 226)");
-                    $(this).addClass("bg-red-100");
+                    $(this).css("background-color", "rgb(220, 38, 38)");
+                    $(this).css("color", "rgb(245, 245, 245)");
                     break;
                 default:
-                    // Change to default color if the level text doesn't match any of the cases
-                    //$(this).css("background-color", "rgb(243 244 246)");
-                    $(this).addClass("bg-lime-100");
+                    $(this).css("background-color", "rgb(22, 163, 74)");
+                    $(this).css("color", "rgb(245, 245, 245)");
                     break;
                 }
             });
         }
 
         updateLevelCardColor();
-
-
-    });
-
         
-
+        
+    });
     
     
 </script>

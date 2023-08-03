@@ -1,181 +1,96 @@
 {% extends 'prompt/base.html' %}
 
 {%block title%} Prompt Generator {%endblock%}
-{%block content%} Prompt Generator {%endblock%}
+
 {%block generator%}
-    <div class="mb-10 mt-10">
-        <center>
-            <a href="{%url 'prompt:promptgeneratorinfo' %}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">How to Use the Prompt Generator</a>
-        </center>
-    </div>
-    <center>
-        <div class="mt-4 text-2xl">Generate a prompt below!</div>
-    </center>
-    <div class="generator">
-        <div class="mt-4 grid-cols-12 grid-rows-3 grid">
-            <div class="col-span-2 emptySpace">
-                
-            </div>
-            <div class="col-span-5 bg-sky-100 border-b border-l border-t border-gray-800 promptCopyArea">
-                <div class="mt-10 row-span-1 flex justify-center items-center">
-                    <textarea id="prompt_textarea" class="px-2 py-2 promptTextArea"> </textarea>
-                </div>
-                <div class="row-span-1 flex justify-center items-center">
-                    <button id="copyButton" class="mt-10 row-span-1 px-6 py-3 
-                    text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600 copyButton">Copy Prompt</button>
-                </div>
-                <div class="mt-2 floating flex justify-center row-span-1 hidden" id="copied">
-                    Copied!
-                </div>
-                
-            </div>
-            
-            <div class="border-b border-r border-t border-gray-800 flex justify-center place-items-center grid grid-rows-7 col-span-3 bg-sky-100 optionsDiv">
-                <div class="row-span-1 ml-2 mt-2">
-                    Category:
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                    dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                    dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height:45px; width:225px"
-                    id="categories" name="categoriesSelect" autocomplete="off">
-                        <option value="select" selected>Select a Category</option>
-                        <option value="interaction">Interaction/Role-Play</option>
-                        <option value="adventure">Choose Your Own Adventure</option>
-                        <option value="interest">Content of Personal Interest</option>
-                        <option value="generation">Content Generation</option>
-                        <option value="summarization">Article Summarization</option>
-                    </select>
-                </div>
-                <div class="row-span-1 ml-2">
-                    Language:
-                    <select style="text-align-last: center; height:45px; width:225px" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                    dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                    dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    id="languages" name="languageSelect" autocomplete="off">
-                        <option value="select">Select a Language</option>
-                        <option value="Arabic">Arabic</option>
-                        <option value="Chinese">Chinese</option>
-                        <option value="Korean">Korean</option>
-                        <option value="Persian">Persian</option>
-                        <option value="Portuguese">Portuguese</option>
-                        <option value="Russian">Russian</option>
-                    </select>
-                </div>
-                    <div id="interactionLocationDiv" class="hidden interaction row-span-1 ml-2">
-                        Location:
-                        <br>
-                        <input style="width:225px" id="interactionLocation" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    </div>
-                    <div id="adventureActivityDiv" class="adventure hidden row-span-1 ml-2 -mt-2">
-                        Activity:
-                        <br>
-                        <input style="width:225px" id="adventureActivity" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    </div>
-                    <div id="classTopicDiv" class="interest hidden row-span-1 ml-2 -mt-2">
-                        Class topic:
-                        <br>
-                        <input style="width:225px" id="classTopic" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    </div>
-                    <div id="yourInterestDiv" class="hidden interest row-span-1 ml-2 mt-4">
-                        Your interest:
-                        <br>
-                        <input style="width:225px" id="personalInterest" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    </div>
-                    <div id="adventureCityDiv" class="adventure hidden row-span-1 ml-2 -mt-2">
-                        City:
-                        <br>
-                        <input style="width:225px" id="adventureCity" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    </div>
-                    <div id="interactionYourRoleDiv" class="hidden interaction row-span-1 ml-2 mt-4">
-                        Your role:
-                        <br>
-                        <input style="width:225px" id="interactionYourRole" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    </div>
-                    <div id="interactionGPTRoleDiv" class="hidden interaction row-span-1 ml-2 mt-4">
-                        ChatGPT role:
-                        <br>
-                        <input style="width:225px" id="interactionGPTRole" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    </div>
-                    <div id="interactionTurnDiv" class="hidden interaction row-span-1 ml-2 mt-4">
-                        Turn order:
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                        dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                        dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height:45px; width:225px"
-                        id="interactionTurnDropdown" name="languageSelect">
-                            <option value="select">Select who goes first</option>
-                            <option value="you">I go first</option>
-                            <option value="gpt">ChatGPT goes first</option>
-                        </select>
-                    </div>
-                    <div id="textareaGeneration" class="hidden generation row-span-1 ml-2 mt-4">
-                        <center>
-                            <div class="mb-2">Enter your vocab words separated by commas:</div>
-                        <textarea id="vocabWordsTextarea" style="height:200px; width:300px; padding:5px"></textarea>
-                        </center>
-                    </div>
-                    <div id="articleTextDiv" class="hidden summarization ml-2 mt-4">
-                        <center>
-                            <div class="mb-2">Enter your article below:</div>
-                        <textarea id="articleText" style="height:200px; width:300px; padding:5px"></textarea>
-                        </center>
-                    </div>
-                    <div id="topicGenerationDiv" class="hidden generation row-span-1 ml-2 mt-4">
-                        Topic:
-                        <br>
-                        <input style="width:225px" id="topicGeneration" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    </div>
-                    <div id="levelDiv" class="hidden generation interest adventure hidden row-span-1 ml-2 mt-2">
-                        Level:
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-                        dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                        dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height: 45px; width:225px"
-                        id="levelSelect" name="languageSelect" autocomplete="off">
-                            <option value="select">Select a Level</option>
-                            <option value="beginner">Beginner</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="advanced">Advanced</option>
-                        </select>
-                    </div>
-                    <center>
-                        <button id="generateButton" class="hidden adventure summarization interaction interest generation mt-4 ml-2 row-span-1 px-6 py-3 
-                    text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600 generateButton">Generate!</button>
-                    </center>
-                    <center class="hidden" id="generated">
-                        Generated!
-                    </center>
-                
-            </div>
-            
-        </div>
-        <div class="spaceDivider">
-                
+    
+    <div class="page-1">
+        <div class="text-white text-8xl flex justify-center items-center font-semibold" style="font-size:85px; margin-top:-40px;">Generate a Prompt</div>
+        <div class="text-white text-2xl flex justify-center items-center font-semibold" style="font-size:25px;">Select an Action to Get Started</div>
+        <div class="flex flex-col justify-center items-center mt-6" style="row-gap:1rem;">
+            <button id="personalButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">💖Generate Content About Your Favorite Topic in the Context of your Class Topic💖</button>
+            <button id="contentButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">📚Generate Reading Content Using a Vocabulary List📚</button>
+            <button id="roleplayButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">💬Engage in Conversation with ChatGPT💬</button>
+            <button id="adventureButon" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">🗺Choose Your Own Adventure🗺</button>
+            <button id="summaryButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">🧾Summarize a Difficult Article🧾</button>
         </div>
     </div>
+    
+    <div class="page-2 hidden">
+        <div class="text-white flex justify-center items-center font-semibold" style="font-size:70px; margin-top:-40px;">Select a Language</div>
+        <div class="flex flex-col justify-center items-center" style="row-gap: 1rem; margin-top: 30px;">
+            <button id="chineseButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">Chinese</button>
+            <button id="koreanButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">Korean</button>
+            <button id="russianButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">Russian</button>
+            <button id="arabicButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">Arabic</button>
+            <button id="persianButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">Persian</button>
+            <button id="portugueseButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">Portuguese</button>
+        </div>
+    </div>
+
+    <div class="page-3-personal hidden">
+        
+    </div>
+
+    <div class="page-3-content hidden">
+
+    </div>
+
+    <div class="page-3-roleplay hidden">
+
+    </div>
+    
+    <div class="page-3-adventure hidden">
+
+    </div>
+
+    <div class="page-3-summary hidden">
+
+    </div>
+
+    
+
 
 
 {%endblock%}
 
-{%block footer%}
-    <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
-      <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 The Language Flagship Technology Innovation Center. All Rights Reserved.
-      </span>
-      <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-          <li>
-              <a href="{%url 'prompt:about'%}" class="mr-4 hover:underline md:mr-6 ">About</a>
-          </li>
-      </ul>
-      </div>
-    </footer>
-{%endblock%}
+
 
 {%block script %}
 <script>
+    $('#bigBody').addClass('promptGenerator');
+    $('#navLine').removeClass('border-b');
+    var type;
+    var language;
+
+    $(document).ready(function() {
+
+        $('#nav-menu').addClass('darkMode');
+        
+
+        $('#personalButton, #contentButton, #roleplayButton, #adventureButton, #summaryButton').click(function() {
+            type = this.innerHTML;
+            console.log("type: " + type);
+            $('.page-1').addClass('hidden');
+            $('.page-2').removeClass('hidden');
+        });
+
+        $('#chineseButton, #koreanButton, #russianButton, #arabicButton, #persianButton, #portugueseButton').click(function() {
+            language = this.innerHTML;
+            console.log("language: " + language);
+            $('.page-2').addClass('hidden');
+        });
+
+
+    });
+
+
+
+
+    /*
     $(document).ready(function() {
         $(window).on('load', function() {
+            
             $('#categories').val('select');
             $('#languages').val('select');
         });
@@ -486,7 +401,7 @@
         });
     });
 
-
+    */
 </script>
 
 

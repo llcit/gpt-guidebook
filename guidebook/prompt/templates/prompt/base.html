@@ -22,14 +22,16 @@
             grid-template-rows:repeat(auto-fit, minmax(225px, 1fr));
           }
 
+          /*
           .levelCard {
-            /*position: relative; */
+            position: relative; 
             max-height:225px;
           }
 
           .levelCard:hover {
             transform: scale(1.05);
           }
+          */
 
           .actualBar {
             width:700px;
@@ -247,10 +249,95 @@
         color:white;
       }
 
+      .buttonLightMode {
+        background-image: linear-gradient(to bottom right, #0ea5e9, #22c55e);
+      }
+
+      .buttonLightMode:hover {
+        background-image: linear-gradient(to bottom right, #0284c7, #16a34a);
+      }
+
+      .lightMode {
+        background-image: linear-gradient(to bottom right, #0ea5e9, #22c55e);
+      }
+      
+      .promptGeneratorButton {
+        background: linear-gradient(to bottom right, #a855f7, #ec4899, #ef4444);
+      }
+
+      .promptGeneratorButton:hover {
+        background: linear-gradient(to bottom right, #9333ea, #db2777, #dc2626);
+      }
+
+      .promptGenerator {
+        background: linear-gradient(-45deg, #96359c, #e73c7e, #ee7752);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        color:white;
+      }
+
+      @keyframes gradient {
+          0% {
+              background-position: 0% 50%;
+          }
+          50% {
+              background-position: 100% 50%;
+          }
+          100% {
+              background-position: 0% 50%;
+          }
+      }
+
+      .promptCardsDiv {
+        overflow-x: auto; 
+        max-width:100%;
+      }
+
+      .promptBrowser {
+        background-color: #1F214D;
+        color: white;
+      }
+
+      .cardsContainer {
+        display: flex;
+        overflow-x: scroll;
+        white-space: nowrap;
+        padding: 20px;
+      }
+
+      .card {
+        min-width: 300px;
+        max-width: 350px;
+        height: 250px;
+        margin-right: 10px;
+        color:black;
+      }
+
+      .card:hover {
+        transform:scale(1.03);
+      }
+
+      .generatorButtons {
+        background-color:#1F214D;
+      }
+
+      .generatorButtons:hover {
+        background-color:#3e439a;
+      }
+
+
+      .promptBrowserButton {
+        background: linear-gradient(to bottom right, #000000, #051427, #530f1e, #a44322, #f8bc04);
+      }
+
+      .promptBrowserButton:hover {
+        background: linear-gradient(to bottom right, #000000, #040e1c, #310911, #86361c, #bc8d01);
+      }
+
   </style>
   </head>
-  <body>
-    <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
+  <body id="bigBody">
+    <nav id="navLine" class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
       <img src="{% static 'logo.png' %}" width="100px">
       <div class="lg:hidden relative">
         <button id="menu-toggle" class="flex items-center px-3 py-2 border rounded text-sky-500 border-sky-500 hover:text-sky-700 hover:border-sky-700">
@@ -266,14 +353,14 @@
           <div class="flex flex-row justify-end">
             <button id="menu-toggle2">
               <svg class="h-6 w-6 fill-current" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <line x1="1" y1="11" x2="11" y2="1" stroke="black" stroke-width="2"/>
-                <line x1="1" y1="1" x2="11" y2="11" stroke="black" stroke-width="2"/>
+                <line id="line1X" x1="1" y1="11" x2="11" y2="1" stroke="gray" stroke-width="2"/>
+                <line id="line2X" x1="1" y1="1" x2="11" y2="11" stroke="gray" stroke-width="2"/>
               </svg>
             </button>
           </div>
-          <a href="{%url 'prompt:generator'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Generator</a>
-          <a href="{%url 'prompt:browser'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Browser</a>
-          <a href="/" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Guidebook</a>
+          <a href="{%url 'prompt:generator'%}" class="px-6 py-3 text-lg font-semibold buttonLightMode promptGeneratorButton text-white rounded-xl">Prompt Generator</a>
+          <a href="{%url 'prompt:browser'%}" class="px-6 py-3 text-lg font-semibold buttonLightMode promptBrowserButton text-white rounded-xl">Prompt Browser</a>
+          <a href="/" class="px-6 py-3 text-lg font-semibold buttonLightMode text-white rounded-xl">Guidebook</a>
           {%block smallSidebar%}
           {%endblock%}
           
@@ -286,9 +373,9 @@
       <!-- normal screen menu -->
       <div class="hidden lg:flex flex-row space-x-6">
         
-        <a href="{%url 'prompt:generator'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Generator</a>
-        <a href="{%url 'prompt:browser'%}" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Prompt Browser</a>
-        <a href="/" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600">Guidebook</a>
+        <a href="{%url 'prompt:generator'%}" class="px-6 py-3 text-lg font-semibold promptGeneratorButton text-white rounded-xl">Prompt Generator</a>
+        <a href="{%url 'prompt:browser'%}" class="px-6 py-3 text-lg font-semibold promptBrowserButton text-white rounded-xl">Prompt Browser</a>
+        <a href="/" class="px-6 py-3 text-lg font-semibold buttonLightMode text-white rounded-xl">Guidebook</a>
       </div>
     </nav>
     

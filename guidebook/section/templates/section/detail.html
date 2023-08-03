@@ -4,10 +4,10 @@
 {%block content%} Guidebook on Prompting for Language Learning {%endblock%}
 
 {%block sidebar%} 
-<!--
-<button style="position:fixed; bottom:10px; left:100px" class="px-6 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-600" id="toggleDarkButton">
+
+<button style="position:fixed; bottom:10px; left:100px" class="px-6 py-3 text-lg font-semibold buttonLightMode text-white rounded-xl" id="toggleDarkButton">
     Toggle 🔆/🌙</button>
--->
+
 
 <div class="hidden lg:block" id="largeScreenDiv">
     <div class="ml-3 mb-16 grid grid-cols-4 gap-4">
@@ -44,7 +44,7 @@
                 {%for prompt in paragraph.prompts.all %}
                     <div class="grid grid-cols-10 space-x-2">
                         <div class="col-span-5 text-sm border border-gray-700 py-4 px-4">
-                            <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 25%;"> 
+                            <div class="flex justify-center items-center mt-2 py-4 px-8 lightMode text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 25%;"> 
                                 Prompt
                             </div>
                             <div class="mt-10 text-base">
@@ -57,7 +57,7 @@
                             -->
                         </div>
                         <div class="col-span-5 text-base border border-gray-700 py-4 px-4">
-                            <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 45%;"> 
+                            <div class="flex justify-center items-center mt-2 py-4 px-8 lightMode text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 45%;"> 
                                 <center>ChatGPT Example Output</center>
                             </div>
                             <div class="mt-10">
@@ -77,7 +77,7 @@
                             {%for prompt in subparagraph.prompts.all %}
                                 <div class="mt-10 grid grid-cols-10 space-x-2">
                                     <div class="col-span-5 text-sm border border-gray-700 py-4 px-4">
-                                        <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 25%;"> 
+                                        <div class="flex justify-center items-center mt-2 py-4 px-8 lightMode text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 25%;"> 
                                             Prompt
                                         </div>
                                         <div class="mt-10 text-base">
@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
                                     <div class="col-span-5 text-base border border-gray-700 py-4 px-4">
-                                        <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 45%;"> 
+                                        <div class="flex justify-center items-center mt-2 py-4 px-8 lightMode text-lg rounded-xl text-white" style="margin: 0 auto; max-width: 45%;"> 
                                             <center>ChatGPT Example Output</center>
                                         </div>
                                         <div class="mt-10">
@@ -108,7 +108,7 @@
 
 <!-- ================================MOBILE CONTENT===================================-->
 {%block smallSidebar%}
-    <ul>
+    <ul id="smallSidebar">
         {% for section in sections %}
             <li id="section{{section.id}}" class="py-2 px-2 rounded-xl">
                 <a class="section-link text-lg font-semibold pr-20" href="{%url 'section:detail' section.id %}">{{section.section_title}}</a>
@@ -211,11 +211,11 @@
 {%endblock%}
 
 {%block footer%}
-    <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
-      <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400" style="margin-left:300px">© 2023 The Language Flagship. All Rights Reserved.
+    <footer id="footer" class="rounded-lg shadow m-4">
+      <div id="footerText" class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+        <span class="text-sm text-gray-500 sm:text-center" style="margin-left:300px">© 2023 The Language Flagship. All Rights Reserved.
       </span>
-      <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+      <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 sm:mt-0">
           <li>
               <a href="{%url 'prompt:about'%}" class="mr-4 hover:underline md:mr-6 ">About</a>
           </li>
@@ -228,14 +228,18 @@
 <script>
     $(document).ready(function () {
         $('#toggleDarkButton').click(function () {
-            if ($('#largeScreenDiv').hasClass('darkMode')) {
-                $('#largeScreenDiv').removeClass('darkMode');
-            } else {
-                $('#largeScreenDiv').addClass('darkMode');
-            }
-            
+            toggleDarkMode($('#largeScreenDiv, #bigBody, #footer, #footerText, #nav-menu, #smallSidebar'));
         });
     });
+
+    function toggleDarkMode(element) {
+        if (element.hasClass('darkMode')) {
+            element.removeClass('darkMode');
+        } else {
+            element.addClass('darkMode');
+        }
+    }
+
 </script>
 
 {%endblock%}

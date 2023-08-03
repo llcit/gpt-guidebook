@@ -30,6 +30,7 @@ class Prompt(models.Model):
     prompt_language = models.CharField(max_length=255, null=True)
     prompt_warning = models.BooleanField(default=False)
     prompt_level = models.CharField(max_length=255, null=True)
+    prompt_emoji = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.prompt_title + " (" + self.prompt_language + ")"
