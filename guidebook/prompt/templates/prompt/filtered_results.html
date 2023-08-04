@@ -1,15 +1,16 @@
 <div class="text-white">
     {% for category in categories %}
-        <h1 class="text-4xl font-semibold ml-10 mt-6">{{ category.category_name }}</h1>
-        <div class="promptCardsDiv ml-10" style="height:325px">
+    <div class="promptCardsDiv">
+        <h1 class="promptCategory text-4xl font-semibold ml-10 mt-6">{{ category.category_name }}</h1>
+        <div class="ml-10" style="height:325px">
             <div class="flex flex-row" style="height:50px; margin-top:10px; margin-left:5px">
                 {% for prompt in category.prompt_set.all %}
-                    <a href="{%url 'prompt:detail' prompt.id %}">
+                    <a href="{%url 'prompt:detail' prompt.id %}" class="promptCard">
                         <div class="mb-2">
                             <div class="card grid grid-rows-3 rounded-xl shadow-md">
-                                <div class="m-3 row-span-1 border-b border-gray-300">
+                                <div class="borderArea m-3 row-span-1 border-b border-gray-200">
                                     <div class="text-lg font-semibold flex justify-center items-center place-items-center">
-                                        <center>
+                                        <center class="promptTitle">
                                             {{prompt.prompt_title}}
                                         </center>
                                     </div>
@@ -20,14 +21,14 @@
                                             {%if prompt.prompt_emoji%}
                                                 <span class="category">{{prompt.prompt_emoji | safe}}</span>
                                             {%else%}
-                                                <span class="category">{{prompt.category.category_svg | safe}}</span>
+                                                <span>{{prompt.category.category_svg | safe}}</span>
                                             {%endif%}
                                         </div>
                                         <div class="flex flex-col-reverse text-xl m-3 row-span-1 col-span-1">
-                                            <span class="language">{{prompt.prompt_language}}</span>
+                                            <span class="promptLanguage">{{prompt.prompt_language}}</span>
                                         </div>
                                         <div class="mt-9 flex flex-col-reverse text-xl m-3 text-right row-span-1 col-span-1">
-                                            <span class="level levelSpanInsideCard">{{prompt.prompt_level}}</span>
+                                            <span class="promptLevel level levelSpanInsideCard">{{prompt.prompt_level}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -37,5 +38,9 @@
                 {% endfor %}
             </div>
         </div>
+    </div>
+        
     {% endfor %}
+    <center class="noMatch hidden mt-14"><h1 class="text-4xl font-semibold">No Results</h1></center>
+   
 </div>

@@ -63,34 +63,9 @@ def detail(request, pk):
         'prompt_id': prompt_id
     })
 
-def filterData(request):
-    if request.method == "POST":
-        #selected_category = request.POST.get('category')
-        #selected_language = request.POST.get('language')
-        #selected_difficulty = request.POST.get('difficulty')
-        query = request.POST.get('query')
+def filteredResults(request):
+    categories = Category.objects.all()
+    return render(request,'prompt/filtered_results.html', {
+        'categories': categories 
+    })
 
-        allPrompts = Prompt.objects.all()
-        categories = Category.objects.all()
-
-        filter_conditions = {}
-
-        #if selected_category != 'AnyCategory':
-        #    filter_conditions['prompt_category'] = selected_category
-        
-        #if selected_language != 'AnyLanguage':
-        #    filter_conditions['prompt_language'] = selected_language
-
-        #if selected_difficulty != 'AnyDifficulty':
-        #    filter_conditions['prompt_level'] = selected_difficulty
-        
-        if query:
-            allPrompts = allPrompts.filter(Q(prompt_title__icontains=query) | Q(prompt_language__icontains=query) |
-                                           Q(prompt_level__icontains=query) | Q(prompt_category__icontains=query))
-        
-        prompts = allPrompts.filter(**filter_conditions) if filter_conditions else allPrompts
-
-        context = {'prompts': prompts, 'categories': categories}
-        html = render_to_string('prompt/filtered_results.html', context)
-        
-        return JsonResponse({'html': html})

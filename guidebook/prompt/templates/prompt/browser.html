@@ -95,56 +95,50 @@
             filterPrompts();
         });
         */
-
-       
-
-        window.onpopstate = function(event) {
-            console.log("Popstate event detected");
-            // Call the filterPrompts function to apply the filters from the URL parameters
-            filterPrompts();
-        };
-
-        $('#query').change(function() {
-            console.log("change detected");
-            filterPrompts();
-        })
-
-
-
-
-
         function filterPrompts() {
            // var selectedCategory = $('#categories').val();
             //var selectedLanguage = $('#languages').val();
             //var selectedDifficulty = $('#difficulties').val();
-            var inputQuery = $('#query').val();
+            const searchText = $("#query").val().toLowerCase();
 
-            //console.log("selected category: " + selectedCategory + ", selected language: " 
-            //+ selectedLanguage + ", selected difficulty: " + selectedDifficulty)
-
-            $.ajax({
-            url: '/filterData/',
-            method: 'POST',
-            headers: { 'X-CSRFToken': csrfToken },
-            data: {
-                query: inputQuery,
-                /*
-                category: selectedCategory,
-                language: selectedLanguage,
-                difficulty: selectedDifficulty,
-                */
-                csrfmiddlewaretoken: csrfToken
-            },
-            success: function(response) {
-                console.log("Sucess, data received");
-                $('#promptsContainer').html(response.html);
-                updateLevelCardColor();
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
+            if (searchText.length === 0) {
+                $('.promptCardsDiv').each(function () {
+                    const categoryContainer = $(this);
+                    categoryContainer.show();
+                });
             }
+
+            $('.promptCard').each(function () {
+                const promptLanguageElementText = $(this).find(".promptLanguage").text().toLowerCase();
+                const promptDifficultyElementText = $(this).find(".promptLevel").text().toLowerCase();
+                const promptTitleElementText = $(this).find(".promptTitle").text().toLowerCase();
+                if (promptLanguageElementText.includes(searchText) || 
+                    promptDifficultyElementText.includes(searchText) ||
+                    promptTitleElementText.includes(searchText)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
             });
+
+            $('.promptCardsDiv').each(function () {
+                const categoryContainer = $(this);
+                if (categoryContainer.find('.promptCard:visible').length === 0) {
+                    categoryContainer.hide();
+                } else {
+                    categoryContainer.show();
+                }
+            });
+
+            if ($('.promptCard:visible').length === 0) {
+                $('.noMatch').removeClass('hidden');
+            } else {
+                $('.noMatch').addClass('hidden');
+            }
+           
         }
+
+        $('#query').on("input", filterPrompts);
 
         
 
@@ -158,7 +152,7 @@
                     break;
                 case "Intermediate":
                     $(this).css("background-color", "rgb(251, 191, 36)");
-                    /*$(this).css("color", "rgb(245, 245, 245)");*/
+                    $(this).find('.borderArea').css("border-bottom", "1px solid black");
                     break;
                 case "Advanced":
                     $(this).css("background-color", "rgb(220, 38, 38)");
