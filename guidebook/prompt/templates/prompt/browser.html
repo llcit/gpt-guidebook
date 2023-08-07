@@ -138,7 +138,9 @@
            
         }
 
-        $('#query').on("input", filterPrompts);
+        $('#query').change(function() {
+            filterPrompts();
+        });
 
         
 
@@ -159,8 +161,9 @@
                     $(this).css("color", "rgb(245, 245, 245)");
                     break;
                 default:
-                    $(this).css("background-color", "rgb(22, 163, 74)");
+                    $(this).css("background", "linear-gradient(to bottom right, #db2777, #e11d48, #eab308, #06b6d4, #0284c7)");
                     $(this).css("color", "rgb(245, 245, 245)");
+                    $(this).addClass('font-semibold');
                     break;
                 }
             });

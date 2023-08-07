@@ -5,26 +5,6 @@ from django.http import JsonResponse
 from django.db.models import Q
 from django.template.loader import render_to_string
 # Create your views here.
-
-def index(request, pk):
-    section = get_object_or_404(Section, pk=pk)
-    sections = Section.objects.all()
-    paragraphs = Paragraph.objects.all()
-    subparagraphs = Subparagraph.objects.all()
-    section_id = request.GET.get('section', 0)
-
-    if section_id:
-        paragraphs = paragraphs.filter(section_id=section_id)
-
-    return render(request,'prompt/index.html', {
-        'section': section, 
-        'sections': sections, 
-        'paragraphs': paragraphs,
-        'subparagraphs': subparagraphs,
-        'section_id': section_id
-    })
-    
-
 def promptgeneratorinfo(request):
     return render(request, 'prompt/promptgeneratorinfo.html')
 

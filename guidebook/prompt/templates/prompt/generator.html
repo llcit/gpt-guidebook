@@ -8,16 +8,17 @@
         <div class="text-white text-8xl flex justify-center items-center font-semibold" style="font-size:85px; margin-top:-40px;">Generate a Prompt</div>
         <div class="text-white text-2xl flex justify-center items-center font-semibold" style="font-size:25px;">Select an Action to Get Started</div>
         <div class="flex flex-col justify-center items-center mt-6" style="row-gap:1rem;">
-            <button id="personalButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">💖Generate Content About Your Favorite Topic in the Context of your Class Topic💖</button>
-            <button id="contentButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">📚Generate Reading Content Using a Vocabulary List📚</button>
-            <button id="roleplayButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">💬Engage in Conversation with ChatGPT💬</button>
-            <button id="adventureButon" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">🗺Choose Your Own Adventure🗺</button>
-            <button id="summaryButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">🧾Summarize a Difficult Article🧾</button>
+            <button id="contentButton" value="content" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">📚Generate Reading Content From a Vocabulary List📚</button>
+            <button id="personalButton" value="personal" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">💖Turn a Boring Topic Into an Interesting One💖</button>
+            <button id="roleplayButton" value="roleplay" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">💬Engage in Conversation with ChatGPT💬</button>
+            <button id="adventureButton" value="adventure" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">🗺Choose Your Own Adventure🗺</button>
+            <button id="summaryButton" value="summary" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">🧾Summarize a Difficult Article🧾</button>
         </div>
     </div>
     
     <div class="page-2 hidden">
-        <div class="text-white flex justify-center items-center font-semibold" style="font-size:70px; margin-top:-40px;">Select a Language</div>
+        <div><button id="languageBackButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons ml-10">Back</button></div>
+        <div class="text-white flex justify-center items-center font-semibold" style="font-size:70px; margin-top:-90px;">Select a Language</div>
         <div class="flex flex-col justify-center items-center" style="row-gap: 1rem; margin-top: 30px;">
             <button id="chineseButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">Chinese</button>
             <button id="koreanButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">Korean</button>
@@ -28,58 +29,573 @@
         </div>
     </div>
 
-    <div class="page-3-personal hidden">
-        
+    <div class="page-3 hidden flex justify-center" style="margin-top:-10px">
+        <div><button id="promptBackButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons" style="margin-right:72px; margin-top:10px">Back</button></div>
+        <div class="grid grid-cols-2 border mb-10" style="grid-template-columns: 30rem 50rem;">
+            <div class="col-span-1 flex justify-center border">
+                <div class="flex flex-col justify-center">
+                    <div class="text-3xl flex justify-center">Input Prompt Parameters</div>
+                    <div id="gptRoleDiv" class="flex flex-col justify-center">
+
+                        <div id="input1Div">
+                            <div class="flex justify-center text-xl" style="margin-top:8px">
+                                <center id="input1label"></center>    
+                            </div>
+                            <div class="mt-4 gap-x-4 flex justify-center">
+                                <input style="width:300px; color:black" id="input1" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            <div id="input1Buttons" class="flex justify-center mt-4">
+                                <button id="input1button1" class="px-4 py-3 mr-2 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
+                                <button id="input1button2" class="px-4 py-3 mr-2 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
+                                <button id="input1button3" class="px-4 py-3 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
+                            </div>
+                        </div>
+
+                        <div id="input2Div">
+                            <div class="flex justify-center text-xl mt-4">
+                                <center id="input2label"></center>   
+                            </div>
+                            <div class="mt-4 gap-x-4 flex justify-center">
+                                <input style="width:300px; color:black" id="input2" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            <div id="input2Buttons" class="flex justify-center mt-4">
+                                <button id="input2button1" class="px-4 py-3 mr-2 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
+                                <button id="input2button2" class="px-4 py-3 mr-2 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
+                                <button id="input2button3" class="px-4 py-3 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
+                            </div>
+                        </div>
+                        
+
+                        <div id="input3Div">
+                            <div class="flex justify-center text-xl mt-4">
+                                <center id="input3label"></center> 
+                            </div>
+                            <div class="mt-4 gap-x-4 flex justify-center">
+                                <input style="width:300px; color:black" id="input3" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            <div id="input3Buttons" class="flex justify-center mt-4">
+                                <button id="input3button1" class="px-4 py-3 mr-2 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
+                                <button id="input3button2" class="px-4 py-3 mr-2 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
+                                <button id="input3button3" class="px-4 py-3 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
+                            </div>
+                        </div>
+                        
+                        <div id="turnSelectDiv">
+                            <div class="flex justify-center text-xl mt-4">
+                                <center>Select Turn Order</center>
+                            </div>
+                            <div class="flex justify-center mt-4 mb-10">
+                                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                                dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height:45px; width:225px"
+                                id="turnDropdown">
+                                    <option value="select">Select who goes first</option>
+                                    <option value="you">I go first</option>
+                                    <option value="gpt">ChatGPT goes first</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div id="levelSelectDiv" class="hidden">
+                            <div class="flex justify-center text-xl mt-4">
+                                <center>Select Level</center>
+                            </div>
+                            <div class="flex justify-center mt-4 mb-10">
+                                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                                dark:focus:ring-blue-500 dark:focus:border-blue-500" style="text-align-last: center; height:45px; width:225px"
+                                id="levelDropdown">
+                                    <option value="select">Select Language Level</option>
+                                    <option value="beginner">Beginner</option>
+                                    <option value="intermediate">Intermediate</option>
+                                    <option value="advanced">Advanced</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-1 flex justify-center border">
+                <div class="flex flex-col">
+                    <div class="flex justify-center text-3xl">
+                        <center id="titleText"></center>
+                    </div>
+                    <div id="promptSpanDiv" class="px-4 py-4 rounded-xl text-lg text-white mt-10 m-4" style="background-color: #1F214D;">
+                        <span id="span1"></span>
+                        <span id="span2"></span>
+                        <span id="span3"></span>
+                        <span id="span4"></span>
+                        <span id="span5"></span>
+                        <span id="span6"></span>
+                        <span id="span7"></span>
+                        <span id="span8"></span>
+                        <span id="span9"></span>
+                        <span id="span10"></span>
+                        <span id="span11"></span>
+                        <span id="span12"></span>
+                        <span id="span13"></span>
+                    </div>
+                    <div class="flex justify-center mt-4">
+                        Copy and Paste the Prompt to Use in ChatGPT!
+                    </div>
+                    <div class="flex justify-center mt-4 mb-4">
+                        <button id="copyButton" class="generatorButtons px-4 py-3 text-lg font-semibold text-white rounded-xl">Copy Prompt</button>
+                    </div>
+                    <div id="copied" class="flex justify-center hidden">
+                        Copied!
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="page-3-content hidden">
-
-    </div>
-
-    <div class="page-3-roleplay hidden">
-
-    </div>
-    
-    <div class="page-3-adventure hidden">
-
-    </div>
-
-    <div class="page-3-summary hidden">
-
-    </div>
-
-    
-
-
-
 {%endblock%}
 
 
 
 {%block script %}
 <script>
+    //adds the cool pink moving background to the page 
     $('#bigBody').addClass('promptGenerator');
     $('#navLine').removeClass('border-b');
+    //get the type and the language 
     var type;
     var language;
 
+    function spanLoopFunction() {
+        $('span[id^="span"]').each(function() {
+            $(this).text('');
+            $(this).css('background-color', '#1F214D');
+        });
+    }
+    
+    function inputLoopFunction() {
+        $('input[id^="input"]').each(function() {
+            $(this).val('');
+        });
+        $('#turnDropdown').val("select");
+        $('#levelDropdown').val("select");
+    }
+
+    function spanBackgroundFunction() {
+        $('span[id^="span"]').each(function() {
+            $(this).css("background-color", '#1F214D');
+        });
+    }
+
+
     $(document).ready(function() {
+        /*Generator navigation and meta stuff like the background color of the page*/
 
         $('#nav-menu').addClass('darkMode');
         
+        $('#copyButton').on('click', function() {
+            spanBackgroundFunction();
+            var tempTextarea = $('<textarea>');
+            
+            var promptText = $('#promptSpanDiv').text();
+            tempTextarea.val(promptText);
+            
+            $('body').append(tempTextarea);
+            tempTextarea.select();
+            document.execCommand('copy');
+            
+            tempTextarea.remove();
+
+            $('#copied').removeClass('hidden');
+            setTimeout(function () {
+                $('#copied').addClass('hidden');
+            }, 1000);
+            
+            
+            
+        });
+
+        $('#languageBackButton').on("click", function() {
+            $('.page-2').addClass('hidden');
+            $('.page-1').removeClass('hidden');
+        });
+
+        $('#promptBackButton').on("click", function() {
+            $('.page-3').addClass('hidden');
+            $('.page-2').removeClass('hidden');
+        });
 
         $('#personalButton, #contentButton, #roleplayButton, #adventureButton, #summaryButton').click(function() {
-            type = this.innerHTML;
+            inputLoopFunction();
+            type = this.getAttribute("value");
             console.log("type: " + type);
             $('.page-1').addClass('hidden');
             $('.page-2').removeClass('hidden');
         });
 
         $('#chineseButton, #koreanButton, #russianButton, #arabicButton, #persianButton, #portugueseButton').click(function() {
+            inputLoopFunction();
             language = this.innerHTML;
             console.log("language: " + language);
             $('.page-2').addClass('hidden');
+            $('.page-3').removeClass('hidden');
+
+            if (type == "content") {
+                spanLoopFunction();
+                $('#titleText').html("Generate Reading Content Based on a Vocab List")
+                $('#span1').text("My ");
+                $('#span2').text(language);
+                $('#span3').text(" class is learning about ");
+                $('#span4').text("[Topic].");
+                $('#span5').text("Our vocabulary words are as follows: ");
+                $('#span6').text("[Vocab Words].");
+                $('#span7').text("Please write me a short paragraph using all of these vocabulary words at");
+                $('#span8').text("[Level].");
+                $('#span9').text("Do not use any English in your story. Limit your response to 100 words." +
+                " Do not create any inaccuracies in your story. Your sentences must have a logical flow to them and should not produce any contradictions or paradoxes." + 
+                " Please bold the vocabulary words in your story. Please be sure to use all the vocabulary words I gave you in the story." + 
+                " Make sure you bold all the vocabulary words in your story.")
+                $('#input1label').text("Input Your Class Topic:");
+                $('#input1button1').text("The Economy");
+                $('#input1button2').text("Outer Space");
+                $('#input1button3').text("The Ocean");
+                $('#input2Buttons').addClass('hidden');
+                $("#input1Buttons").removeClass("hidden");
+                $("#input2Div").removeClass("hidden");
+                $('#input3Div').addClass("hidden");
+                $('#input2label').text("Input Vocab Words:");
+                $('#turnSelectDiv').addClass('hidden');
+                $('#levelSelectDiv').removeClass('hidden');
+
+            }
+            else if (type == "personal") {
+                spanLoopFunction();
+                $('#titleText').html("Turn a Boring Topic Into an Interesting One")
+                $('#input1label').text("Input Your Class Topic:");
+                $('#input1button1').text("The Economy");
+                $('#input1button2').text("Outer Space");
+                $('#input1button3').text("The Ocean");
+                $('#input2label').text("Input Your Favorite Topic:");
+                $('#input2Buttons').removeClass('hidden');
+                $('#input2button1').text("Video Games");
+                $('#input2button2').text("Food");
+                $('#input2button3').text("Fashion");
+                $('#input3Div').addClass('hidden');
+                $("#input1Buttons").removeClass("hidden");
+                $("#input2Div").removeClass("hidden");
+                $('#turnSelectDiv').addClass("hidden");
+                $('#levelSelectDiv').removeClass("hidden");
+                $('#span1').text("In");
+                $('#span2').text(language);
+                $('#span3').text("class we are learning about");
+                $('#span4').text("[Class Topic],");
+                $('#span5').text("but my personal interest lies in ");
+                $('#span6').text("[Favorite Topic].");
+                $('#span7').text("Could you please write me an article about how");
+                $('#span8').text("[Favorite Topic]");
+                $('#span9').text("relates to");
+                $('#span10').text("[Class Topic]?");
+                $('#span11').text("Please do so at");
+                $('#span12').text("[Level].");
+                $('#span13').text("Do not exceed 200 words in your response; it is very important that this response is under 200 words.");
+            }
+            else if (type == "roleplay") {
+                spanLoopFunction();
+                $('#titleText').html("Engage in Conversation with ChatGPT")
+                $('#span1').html("You are a robot that performs role-playing actions. " + 
+                "As a role-playing robot, you have the ability to take on any role and engage with a person " +
+                "or user who is imitating another role. Your purpose is to pretend to mimic real conversation with " +
+                "the user and take turns playing your role with the user. Your inputs include the role you will play, " +
+                "the role the user will be playing, the language being spoken during the role-playing, and who will go " +
+                "first in the role-play. Similar to a real conversation, you will limit your output to about 50 words when it " +
+                "is your turn to speak. <br><br> As a role-playing robot, you also have the responsibility of keeping track of " +
+                "everything that was said in the conversation. When the user says \"STOP CONVERSATION\", you will stop " +
+                "role-playing and print out a record of exactly what was said during the role-play. When you generate the record, " +
+                "make sure that the record is only in the language I specify. " +
+                "<br><br>I will now assign you a role. You are a");
+                $('#span2').text("");
+                $('#span3').text("");
+                $('#span4').text("[GPT Role]");
+                $('#span5').text("in");
+                $('#span6').text("[Location]");
+                $('#span7').text("and I am a");
+                $('#span8').text("[Your Role].");
+                $('#span9').text("[Turn Order]");
+                $('#span10').text("and we will speak");
+                $('#span11').text(language + ".");
+                $('#input1label').text("Input ChatGPT's Role:");
+                $('#input1button1').text("Restaurant Worker");
+                $('#input1button2').text("Teacher");
+                $('#input1button3').text("Police Officer");
+                $("#input1Buttons").removeClass("hidden");
+                $("#input2Div").removeClass("hidden");
+                $('#input2label').text("Input a Location:");
+                $('#input2button1').text("Beijing");
+                $('#input2button2').text("Moscow");
+                $('#input2button3').text("Cairo");
+                $('#input3label').text("Input Your Role:");
+                $('#input3button1').text("Customer");
+                $('#input3button2').text("Student");
+                $('#input3button3').text("Lost Person");
+                $('#input3Div').removeClass("hidden");
+                $('#turnSelectDiv').removeClass('hidden');
+                $('#levelSelectDiv').addClass('hidden');
+                
+
+            }
+            else if (type == "adventure") {
+                spanLoopFunction();
+                $('#titleText').html("Choose Your Own Adventure with ChatGPT");
+                $('#input1label').text("Input an Activity:");
+                $("#input1Buttons").removeClass("hidden");
+                $("#input2Div").removeClass("hidden");
+                $('#input2label').text("Input a City:");
+                $('#input3Div').addClass("hidden");
+                $('#turnSelectDiv').addClass("hidden");
+                $('#levelSelectDiv').removeClass("hidden");
+                $('#input1button1').text("Ordering food");
+                $('#input1button2').text("Taking the bus");
+                $("#input1button3").text("Going shopping");
+                $("#input2button1").text("Suzhou");
+                $("#input2button2").text("Tehran");
+                $("#input2button3").text("Lisbon");
+                $('#span1').text("Create a \"choose your own adventure\" in");
+                $('#span2').text(language);
+                $('#span3').text("about");
+                $('#span4').text("[Activity]");
+                $('#span5').text("in");
+                $('#span6').text("[City].");
+                $('#span7').text("Please clearly state the options for the player to choose at the end of the page. " + 
+                "Each option should correspond with another page, and you should explicitly state the page that the option correspond with so that the reader can " +
+                "choose their next path. Use a \"pages\" format where the \"player\" can switch to a different \"page\" when they make a certain decision in the story. " +
+                "Do not create any duplicate pages in your story where things happen that are very similar to another page. Create a new scenario for one of the pages " +
+                "if the same thing happens on two different pages. Limit each \"page\" to be under 100 words each. Bold each page title for reading clarity, and also label the " +
+                "page based on what happens on the page. Also, please use");
+                $('#span8').text("[Level]");
+                $('#span9').text("when writing the adventure.");
+                $('#span10').text("[Level Information]");
+                $('#span11').text("Please also make sure the story abides by cultural principles pertaining to the location of the adventure, " + 
+                "and that there are no logical mistakes or paradoxes in the story. Do not use any English in your story unless otherwise specified.");
+            }
+            else if (type == "summary") {
+                spanLoopFunction();
+                $('#titleText').html("Summarize Articles with ChatGPT");
+                $('#input1Buttons').addClass("hidden");
+                $('#input1label').text("Input Article:");
+                $('#input2Div').addClass("hidden");
+                $("#input3Div").addClass("hidden");
+                $("#turnSelectDiv").addClass("hidden");
+                $("#levelSelectDiv").addClass("hidden");
+                $('#span1').text("I am learning");
+                $('#span2').text(language);
+                $('#span3').text("and I would like to understand what the following text says in a shorter format. " +
+                "Please summarize the following text at a beginner level in");
+                $('#span4').text(language);
+                $('#span5').text("so that I can understand the text and read it faster. A \"beginner level\" in");
+                $('#span6').text(language);
+                $('#span7').html("is defined as the language having short sentences, simple grammar patterns, and using vocabulary words of high frequency. " +
+                "It is beneficial if you omit some details of the text for the sake of reducing the complexity of the summary. Do not use highly specific words; " +
+                "I want a beginner level paragraph, therefore I need the paragraph to contains only simple words. Here is the text I would like you to summarize at a beginner level:<br><br>");
+                $('#span8').text("[Article Text]");
+                $('#span9').html("<br><br>Please limit your summary to 200 words or less. Do not exceed this word limit of 200 words. Remember, your summary should be simple enough for me to understand; " +
+                "I am requesting a beginner level summary, meaning it should contain short sentences, simple grammar, and words of high frequency.");
+            }
+
+            $('#input1').on("input", function() {
+                newText = $('#input1').val();
+                console.log(newText);
+                if (type == "content") {
+                    spanBackgroundFunction();
+                    $('#span4').text(newText + ".");
+                    $('#span4').css('background-color', '#eab308');
+                } else if (type == "personal") {
+                    spanBackgroundFunction();
+                    $('#span4').text(newText);
+                    $('#span10').text(newText + "?");
+                    $('#span4').css('background-color', '#eab308');
+                    $('#span10').css('background-color', '#eab308');
+                } else if (type == "summary") {
+                    spanBackgroundFunction();
+                    $('#span8').text(newText);
+                    $('#span8').css('background-color', '#eab308');
+                }
+                else {
+                    spanBackgroundFunction();
+                    $('#span4').text(newText);
+                    $('#span4').css('background-color', '#eab308');
+                }
+            });
+
+            $('#input2').on("input", function() {
+                newText = $('#input2').val();
+                console.log(newText);
+                if (type == "content") {
+                    spanBackgroundFunction();
+                    $('#span6').css('background-color', '#eab308');
+                    $('#span6').text(newText + ".");
+                } else if (type == "personal") {
+                    spanBackgroundFunction();
+                    $('#span6').text(newText + ".");
+                    $('#span8').text(newText);
+                    $('#span6').css('background-color', '#eab308');
+                    $('#span8').css('background-color', '#eab308');
+                } else if (type == "adventure") {
+                    spanBackgroundFunction();
+                    $('#span6').css('background-color', '#eab308');
+                    $('#span6').text(newText + ".");
+                }
+                else {
+                    spanBackgroundFunction();
+                    $('#span6').css('background-color', '#eab308');
+                    $('#span6').text(newText);
+                }
+            });
+
+            $('#input3').on("input", function() {
+                newText = $('#input3').val();
+                console.log(newText);
+                $('#span8').text(newText + ".");
+                spanBackgroundFunction();
+                $('#span8').css('background-color', '#eab308');
+            });
+
+            $('#turnSelectDiv').on("click", function() {
+                spanBackgroundFunction();
+                $('#span9').css('background-color', '#eab308');
+            });
+
+            $('#levelSelectDiv').on("click", function() {
+                if (type == "personal") {
+                    spanBackgroundFunction();
+                    $('#span12').css('background-color', '#eab308');
+                } else if (type == "adventure") {
+                    spanBackgroundFunction();
+                    $('#span8').css('background-color', '#eab308');
+                    $('#span10').css('background-color', '#eab308');
+                }
+                else {
+                    spanBackgroundFunction();
+                    $('#span8').css('background-color', '#eab308');
+                }
+            });
+
+            $('#levelDropdown').change(function() {
+                var selectedLevel = $('#levelDropdown').val();
+                if (selectedLevel == "beginner") {
+                    if (type == "content") {
+                        $('#span8').text("a beginner level. \"Beginner\" means that the language used has short sentences, simple grammar patterns, and uses vocabulary words of high frequency.");
+                    } else if (type == "personal") {
+                        $('#span12').text("a beginner level. \"Beginner\" means that the language used has short sentences, simple grammar patterns, and uses vocabulary words of high frequency.");
+                    } else if (type == "adventure") {
+                        $('#span8').text("a beginner level");
+                        $('#span10').text("\"Beginner\" means that the language used has short sentences, simple grammar patterns, and uses vocabulary words of high frequency.");
+                    }
+                } else if (selectedLevel == "intermediate") {
+                    if (type == "content") {
+                        $('#span8').text("an intermediate level. \"Intermediate\" means that the language used has somewhat complex grammar, more infrequent vocabulary, " + 
+                    "and longer sentences, but does not contain extremely complex grammar, jargon, or complex sentences.");
+                    } else if (type == "personal") {
+                        $('#span12').text("an intermediate level. \"Intermediate\" means that the language used has somewhat complex grammar, more infrequent vocabulary, " + 
+                    "and longer sentences, but does not contain extremely complex grammar, jargon, or complex sentences.");
+                    } else if (type == "adventure") {
+                        $('#span8').text("an intermediate level");
+                        $('#span10').text("\"Intermediate\" means that the language used has somewhat complex grammar, more infrequent vocabulary, " + 
+                    "and longer sentences, but does not contain extremely complex grammar, jargon, or complex sentences.");
+                    }
+
+                } else if (selectedLevel == "advanced") {
+                    if (type == "content") {
+                        $('#span8').text("an advanced level. \"Advanced\" means that the language used has complex grammar, contains infrequent vocabulary words and jargon, and has lengthy sentences.");
+                    } else if (type == "personal") {
+                        $('#span12').text("an advanced level. \"Advanced\" means that the language used has complex grammar, contains infrequent vocabulary words and jargon, and has lengthy sentences.");
+                    } else if (type == "adventure") {
+                        $('#span8').text("an advanced level");
+                        $('#span10').text("\"Advanced\" means that the language used has complex grammar, contains infrequent vocabulary words and jargon, and has lengthy sentences.");
+                    }
+                } else if (selectedLevel == "select") {
+                    if (type == "content") {
+                        $('#span8').text("[Level].");
+                    } else if (type == "personal") {
+                        $('#span12').text("[Level].");
+                    } else if (type == "adventure") {
+                        $('#span8').text("[Level]");
+                        $('#span10').text("[Level Information]");
+                    }
+                }
+            });
+
+            $('#turnDropdown').change(function() {
+                var selectedTurn = $('#turnDropdown').val();
+                if (selectedTurn == "you") {
+                    spanBackgroundFunction();
+                    $('#span9').text("I will go first,");
+                    $('#span9').css("background-color", "#eab308");
+                } else if (selectedTurn == "gpt") {
+                    spanBackgroundFunction();
+                    $('#span9').text("You will go first,");
+                    $('#span9').css("background-color", "#eab308");
+                } else if (selectedTurn == "select") {
+                    spanBackgroundFunction();
+                    $('#span9').text("[Turn Order]");
+                    $('#span9').css("background-color", "#eab308");
+                }
+            });
+
+            $('#input1button1, #input1button2, #input1button3').on("click", function() {
+                $('#input1').val(this.innerHTML);
+                if (type == "content") {
+                    spanBackgroundFunction();
+                    $('#span4').text(this.innerHTML + ".");
+                    $('#span4').css("background-color", "#eab308");
+                } else if (type == "personal") {
+                    $('#span4').text(this.innerHTML);
+                    $('#span10').text(this.innerHTML + "?");
+                    spanBackgroundFunction();
+                    $('#span4').css("background-color", "#eab308");
+                    $('#span10').css("background-color", "#eab308");
+                }
+                else {
+                    spanBackgroundFunction();
+                    $('#span4').text(this.innerHTML);
+                    $('#span4').css("background-color", "#eab308");
+                }
+                
+            });
+
+            $('#input2button1, #input2button2, #input2button3').on("click", function() {
+                $('#input2').val(this.innerHTML);
+                if (type == "personal") {
+                    $('#span6').text(this.innerHTML + ".");
+                    $('#span8').text(this.innerHTML);
+                    spanBackgroundFunction();
+                    $('#span6').css("background-color", "#eab308");
+                    $('#span8').css("background-color", "#eab308");
+                } else if (type == "adventure") {
+                    $('#span6').text(this.innerHTML + ".");
+                    spanBackgroundFunction();
+                    $('#span6').css("background-color", "#eab308");
+                }
+                else {
+                    $('#span6').text(this.innerHTML);
+                    spanBackgroundFunction();
+                    $('#span6').css("background-color", "#eab308");
+                }
+                
+            });
+
+            $('#input3button1, #input3button2, #input3button3').on("click", function() {
+                if (type == "roleplay") {
+                    spanBackgroundFunction();
+                    $('#input3').val(this.innerHTML);
+                    $('#span8').text(this.innerHTML + ".");
+                    $('#span8').css("background-color", "#eab308");
+                }
+            });
+
+
+
+
         });
+
 
 
     });
