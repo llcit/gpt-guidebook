@@ -8,6 +8,7 @@
 {%block searchcontent%}
 <div class="hidden lg:block darkMode">
     <div class="flex justify-center">
+        <a href="{%url 'prompt:browser'%}" class="px-6 py-3 text-lg font-semibold buttonLightMode text-white rounded-xl mt-4" style="height:50px">Back</a>
         <div class="w-3/4 grid grid-cols-2 grid-rows-5 p-4 m-10" style="grid-template-rows: auto auto">
             <div class="py-6 px-6 col-span-1">
                 <div class="flex flex-row justify-center items-center"> 
@@ -38,35 +39,36 @@
 </div>
 
 <div class="block lg:hidden darkMode">
-    <center class="text-xl mr-4 ml-4">{{prompt.prompt_title}} ({{prompt.prompt_language}})</center>
     <div class="flex flex-col justify-center">
-        <div class="py-6 px-6">
-            <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white"> 
-                Prompt
-            </div>
-            <center>
-                <div class="flex justify-center items-center mt-4 row-span-1 py-4 px-8 bg-orange-500 text-lg rounded-xl text-white" style="width:125px;">
-                    <button id="copyButtonMobile">Copy Prompt</button>
+        <a href="{%url 'prompt:browser'%}" class="px-6 py-3 text-lg font-semibold buttonLightMode text-white rounded-xl" style="margin-top:20px; margin-bottom: 10px; width:100px; margin-left:10px"><center>Back</center></a>
+        <center class="text-xl mr-4 ml-4">{{prompt.prompt_title}} ({{prompt.prompt_language}})</center>
+        <div class="flex flex-col justify-center">
+            <div class="py-6 px-6">
+                <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white"> 
+                    Prompt
                 </div>
-                <div id="copiedMobile" class="hidden">Copied!</div>
-            </center>
-            <div class="mt-6 mb-6"> 
-                <span id="promptTextAreaMobile">{{prompt.prompt_text | safe}}</span>
+                <center>
+                    <div class="flex justify-center items-center mt-4 row-span-1 py-4 px-8 bg-orange-500 text-lg rounded-xl text-white" style="width:125px;">
+                        <button id="copyButtonMobile">Copy Prompt</button>
+                    </div>
+                    <div id="copiedMobile" class="hidden">Copied!</div>
+                </center>
+                <div class="mt-6 mb-6"> 
+                    <span id="promptTextAreaMobile">{{prompt.prompt_text | safe}}</span>
+                </div>
             </div>
-        </div>
 
-        <div class="py-6 px-6">
-            <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white"> 
-                <center>ChatGPT Example Output</center>
+            <div class="py-6 px-6">
+                <div class="flex justify-center items-center mt-2 py-4 px-8 bg-sky-500 text-lg rounded-xl text-white"> 
+                    <center>ChatGPT Example Output</center>
+                </div>
+                <div class="mt-4">
+                    {{prompt.prompt_output | safe}}
+                </div>
             </div>
-            <div class="mt-4">
-                {{prompt.prompt_output | safe}}
-            </div>
+            
         </div>
-        
     </div>
-
-
 </div>
 
 {%endblock%}
