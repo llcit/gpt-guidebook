@@ -194,23 +194,24 @@
         
         $('#copyButton').on('click', function() {
             spanBackgroundFunction();
-    
+
+            var promptHtml = $('#promptSpanDiv').html();
+        
+            var promptText = promptHtml.replace(/<[^>]+>/g, '').replace(/\n/g, ' ').trim();
+            
+            promptText = promptText.replace(/\s+/g, ' ');
             var tempTextarea = $('<textarea>');
-            
-            var promptText = $('#promptSpanDiv').text();
             tempTextarea.val(promptText);
-            
             $('body').append(tempTextarea);
             tempTextarea.select();
-            document.execCommand('copy');
-            
-            tempTextarea.remove();
 
+            document.execCommand('copy');
+            tempTextarea.remove();
             $('#copied').removeClass('hidden');
-            setTimeout(function () {
-                $('#copied').addClass('hidden');
-            }, 1000);
             
+            setTimeout(function() {
+                $('#copied').addClass('hidden');
+            }, 1500); 
         });
 
         $('#languageBackButton').on("click", function() {
