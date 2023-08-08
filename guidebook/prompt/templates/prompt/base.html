@@ -78,17 +78,73 @@
             justify-content: center;
           }
 
-          
-
           .pagination-container {
             margin-top:-175px; 
             position:relative;
           }
+
+          /*======GENERATOR QUERIES======*/
+
+          .generateAPrompt {
+            font-size:85px; 
+            margin-top:-40px;
+            display: flex;
+            justify-content: center;
+            font-size: 6rem;
+            align-items: center;
+            font-weight: 600;
+            color: #ffffff;
+          }
+
+          .selectALanguage {
+            color: #ffffff;
+            display: flex;
+            justify-content:center;
+            align-items:center;
+            font-weight:600;
+            font-size:70px; 
+            margin-top:-90px;
+          }
+
+          .generatorLeftColumn {
+
+          }
+
+          .generatorGrid {
+            display: grid;
+            grid-template-columns: 30rem 50rem;
+            border-width:1px;
+            margin-bottom:40px;
+          }
+          
         }
 
 
       /*===============START PHONE MEDIA QUERY===============*/
       @media (max-width:768px) {
+
+        .selectALanguage {
+          color: #ffffff;
+          display:flex;
+          justify-content: center;
+          font-size:50px;
+        }
+
+        .generateAPrompt {
+          display:flex;
+          justify-content: center;
+          font-weight: 600;
+          font-size:50px;
+          margin-top:-20px;
+        }
+        
+        .page-3 {
+          flex-direction:column;
+        }
+
+
+
+
         .promptLevelSection {
           margin-top:10px;
         }

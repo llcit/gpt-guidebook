@@ -5,9 +5,6 @@
 
 {%block sidebar%} 
 
-<button style="position:fixed; bottom:10px; left:100px" class="px-6 py-3 text-lg font-semibold buttonLightMode text-white rounded-xl" id="toggleDarkButton">
-    Toggle 🔆/🌙</button>
-
 
 <div class="hidden lg:block" id="largeScreenDiv">
     <div class="ml-3 mb-16 grid grid-cols-4 gap-4">
@@ -226,20 +223,6 @@
 
 {%block script%}
 <script>
-    $(document).ready(function () {
-        $('#toggleDarkButton').click(function () {
-            toggleDarkMode($('#largeScreenDiv, #bigBody, #footer, #footerText, #nav-menu, #smallSidebar'));
-        });
-    });
-
-    function toggleDarkMode(element) {
-        if (element.hasClass('darkMode')) {
-            element.removeClass('darkMode');
-        } else {
-            element.addClass('darkMode');
-        }
-    }
-
 </script>
 
 {%endblock%}

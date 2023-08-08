@@ -4,9 +4,9 @@
 
 {%block generator%}
     
-    <div class="page-1">
-        <div class="text-white text-8xl flex justify-center items-center font-semibold" style="font-size:85px; margin-top:-40px;">Generate a Prompt</div>
-        <div class="text-white text-2xl flex justify-center items-center font-semibold" style="font-size:25px;">Select an Action to Get Started</div>
+    <div class="page-1" style="margin-bottom:100px">
+        <div class="generateAPrompt"><center>Generate a Prompt</center></div>
+        <div class="text-white text-2xl flex justify-center items-center font-semibold selectAnAction" style="font-size:25px;">Select an Action to Get Started</div>
         <div class="flex flex-col justify-center items-center mt-6" style="row-gap:1rem;">
             <button id="contentButton" value="content" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">📚Generate Reading Content From a Vocabulary List📚</button>
             <button id="personalButton" value="personal" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">💖Turn a Boring Topic Into an Interesting One💖</button>
@@ -16,9 +16,9 @@
         </div>
     </div>
     
-    <div class="page-2 hidden">
+    <div class="page-2 hidden" style="margin-bottom:40px">
         <div><button id="languageBackButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons ml-10">Back</button></div>
-        <div class="text-white flex justify-center items-center font-semibold" style="font-size:70px; margin-top:-90px;">Select a Language</div>
+        <div class="selectALanguage"><center>Select a Language</center></div>
         <div class="flex flex-col justify-center items-center" style="row-gap: 1rem; margin-top: 30px;">
             <button id="chineseButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">Chinese</button>
             <button id="koreanButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons">Korean</button>
@@ -29,9 +29,9 @@
         </div>
     </div>
 
-    <div class="page-3 hidden flex justify-center" style="margin-top:-10px">
-        <div><button id="promptBackButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons" style="margin-right:72px; margin-top:10px">Back</button></div>
-        <div class="grid grid-cols-2 border mb-10" style="grid-template-columns: 30rem 50rem;">
+    <div class="page-3 hidden flex justify-center" style="margin-top:-10px; margin-bottom:100px">
+        <div><button id="promptBackButton" class="px-6 py-3 text-lg font-semibold text-white rounded-xl generatorButtons" style="margin-right:72px; margin-top:10px; margin-bottom:10px">Back</button></div>
+        <div class="generatorGrid">
             <div class="col-span-1 flex justify-center border">
                 <div class="flex flex-col justify-center">
                     <div class="text-3xl flex justify-center">Input Prompt Parameters</div>
@@ -44,7 +44,7 @@
                             <div class="mt-4 gap-x-4 flex justify-center">
                                 <input style="width:300px; color:black" id="input1" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             </div>
-                            <div id="input1Buttons" class="flex justify-center mt-4">
+                            <div id="input1Buttons" class="flex justify-center m-4">
                                 <button id="input1button1" class="px-4 py-3 mr-2 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
                                 <button id="input1button2" class="px-4 py-3 mr-2 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
                                 <button id="input1button3" class="px-4 py-3 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
@@ -58,7 +58,7 @@
                             <div class="mt-4 gap-x-4 flex justify-center">
                                 <input style="width:300px; color:black" id="input2" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             </div>
-                            <div id="input2Buttons" class="flex justify-center mt-4">
+                            <div id="input2Buttons" class="flex justify-center m-4">
                                 <button id="input2button1" class="px-4 py-3 mr-2 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
                                 <button id="input2button2" class="px-4 py-3 mr-2 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
                                 <button id="input2button3" class="px-4 py-3 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
@@ -73,7 +73,7 @@
                             <div class="mt-4 gap-x-4 flex justify-center">
                                 <input style="width:300px; color:black" id="input3" type="text" class="py-2 pl-2 pr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             </div>
-                            <div id="input3Buttons" class="flex justify-center mt-4">
+                            <div id="input3Buttons" class="flex justify-center m-4">
                                 <button id="input3button1" class="px-4 py-3 mr-2 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
                                 <button id="input3button2" class="px-4 py-3 mr-2 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
                                 <button id="input3button3" class="px-4 py-3 text-lg font-semibold text-white rounded-xl generatorButtons"></button>
@@ -194,6 +194,7 @@
         
         $('#copyButton').on('click', function() {
             spanBackgroundFunction();
+    
             var tempTextarea = $('<textarea>');
             
             var promptText = $('#promptSpanDiv').text();
@@ -209,8 +210,6 @@
             setTimeout(function () {
                 $('#copied').addClass('hidden');
             }, 1000);
-            
-            
             
         });
 
