@@ -389,6 +389,14 @@
         background: linear-gradient(to bottom right, #000000, #040e1c, #310911, #86361c, #bc8d01);
       }
 
+      .chatGPTButton {
+        background: linear-gradient(to bottom right, #900C3F, #C70039, #F94C10, #F8DE22);
+      }
+
+      .chatGPTButton:hover {
+        background: linear-gradient(to bottom right, #780a34, #a60231, #cc3e0c, #ccb71d);
+      }
+
   </style>
   </head>
   <body id="bigBody">
@@ -413,6 +421,7 @@
               </svg>
             </button>
           </div>
+          <a href="https://chat.openai.com/auth/login" target="_blank" class="px-6 py-3 text-lg font-semibold chatGPTButton text-white rounded-xl">Link to ChatGPT</a>
           <a href="{%url 'prompt:generator'%}" class="px-6 py-3 text-lg font-semibold buttonLightMode promptGeneratorButton text-white rounded-xl">Prompt Generator</a>
           <a href="{%url 'prompt:browser'%}" class="px-6 py-3 text-lg font-semibold buttonLightMode promptBrowserButton text-white rounded-xl">Prompt Browser</a>
           <a href="/" class="px-6 py-3 text-lg font-semibold buttonLightMode text-white rounded-xl">Guidebook</a>
@@ -427,7 +436,7 @@
 
       <!-- normal screen menu -->
       <div class="hidden lg:flex flex-row space-x-6">
-        
+        <a href="https://chat.openai.com/auth/login" target="_blank" class="px-6 py-3 text-lg font-semibold chatGPTButton text-white rounded-xl">Link to ChatGPT</a>
         <a href="{%url 'prompt:generator'%}" class="px-6 py-3 text-lg font-semibold promptGeneratorButton text-white rounded-xl">Prompt Generator</a>
         <a href="{%url 'prompt:browser'%}" class="px-6 py-3 text-lg font-semibold promptBrowserButton text-white rounded-xl">Prompt Browser</a>
         <a href="/" class="px-6 py-3 text-lg font-semibold buttonLightMode text-white rounded-xl">Guidebook</a>
